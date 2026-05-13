@@ -1,0 +1,86 @@
+<!DOCTYPE html> <!-- Menyatakan bahwa ini adalah dokumen HTML5 -->
+<html lang="en"> <!-- Tag pembuka untuk elemen HTML, dengan atribut 'lang' diatur ke 'en' untuk bahasa Inggris -->
+<head> <!-- Tag pembuka untuk bagian head, tempat informasi meta dan link ke file eksternal -->
+  <meta charset="UTF-8"> <!-- Menentukan set karakter yang digunakan dalam dokumen sebagai UTF-8 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Menyatakan pengaturan viewport untuk responsivitas pada perangkat mobile -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!-- Menghubungkan ke Font Awesome untuk ikon yang digunakan dalam halaman -->
+  <link rel="stylesheet" href="./css/add.css"> <!-- Menghubungkan ke file CSS eksternal untuk mengatur gaya halaman -->
+  <link rel="icon" href="./images/EduGames.png" type="image/x-icon" />
+  <title>Multiply</title> <!-- Menentukan judul halaman yang muncul di tab browser -->
+</head> <!-- Penutupan tag head -->
+
+<body> <!-- Tag pembuka untuk bagian body, yang berisi konten yang ditampilkan di halaman -->
+
+    <!-- Background Music -->
+    <audio autoplay loop>
+      <source src="./music/pixel.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+
+  <audio id="myAudio"> <!-- Tag audio untuk pemutaran suara (benar/salah) -->
+    <source src="./music/wrong.mp3" type="audio/mpeg"> <!-- Suara saat jawaban salah -->
+    <source src="./music/true.mp3" type="audio/mpeg"> <!-- Suara saat jawaban benar -->
+  </audio> <!-- Penutup tag audio -->
+
+  <header> <!-- Tag pembuka untuk bagian header halaman -->
+    <div class="container"> <!-- Elemen pembungkus dengan kelas 'container' untuk menyusun tata letak -->
+      <div class="nav"> <!-- Elemen pembungkus untuk navigasi -->
+        <h2><span><i class="fa fa-trophy" aria-hidden="true"></i></span> MATH 4 KIDS</h2> <!-- Judul halaman dengan ikon trofi menggunakan Font Awesome -->
+        <nav> <!-- Tag pembuka untuk elemen navigasi -->
+          <ul> <!-- Daftar unordered (tidak terurut) untuk item navigasi -->
+            <li><a href="add.html">Level 1</a></li> <!-- Item menu untuk Level 1 -->
+            <li><a href="subtract.html">Level 2</a></li> <!-- Item menu untuk Level 2 -->
+            <li class="current"><a href="multiply.html">Level 3</a></li> <!-- Item menu untuk Level 3, dengan kelas 'current' untuk menandakan bahwa ini adalah halaman aktif -->
+            <li><a href="#" onclick="showWarning()">Level4</a></li> <!-- Item menu untuk Level 4, memanggil fungsi JavaScript showWarning() saat diklik -->
+          </ul> <!-- Penutupan elemen daftar unordered -->
+        </nav> <!-- Penutupan tag navigasi -->
+      </div> <!-- Penutupan elemen nav -->
+    </div> <!-- Penutupan elemen container -->
+  </header> <!-- Penutupan tag header -->
+
+  <div class="wrapper"> <!-- Tag pembuka untuk elemen pembungkus konten utama -->
+    <div class="equation" style="position: relative;"> <!-- Elemen untuk menampilkan soal matematika dengan penataan posisi relatif -->
+      <h1 id="num1" style="color:#FE4A49"></h1> <!-- Tempat untuk menampilkan angka pertama dalam soal matematika, dengan warna merah muda -->
+      <h1 style="color: #2AB7CA">*</h1> <!-- Simbol perkalian dengan warna biru muda -->
+      <h1 id="num2" style="color: #FED766">1</h1> <!-- Tempat untuk menampilkan angka kedua dalam soal matematika, dengan warna kuning -->
+      <h1 style="color: #F86624">=</h1> <!-- Simbol sama dengan dengan warna oranye -->
+      <h1 style="color: gray">?</h1> <!-- Tempat untuk menampilkan hasil soal, dengan warna abu-abu -->
+      <div class="points">Points: 0</div> <!-- Menampilkan skor saat ini (dimulai dengan 0) -->
+      <div class="timer">Time: <span id="time-remaining">5:00</span></div> <!-- Menampilkan waktu yang tersisa, dimulai dengan 5 menit -->
+      
+      <!-- Gambar bintang yang akan ditampilkan sesuai dengan skor -->
+      <img src="./images/bintang.png" class="bintang_1"> <!-- Gambar bintang pertama -->
+      <img src="./images/bintang.png" class="bintang_2"> <!-- Gambar bintang kedua -->
+      <img src="./images/bintang.png" class="bintang_3"> <!-- Gambar bintang ketiga -->
+      <img src="./images/bintang.png" class="bintang_4"> <!-- Gambar bintang keempat -->
+      <img src="./images/bintang.png" class="bintang_5"> <!-- Gambar bintang kelima -->
+      <img src="./images/bintang.png" class="bintang_6"> <!-- Gambar bintang keenam -->
+      <img src="./images/bintang.png" class="bintang_7"> <!-- Gambar bintang ketujuh -->
+      <img src="./images/bintang.png" class="bintang_8"> <!-- Gambar bintang kedelapan -->
+    </div> <!-- Penutupan elemen equation -->
+
+    <div class="answer-options"> <!-- Elemen pembungkus untuk menampilkan opsi jawaban -->
+      <div class="options" style="background-color: #FE4A49;"> <!-- Opsi jawaban pertama dengan latar belakang merah muda -->
+        <h1 id="option1">1</h1> <!-- Menampilkan angka 1 sebagai opsi jawaban -->
+      </div> <!-- Penutupan div opsi jawaban pertama -->
+
+      <div class="options" style="background-color: #2AB7CA;"> <!-- Opsi jawaban kedua dengan latar belakang biru muda -->
+        <h1 id="option2">2</h1> <!-- Menampilkan angka 2 sebagai opsi jawaban -->
+      </div> <!-- Penutupan div opsi jawaban kedua -->
+
+      <div class="options" style="background-color: #FED766;"> <!-- Opsi jawaban ketiga dengan latar belakang kuning -->
+        <h1 id="option3">3</h1> <!-- Menampilkan angka 3 sebagai opsi jawaban -->
+      </div> <!-- Penutupan div opsi jawaban ketiga -->
+
+      <div id="notification-modal" class="modal"> <!-- Modal untuk menampilkan notifikasi dengan ID 'notification-modal' dan kelas 'modal' -->
+        <div class="modal-content"> <!-- Konten modal -->
+            <div id="modal-body"></div> <!-- Tempat untuk menampilkan isi modal -->
+        </div> <!-- Penutupan konten modal -->
+      </div> <!-- Penutupan modal -->
+    </div> <!-- Penutupan div answer-options -->
+  </div> <!-- Penutupan div wrapper -->
+
+  <script src="./js/multiply.js"></script> <!-- Menghubungkan ke file JavaScript eksternal 'multiply.js' yang berisi logika untuk memeriksa jawaban dan pengaturan lainnya -->
+
+</body> <!-- Penutupan tag body -->
+</html> <!-- Penutupan tag html -->

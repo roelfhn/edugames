@@ -1,0 +1,93 @@
+<!DOCTYPE html> <!-- Mendeklarasikan tipe dokumen HTML5 -->
+<html lang="en"> <!-- Elemen root dari halaman HTML, dengan atribut bahasa diset ke Inggris -->
+
+<head> <!-- Mulai bagian head untuk metadata dan referensi eksternal -->
+  <meta charset="UTF-8"> <!-- Menetapkan karakter encoding halaman menjadi UTF-8 (termasuk karakter internasional) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Menetapkan viewport untuk mendukung responsivitas pada perangkat mobile -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!-- Menyertakan pustaka Font Awesome untuk ikon -->
+  <link rel="stylesheet" href="./css/add.css"> <!-- Menyertakan file CSS eksternal untuk styling halaman -->
+  <link rel="icon" href="./images/EduGames.png" type="image/x-icon" />
+  <title>Subtract</title> <!-- Menentukan judul halaman yang akan ditampilkan di tab browser -->
+</head> <!-- Akhir bagian head -->
+ 
+<body> <!-- Mulai bagian body untuk konten utama halaman -->
+    <!-- Background Music -->
+    <audio autoplay loop>
+      <source src="./music/pixel.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+
+  <audio id="myAudio"> <!-- Tag audio untuk pemutaran suara (benar/salah) -->
+    <source src="./music/wrong.mp3" type="audio/mpeg"> <!-- Suara saat jawaban salah -->
+    <source src="./music/true.mp3" type="audio/mpeg"> <!-- Suara saat jawaban benar -->
+  </audio> <!-- Penutup tag audio -->
+
+  <header> <!-- Mulai bagian header untuk elemen navigasi dan judul -->
+    <div class="container"> <!-- Pembungkus konten dalam elemen dengan class container untuk pengaturan lebar dan penataan -->
+      <div class="nav"> <!-- Elemen navigasi -->
+        <h2><span><i class="fa fa-trophy" aria-hidden="true"></i></span> MATH 4 KIDS</h2> <!-- Judul dengan ikon trofi menggunakan Font Awesome -->
+        <nav> <!-- Mulai bagian navigasi -->
+          <ul> <!-- Mulai daftar menu navigasi -->
+            <li><a href="add.html">Level 1</a></li> <!-- Tautan ke halaman Level 1 -->
+            <li class="current"><a href="subtract.html">Level 2</a></li> <!-- Tautan ke halaman Level 2, dengan class "current" untuk menandakan halaman aktif -->
+            <li><a href="#" onclick="showWarning()">Level 3 </a></li> <!-- Tautan untuk Level 3, dengan fungsi JavaScript untuk memperingatkan saat diklik -->
+            <li><a href="#" onclick="showWarning()">Level 4</a></li> <!-- Tautan untuk Level 4, dengan fungsi JavaScript untuk memperingatkan saat diklik -->
+          </ul> <!-- Akhir daftar menu -->
+        </nav> <!-- Akhir bagian navigasi -->
+      </div> <!-- Akhir elemen navigasi -->
+    </div> <!-- Akhir elemen container -->
+  </header> <!-- Akhir bagian header -->
+
+  <div class="wrapper"> <!-- Pembungkus utama untuk konten permainan -->
+    <div class="equation" style="position: relative;"> <!-- Elemen untuk menampilkan soal matematika (pengurangan) -->
+      <h1 id="num1" style="color:#FE4A49"></h1> <!-- Elemen untuk menampilkan angka pertama, dengan warna merah cerah -->
+      <h1 style="color: #2AB7CA">-</h1> <!-- Menampilkan tanda pengurangan dengan warna biru -->
+      <h1 id="num2" style="color: #FED766">1</h1> <!-- Menampilkan angka kedua (1) dengan warna kuning cerah -->
+      <h1 style="color: #F86624">=</h1> <!-- Menampilkan tanda sama dengan dengan warna oranye -->
+      <h1 style="color: gray">?</h1> <!-- Menampilkan tanda tanya yang menunjukkan jawaban yang belum diketahui -->
+      
+      <!-- Menampilkan poin saat ini, diatur ke 0 pada awal permainan -->
+      <div class="points">Points: 0</div> 
+      
+      <!-- Menampilkan timer yang dimulai dari 5 menit -->
+      <div class="timer">Time: <span id="time-remaining">5:00</span></div> 
+
+      <!-- Gambar bintang yang digunakan sebagai dekorasi di berbagai posisi -->
+      <img src="./images/bintang.png" class="bintang_1" > <!-- Menampilkan gambar bintang pertama -->
+      <img src="./images/bintang.png" class="bintang_2"> <!-- Menampilkan gambar bintang kedua -->
+      <img src="./images/bintang.png" class="bintang_3"> <!-- Menampilkan gambar bintang ketiga -->
+      <img src="./images/bintang.png" class="bintang_4"> <!-- Menampilkan gambar bintang keempat -->
+      <img src="./images/bintang.png" class="bintang_5"> <!-- Menampilkan gambar bintang kelima -->
+      <img src="./images/bintang.png" class="bintang_6"> <!-- Menampilkan gambar bintang keenam -->
+      <img src="./images/bintang.png" class="bintang_7"> <!-- Menampilkan gambar bintang ketujuh -->
+      <img src="./images/bintang.png" class="bintang_8"> <!-- Menampilkan gambar bintang kedelapan -->
+    </div> <!-- Akhir elemen equation -->
+    
+    <!-- Elemen untuk menampilkan opsi jawaban -->
+    <div class="answer-options"> <!-- Pembungkus untuk semua opsi jawaban -->
+      <div class="options" style="background-color: #FE4A49;"> <!-- Opsi pertama dengan latar belakang merah -->
+        <h1 id="option1">1</h1> <!-- Menampilkan opsi jawaban pertama -->
+      </div> <!-- Akhir opsi pertama -->
+      
+      <div class="options" style="background-color: #2AB7CA;"> <!-- Opsi kedua dengan latar belakang biru -->
+        <h1 id="option2">2</h1> <!-- Menampilkan opsi jawaban kedua -->
+      </div> <!-- Akhir opsi kedua -->
+      
+      <div class="options" style="background-color: #FED766;"> <!-- Opsi ketiga dengan latar belakang kuning -->
+        <h1 id="option3">3</h1> <!-- Menampilkan opsi jawaban ketiga -->
+      </div> <!-- Akhir opsi ketiga -->
+      
+      <!-- Modal untuk notifikasi yang muncul setelah memilih jawaban -->
+      <div id="notification-modal" class="modal"> <!-- Modal dengan ID notification-modal -->
+        <div class="modal-content"> <!-- Konten modal yang berisi pesan dan tombol -->
+          <div id="modal-body"></div> <!-- Tempat untuk konten modal (pesan notifikasi) -->
+        </div> <!-- Akhir konten modal -->
+      </div> <!-- Akhir modal -->
+    </div> <!-- Akhir elemen answer-options -->
+  </div> <!-- Akhir elemen wrapper -->
+
+  <!-- Menyertakan file JavaScript eksternal yang berfungsi untuk logika permainan -->
+  <script src="./js/subtract.js"></script>
+</body> <!-- Akhir bagian body -->
+
+</html> <!-- Akhir elemen html -->

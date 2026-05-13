@@ -1,0 +1,314 @@
+<!DOCTYPE html> <!-- Tag pembuka untuk dokumen HTML5 -->
+<html lang="en"> <!-- HTML dengan atribut bahasa Inggris -->
+<head>
+  <meta charset="UTF-8"> <!-- Pengaturan encoding karakter menggunakan UTF-8 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Pengaturan agar halaman responsif di semua perangkat -->
+  <link rel="icon" type="image/jpg" href="./images/EduGames.png"> <!-- Ikon untuk tab browser -->
+  <title>Game Menulis Angka</title> <!-- Judul halaman -->
+  <style>
+    /* Reset dan pengaturan dasar untuk memastikan semua elemen dimulai dengan margin dan padding 0 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Styling untuk elemen body yang menjadi latar belakang utama */
+    body {
+      background: url(./images/bg3.jpeg) no-repeat; /* Mengatur gambar latar belakang */
+      background-size: cover; /* Memastikan gambar memenuhi seluruh layar */
+      background-position: center; /* Memusatkan gambar */
+      background-attachment: fixed; /* Membuat gambar tidak bergerak saat halaman di-scroll */
+      display: flex; /* Mengatur elemen dalam body menggunakan Flexbox */
+      flex-direction: column; /* Elemen ditumpuk secara vertikal */
+      align-items: center; /* Elemen disejajarkan di tengah horizontal */
+      justify-content: center; /* Elemen disejajarkan di tengah vertikal */
+      height: 100vh; /* Tinggi body mencakup 100% viewport */
+      font-family: Arial, sans-serif; /* Font default untuk teks */
+      overflow: hidden; /* Menyembunyikan elemen yang keluar dari area viewport */
+      position: relative; /* Posisi relatif untuk elemen-elemen lain yang mengandalkan body sebagai referensi */
+    }
+
+    /* Styling untuk petunjuk teks dan angka yang muncul di layar */
+    .number-instruction {
+      position: absolute; /* Posisi absolut berdasarkan parent (body) */
+      top: 40%; /* Jarak dari atas viewport */
+      left: 30%; /* Jarak dari kiri viewport */
+      font-size: 1.5rem; /* Ukuran font teks */
+      color: #fffefe; /* Warna putih untuk teks */
+      transform: translateX(-50%); /* Memastikan elemen terpusat di sumbu horizontal */
+    }
+
+    /* Styling untuk angka target yang harus digambar oleh pemain */
+    .number-target {
+      position: absolute; /* Posisi absolut berdasarkan parent (body) */
+      top: 35%; /* Jarak dari atas viewport */
+      left: 40%; /* Jarak dari kiri viewport */
+      transform: translateX(-50%); /* Memastikan elemen terpusat di sumbu horizontal */
+      font-size: 15rem; /* Ukuran font angka yang besar */
+      color: rgb(255, 255, 255); /* Warna putih */
+      z-index: 1; /* Menjadikan elemen ini berada di depan elemen lain dengan z-index lebih rendah */
+    }
+
+    /* Styling untuk latar belakang kotak angka */
+    .number-background {
+      position: absolute; /* Posisi absolut berdasarkan parent (body) */
+      top: 60%; /* Jarak dari atas viewport */
+      left: 70%; /* Jarak dari kiri viewport */
+      width: 18rem; /* Lebar latar belakang */
+      height: 18rem; /* Tinggi latar belakang */
+      background: repeating-linear-gradient(
+        135deg,
+        rgba(224, 247, 250, 0.3),
+        rgba(224, 247, 250, 0.3) 10px,
+        rgba(255, 255, 255, 0.3) 10px,
+        rgba(255, 255, 255, 0.3) 20px
+      ); /* Gradien latar belakang berulang untuk dekorasi */
+      border-radius: 10px; /* Membuat sudut-sudut membulat */
+      transform: translate(-50%, -50%); /* Memusatkan elemen pada posisi absolut */
+      z-index: 0; /* Menempatkan elemen ini di belakang elemen lain */
+      border: 8px solid; /* Memberikan border */
+      border-image: linear-gradient(
+        45deg,
+        #ff5733,
+        #33ff57,
+        #3357ff
+      ) 1; /* Gradien pada border */
+      animation: gradientBorder 3s infinite; /* Memberikan animasi gradien pada border */
+    }
+
+    /* Keyframes untuk animasi gradien pada border */
+    @keyframes gradientBorder {
+      0% { border-image: linear-gradient(45deg, #ff5733, #33ff57, #3357ff) 1; }
+      50% { border-image: linear-gradient(45deg, #3357ff, #ff5733, #33ff57) 1; }
+      100% { border-image: linear-gradient(45deg, #33ff57, #3357ff, #ff5733) 1; }
+    }
+
+    /* Styling untuk angka transparan yang menjadi petunjuk siluet */
+    .number-silhouette {
+      font-size: 15rem; /* Ukuran font angka */
+      color: rgba(191, 222, 255, 0.651); /* Warna biru transparan */
+      position: absolute; /* Posisi absolut berdasarkan parent (body) */
+      top: 60%; /* Jarak dari atas viewport */
+      left: 70%; /* Jarak dari kiri viewport */
+      transform: translate(-50%, -50%); /* Memusatkan elemen pada posisi absolut */
+      pointer-events: none; /* Mengabaikan interaksi pengguna */
+      z-index: 1; /* Menempatkan elemen di depan elemen lain dengan z-index lebih rendah */
+    }
+
+    /* Styling untuk area kanvas tempat menggambar */
+    canvas {
+      position: absolute; /* Posisi absolut berdasarkan parent (body) */
+      top: 50%; /* Jarak dari atas viewport */
+      left: 70%; /* Jarak dari kiri viewport */
+      transform: translate(-50%, -50%); /* Memusatkan elemen pada posisi absolut */
+      width: 18rem; /* Lebar area kanvas */
+      height: 18rem; /* Tinggi area kanvas */
+      border-radius: 10px; /* Membulatkan sudut kanvas */
+      z-index: 2; /* Menempatkan elemen ini di depan elemen latar belakang */
+    }
+
+    /* Styling untuk pesan feedback saat pemain berhasil menggambar angka */
+    .feedback-message {
+      position: absolute; /* Posisi absolut berdasarkan parent (body) */
+      top: 10%; /* Jarak dari atas viewport */
+      left: 50%; /* Jarak dari kiri viewport */
+      transform: translateX(-50%); /* Memastikan elemen terpusat di sumbu horizontal */
+      font-size: 5rem; /* Ukuran font pesan */
+      color: #abe9ec; /* Warna biru muda */
+      opacity: 0; /* Tidak terlihat secara default */
+      transition: opacity 0.9s ease; /* Animasi untuk transisi muncul dan hilang */
+    }
+
+        /* Styling untuk elemen audio */
+        audio {
+            position: absolute;
+            bottom: 20px; /* Posisi audio di bawah */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3; /* Pastikan audio di atas elemen lain */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Audio Element for Background Music <audio id="backgroundAudio" autoplay loop controls>
+        <source src="game.mpeg" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Judul dan Angka target di kiri -->
+    <div class="number-target" id="numberTarget">0</div>
+
+    <!-- Latar belakang angka besar di kanan -->
+    <div class="number-background" id="numberBackground"></div>
+    <!-- Angka transparan besar di tengah kanan -->
+    <div class="number-silhouette" id="numberSilhouette">0</div>
+
+    <!-- Canvas untuk menggambar -->
+    <canvas id="drawingCanvas"></canvas>
+
+    <!-- Pesan feedback setelah menggambar -->
+    <div class="feedback-message" id="feedbackMessage">Great!</div>
+
+    <audio id="gameMusic" autoplay loop>
+        <source src="./music/game.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        // Membuat array angka dari 0 hingga 9 untuk permainan
+        const numbers = Array.from({ length: 10 }, (_, i) => i); 
+        const feedbackMessages = ["Great!", "Awesome!", "Good Job!", "Well Done!"]; // Pesan acak untuk feedback
+        let currentNumberIndex = 0; // Indeks angka yang sedang dimainkan
+        const canvas = document.getElementById('drawingCanvas'); // Mengambil elemen kanvas
+        const ctx = canvas.getContext('2d'); // Mendapatkan konteks 2D dari kanvas
+        const numberTarget = document.getElementById('numberTarget'); // Elemen angka target
+        const numberSilhouette = document.getElementById('numberSilhouette'); // Elemen siluet angka
+        const feedbackMessage = document.getElementById('feedbackMessage'); // Elemen pesan feedback
+
+        // Fungsi untuk menyesuaikan ukuran kanvas agar sesuai dengan elemen di HTML
+        function resizeCanvas() {
+            canvas.width = canvas.offsetWidth; // Atur lebar kanvas sesuai dengan offset
+            canvas.height = canvas.offsetHeight; // Atur tinggi kanvas sesuai dengan offset
+        }
+        resizeCanvas(); // Memanggil fungsi untuk mengatur ukuran kanvas saat pertama kali halaman dimuat
+        window.addEventListener('resize', resizeCanvas); // Menambahkan event listener untuk menangani perubahan ukuran layar
+
+        let drawing = false; // Variabel untuk menentukan status menggambar
+
+        // Mendaftarkan event listener untuk mousedown (klik mouse) dan touchstart (sentuhan pada layar sentuh) untuk memulai proses menggambar
+canvas.addEventListener('mousedown', startDrawing);  
+canvas.addEventListener('touchstart', startDrawing, { passive: true });
+
+// Mendaftarkan event listener untuk mouseup (melepaskan klik mouse) dan mouseleave (meninggalkan area canvas) untuk menghentikan proses menggambar
+canvas.addEventListener('mouseup', stopDrawing);
+canvas.addEventListener('mouseleave', stopDrawing);
+// Mendaftarkan event listener untuk touchend (mengakhiri sentuhan pada layar sentuh) untuk menghentikan proses menggambar
+canvas.addEventListener('touchend', stopDrawing);
+
+// Mendaftarkan event listener untuk mousemove (gerakan mouse) dan touchmove (gerakan sentuhan) untuk melanjutkan proses menggambar
+canvas.addEventListener('mousemove', draw);
+canvas.addEventListener('touchmove', draw, { passive: true });
+
+/**
+ * Memulai proses menggambar di canvas.
+ * Fungsi ini diaktifkan ketika mouse atau sentuhan mulai terjadi di canvas.
+ * Menginisialisasi lebar garis, bentuk ujung garis, warna garis, dan menentukan titik awal menggambar.
+ * @param {Event} e - Event yang mewakili aksi dari mouse atau sentuhan.
+ */
+function startDrawing(e) {
+    drawing = true;  // Menandai bahwa proses menggambar sedang berlangsung
+    ctx.lineWidth = 5;  // Mengatur lebar garis sebesar 5px
+    ctx.lineCap = 'round';  // Mengatur ujung garis agar berbentuk bulat
+    ctx.strokeStyle = 'black';  // Mengatur warna garis menjadi hitam
+    ctx.beginPath();  // Memulai jalur baru untuk menggambar
+    ctx.moveTo(getX(e), getY(e));  // Menentukan titik awal menggambar berdasarkan posisi mouse atau sentuhan
+}
+
+/**
+ * Menghentikan proses menggambar di canvas.
+ * Fungsi ini diaktifkan ketika mouse atau sentuhan dilepaskan.
+ * Jalur gambar ditutup, dan fungsi untuk memeriksa apakah gambar telah selesai dipanggil.
+ */
+function stopDrawing() {
+    drawing = false;  // Menandai bahwa proses menggambar telah selesai
+    ctx.closePath();  // Menutup jalur menggambar
+    checkCompletion();  // Memeriksa apakah gambar sudah dianggap selesai
+}
+
+/**
+ * Menggambar garis di canvas ketika mouse atau sentuhan digerakkan.
+ * Fungsi ini hanya akan aktif jika proses menggambar telah dimulai.
+ * @param {Event} e - Event yang mewakili aksi dari mouse atau sentuhan.
+ */
+function draw(e) {
+    if (!drawing) return;  // Jika tidak sedang dalam proses menggambar, fungsi dihentikan
+    ctx.lineTo(getX(e), getY(e));  // Menentukan titik tujuan untuk menggambar garis
+    ctx.stroke();  // Menggambar garis berdasarkan jalur yang sudah ditentukan
+}
+
+/**
+ * Mendapatkan posisi X dari mouse atau sentuhan relatif terhadap posisi canvas.
+ * @param {Event} e - Event yang mewakili aksi dari mouse atau sentuhan.
+ * @returns {number} - Posisi X relatif dari canvas.
+ */
+function getX(e) {
+    const rect = canvas.getBoundingClientRect();  // Mendapatkan posisi dan ukuran canvas relatif terhadap viewport
+    return (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;  // Menghitung posisi X dari mouse atau sentuhan
+}
+
+/**
+ * Mendapatkan posisi Y dari mouse atau sentuhan relatif terhadap posisi canvas.
+ * @param {Event} e - Event yang mewakili aksi dari mouse atau sentuhan.
+ * @returns {number} - Posisi Y relatif dari canvas.
+ */
+function getY(e) {
+    const rect = canvas.getBoundingClientRect();  // Mendapatkan posisi dan ukuran canvas relatif terhadap viewport
+    return (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;  // Menghitung posisi Y dari mouse atau sentuhan
+}
+
+/**
+ * Memeriksa apakah area gambar yang diisi oleh pengguna sudah mencukupi untuk dianggap selesai.
+ * Jika jumlah piksel yang diisi melebihi batas yang ditentukan, fungsi ini akan menampilkan feedback dan memulai nomor berikutnya.
+ */
+function checkCompletion() {
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);  // Mengambil data gambar dari canvas
+    let filledPixels = 0;  // Menghitung jumlah piksel yang diisi di canvas
+    for (let i = 0; i < imageData.data.length; i += 4) {  // Menghitung setiap piksel pada data gambar (RGBA, di mana alpha berada di indeks ke-3)
+        if (imageData.data[i + 3] > 0) filledPixels++;  // Menambah hitungan jika piksel tersebut tidak transparan
+    }
+    if (filledPixels > 500) {  // Jika lebih dari 500 piksel terisi, gambar dianggap selesai
+        numberSilhouette.style.color = 'rgba(0, 0, 0, 1)';  // Ubah warna siluet nomor menjadi hitam
+        showFeedback();  // Menampilkan pesan feedback
+        ctx.clearRect(0, 0, canvas.width, canvas.height);  // Menghapus isi canvas
+        setTimeout(nextNumber, 1000);  // Melanjutkan ke nomor berikutnya setelah 1 detik
+    }
+}
+
+/**
+ * Menampilkan pesan feedback acak dari daftar pesan yang sudah disediakan.
+ * Pesan akan ditampilkan selama 700 milidetik sebelum menghilang.
+ */
+function showFeedback() {
+    const message = feedbackMessages[Math.floor(Math.random() * feedbackMessages.length)];  // Mengambil pesan acak dari daftar
+    feedbackMessage.textContent = message;  // Menampilkan pesan tersebut di elemen HTML yang sesuai
+    feedbackMessage.style.opacity = 1;  // Mengatur opacity untuk menampilkan pesan
+    setTimeout(() => {
+        feedbackMessage.style.opacity = 0;  // Mengatur opacity menjadi 0 setelah 700 milidetik agar pesan menghilang
+    }, 700);
+}
+
+/**
+ * Memulai nomor berikutnya untuk digambar oleh pengguna.
+ * Jika nomor terakhir sudah selesai, fungsi ini akan menampilkan pesan bahwa semua angka sudah selesai dan mereset permainan.
+ */
+function nextNumber() {
+    if (currentNumberIndex < numbers.length - 1) {  // Jika nomor saat ini belum nomor terakhir
+        currentNumberIndex++;  // Melanjutkan ke nomor berikutnya
+        const newNumber = numbers[currentNumberIndex];  // Mengambil nomor baru dari daftar
+        numberTarget.textContent = newNumber;  // Menampilkan nomor target baru di elemen HTML yang sesuai
+        numberSilhouette.textContent = newNumber;  // Menampilkan siluet nomor baru
+        numberSilhouette.style.color = 'rgba(191, 222, 255, 0.651)';  // Mengatur warna siluet nomor
+    } else {  // Jika semua nomor sudah selesai
+        alert('Anda telah menyelesaikan seluruh angka 0-9!');  // Menampilkan pesan selesai
+        resetGame();  // Memulai ulang permainan
+    }
+}
+
+/**
+ * Mereset permainan ke nomor pertama dan menghapus isi canvas.
+ * Fungsi ini diaktifkan setelah semua angka selesai atau jika permainan di-reset secara manual.
+ */
+function resetGame() {
+    currentNumberIndex = 0;  // Mengatur indeks nomor kembali ke nomor pertama
+    const firstNumber = numbers[currentNumberIndex];  // Mengambil nomor pertama dari daftar
+    numberTarget.textContent = firstNumber;  // Menampilkan nomor target pertama
+    numberSilhouette.textContent = firstNumber;  // Menampilkan siluet nomor pertama
+    numberSilhouette.style.color = 'rgba(0, 0, 0, 0.1)';  // Mengatur warna siluet menjadi sangat terang
+    ctx.clearRect(0, 0, canvas.width, canvas.height);  // Menghapus isi canvas
+}
+
+    </script>
+</body>
+</html>

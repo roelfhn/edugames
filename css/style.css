@@ -1,0 +1,477 @@
+/* Reset semua elemen untuk menghilangkan margin, padding, border, dan outline default */
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  text-decoration: none; /* Menghapus dekorasi teks seperti garis bawah */
+  list-style: none; /* Menghapus simbol bullet pada list */
+  box-sizing: border-box; /* Mengatur model kotak elemen agar padding dan border termasuk dalam ukuran elemen */
+}
+
+/* Variabel root: Mendefinisikan warna dan ukuran default untuk seluruh dokumen */
+:root {
+  --color-primary: #6c63ff; /* Warna utama */
+  --color-success: #00bf8e; /* Warna untuk status berhasil */
+  --color-wearing: #f7c94b; /* Warna untuk status peringatan */
+  --color-danger: #f75842; /* Warna untuk status bahaya */
+  --color-danger-varient: rgba(247, 88, 66, 0.4); /* Warna transparan untuk status bahaya */
+  --color-white: #fff; /* Warna putih */
+  --color-light: rgba(255, 255, 255, 0.7); /* Warna putih dengan transparansi */
+  --color-black: #000; /* Warna hitam */
+  --color-bg: #1f2641; /* Warna latar belakang utama */
+  --color-bg1: #2e3267; /* Warna latar belakang sekunder */
+  --color-bg2: #424890; /* Warna latar belakang tambahan */
+
+  --container-width-lg: 80%; /* Lebar container untuk layar besar */
+  --container-width-md: 90%; /* Lebar container untuk layar sedang */
+  --container-width-sm: 94%; /* Lebar container untuk layar kecil */
+
+  --transition: all 400ms ease; /* Durasi transisi untuk efek animasi */
+}
+
+/* Gaya dasar untuk body */
+body {
+  font-family: 'Montserrat', sans-serif; /* Mengatur font menggunakan Google Fonts */
+  line-height: 1.7; /* Mengatur jarak antar baris teks */
+  color: var(--color-white); /* Warna teks putih */
+  background: var(--color-bg); /* Warna latar belakang dari variabel */
+}
+
+/* Container: Elemen utama untuk membatasi konten di tengah */
+.container {
+  width: var(--container-width-lg); /* Menggunakan lebar yang disesuaikan dengan layar besar */
+  margin: 0 auto; /* Menempatkan container di tengah */
+}
+
+/* Gaya untuk elemen section */
+section {
+  padding: 6rem 0; /* Jarak atas dan bawah untuk setiap section */
+}
+
+/* Gaya untuk heading di dalam section */
+section h2 {
+  text-align: center; /* Mengatur teks di tengah */
+  margin-bottom: 4rem; /* Memberikan jarak bawah heading */
+}
+
+/* Gaya dasar untuk semua heading */
+h1, h2, h3, h4, h5 {
+  line-height: 1.2; /* Jarak antar baris untuk teks heading */
+}
+
+/* Ukuran font untuk masing-masing heading */
+h1 {
+  font-size: 2.4rem; /* Ukuran font terbesar untuk H1 */
+}
+
+h2 {
+  font-size: 2rem; /* Ukuran font untuk H2 */
+}
+
+h3 {
+  font-size: 1.6rem; /* Ukuran font untuk H3 */
+}
+
+h4 {
+  font-size: 1.3rem; /* Ukuran font untuk H4 */
+}
+
+/* Gaya dasar untuk link */
+a {
+  color: var(--color-white); /* Warna link menggunakan warna putih */
+}
+
+
+/* Mengatur gaya untuk elemen gambar */
+img {
+  width: 100%; /* Membuat gambar menyesuaikan lebar elemen induknya */
+  display: block; /* Menghapus ruang kosong di bawah gambar */
+  object-fit: cover; /* Memastikan gambar tetap proporsional sambil memenuhi area elemen */
+}
+
+/* Gaya dasar untuk tombol */
+.btn {
+  display: inline-block; /* Membuat tombol sebagai elemen blok dalam satu baris */
+  background: var(--color-white); /* Warna latar belakang putih */
+  color: var(--color-black); /* Warna teks hitam */
+  padding: 1rem 2rem; /* Memberikan ruang dalam tombol */
+  border: 1px solid transparent; /* Border default transparan */
+  font-weight: 500; /* Ketebalan teks */
+  transition: var(--transition); /* Menambahkan animasi transisi */
+}
+
+/* Gaya tombol saat di-hover */
+.btn:hover {
+  background: transparent; /* Menghapus latar belakang */
+  color: var(--color-white); /* Mengubah warna teks menjadi putih */
+  border-color: var(--color-white); /* Menambahkan border putih */
+}
+
+/* Gaya untuk tombol dengan kelas "btn-primary" */
+.btn-primary {
+  background: var(--color-danger); /* Warna latar tombol menjadi merah (bahaya) */
+  color: var(--color-white); /* Warna teks putih */
+}
+
+/*==================== Nav Bar ====================*/
+
+/* Gaya untuk elemen navigasi */
+nav {
+  background: transparent; /* Latar belakang transparan */
+  width: 100vw; /* Lebar navigasi sepanjang viewport */
+  height: 5rem; /* Tinggi navigasi 5rem */
+  position: fixed; /* Posisi tetap di bagian atas layar */
+  top: 0; /* Jarak dari atas layar 0 */
+  z-index: 11; /* Menempatkan elemen di atas elemen lain */
+}
+
+/* Gaya untuk navigasi saat scrolling */
+.window-scroll {
+  background: var(--color-primary); /* Warna latar berubah menjadi warna utama */
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2); /* Menambahkan bayangan di bawah */
+  transition: var(--transition); /* Animasi transisi */
+}
+
+/* Gaya container untuk elemen navigasi */
+.nav_container {
+  height: 100%; /* Tinggi container sama dengan navigasi */
+  display: flex; /* Menggunakan flexbox untuk tata letak */
+  justify-content: space-between; /* Menempatkan elemen di kiri dan kanan */
+  align-items: center; /* Memusatkan elemen secara vertikal */
+}
+
+/* Menyembunyikan tombol dalam navigasi */
+nav button {
+  display: none; /* Tidak ditampilkan */
+}
+
+/* Gaya menu navigasi */
+.nav_menu {
+  display: flex; /* Mengatur menu sebagai baris menggunakan flexbox */
+  align-items: center; /* Memusatkan elemen secara vertikal */
+  gap: 4rem; /* Jarak antar elemen menu */
+}
+
+/* Gaya link dalam menu navigasi */
+.nav_menu a {
+  font-size: 0.9rem; /* Ukuran font untuk link */
+  transition: var(--transition); /* Menambahkan animasi transisi */
+}
+
+/* Gaya link saat di-hover */
+.nav_menu a:hover {
+  color: var(--color-bg2); /* Mengubah warna teks saat di-hover */
+}
+
+/*==================== Header ====================*/
+
+/* Gaya untuk elemen header */
+header {
+  position: relative; /* Posisi relatif terhadap elemen induk */
+  top: 5rem; /* Jarak dari atas halaman 5rem */
+  overflow: hidden; /* Memotong konten yang melampaui area header */
+  height: 70vh; /* Tinggi header 70% dari tinggi viewport */
+  margin-bottom: 5rem; /* Memberikan jarak bawah header */
+}
+
+/* Gaya container dalam header */
+.header_container {
+  display: grid; /* Menggunakan grid layout */
+  grid-template-columns: 1fr 1fr; /* Membagi grid menjadi dua kolom dengan ukuran sama */
+  align-items: center; /* Memusatkan elemen secara vertikal */
+  gap: 7rem; /* Jarak antara kolom */
+  height: 100%; /* Tinggi container sesuai dengan tinggi header */
+}
+
+/* Gaya paragraf dalam elemen header kiri */
+.header_left p {
+  margin: 1rem 0 2.4rem; /* Jarak atas 1rem, bawah 2.4rem */
+}
+
+/*==================== Categories ====================*/
+
+/* Gaya untuk elemen kategori */
+.categories {
+  background: var(--color-bg1); /* Warna latar dari variabel */
+  height: 29rem; /* Tinggi elemen kategori */
+}
+
+.categories h1 {
+  line-height: 1; /* Mengatur jarak vertikal antara baris teks */
+  margin-bottom: 3rem; /* Memberikan jarak bawah heading */
+}
+
+/* Gaya container utama untuk kategori */
+.categories_container {
+  display: grid; /* Menggunakan grid layout */
+  grid-template-columns: 40% 60%; /* Dua kolom dengan proporsi 40% dan 60% */
+  gap: 4rem; /* Jarak antar kolom */
+}
+
+/* Gaya paragraf dalam bagian kategori kiri */
+.categories_left p {
+  margin: 1rem 0 3rem; /* Memberikan jarak atas, kanan/kiri, dan bawah */
+}
+
+/* Gaya bagian kanan kategori */
+.categories_right {
+  display: grid; /* Menggunakan grid layout */
+  grid-template-columns: repeat(3, 1fr); /* Membagi menjadi tiga kolom dengan ukuran sama */
+  gap: 1.2rem; /* Jarak antar elemen kategori */
+}
+
+/* Gaya untuk setiap elemen kategori */
+.category {
+  background: var(--color-bg2); /* Warna latar belakang dari variabel */
+  padding: 2rem; /* Memberikan ruang dalam */
+  border-radius: 2rem; /* Membuat sudut elemen melengkung */
+  transition: var(--transition); /* Menambahkan transisi */
+}
+
+/* Efek hover pada elemen kategori */
+.category:hover {
+  box-shadow: 0 3rem 3rem rgba(0, 0, 0, 0.3); /* Menambahkan bayangan */
+  z-index: 1; /* Membuat elemen berada di depan elemen lainnya */
+}
+
+/* Mengatur warna ikon untuk kategori kedua */
+.category:nth-child(2) .category_icon {
+  background: var(--color-danger); /* Warna merah */
+}
+
+/* Mengatur warna ikon untuk kategori ketiga */
+.category:nth-child(3) .category_icon {
+  background: var(--color-success); /* Warna hijau */
+}
+
+/* Mengatur warna ikon untuk kategori keempat */
+.category:nth-child(4) .category_icon {
+  background: var(--color-wearing); /* Warna kuning */
+}
+
+/* Mengatur warna ikon untuk kategori kelima */
+.category:nth-child(5) .category_icon {
+  background: var(--color-success); /* Warna hijau */
+}
+
+/* Gaya untuk ikon dalam kategori */
+.category_icon {
+  background: var(--color-primary); /* Warna utama */
+  padding: 0.7rem; /* Ruang dalam ikon */
+  border-radius: 0.9rem; /* Membuat sudut melengkung */
+}
+
+/* Gaya ikon dengan elemen `i` */
+.category_icon i {
+  font-size: 1.4rem; /* Ukuran font untuk ikon */
+}
+
+/* Gaya heading dalam kategori */
+.category h5 {
+  margin: 2rem 0 1rem; /* Memberikan jarak atas, kanan/kiri, dan bawah */
+}
+
+/* Gaya paragraf dalam kategori */
+.category p {
+  font-size: 0.85rem; /* Ukuran font lebih kecil */
+}
+
+/*================== Courses ==================*/
+
+/* Gaya bagian courses */
+.courses {
+  margin-top: 10rem; /* Memberikan jarak atas */
+}
+
+/* Gaya container untuk elemen courses */
+.courses_container {
+  display: grid; /* Menggunakan grid layout */
+  grid-template-columns: repeat(3, 1fr); /* Membagi menjadi tiga kolom sama lebar */
+  gap: 2rem; /* Jarak antar elemen courses */
+}
+
+/* Gaya untuk setiap elemen course */
+.course {
+  background: var(--color-bg1); /* Warna latar */
+  text-align: center; /* Teks di tengah */
+  border: 1px solid transparent; /* Border default transparan */
+  transition: var(--transition); /* Menambahkan transisi */
+}
+
+/* Efek hover pada course */
+.course:hover {
+  background: transparent; /* Latar menjadi transparan */
+  border-color: var(--color-primary); /* Warna border berubah menjadi warna utama */
+}
+
+/* Gaya informasi dalam course */
+.course_info {
+  padding: 2rem; /* Memberikan ruang dalam */
+}
+
+/* Gaya paragraf dalam informasi course */
+.course_info p {
+  margin: 1.2rem 0 2rem; /* Jarak atas, kanan/kiri, dan bawah */
+  font-size: 0.9rem; /* Ukuran font */
+}
+
+/*================== FAQs ==================*/
+
+/* Gaya untuk bagian FAQs */
+.faqs {
+  background: var(--color-bg1); /* Warna latar */
+  box-shadow: inset 0 0 3rem rgba(0, 0, 0, 0.5); /* Bayangan ke dalam */
+}
+
+/* Gaya container untuk FAQs */
+.faqs_container {
+  display: grid; /* Menggunakan grid layout */
+  grid-template-columns: 1fr 1fr; /* Dua kolom dengan ukuran sama */
+  gap: 1rem; /* Jarak antar elemen FAQ */
+}
+
+/* Gaya untuk setiap FAQ */
+.faq {
+  padding: 2rem; /* Ruang dalam elemen */
+  display: flex; /* Menggunakan flexbox */
+  align-items: center; /* Memusatkan elemen secara vertikal */
+  gap: 1.4rem; /* Jarak antar elemen dalam FAQ */
+  height: fit-content; /* Tinggi menyesuaikan konten */
+  background: var(--color-primary); /* Warna latar */
+  cursor: pointer; /* Menampilkan ikon pointer saat hover */
+}
+
+/* Gaya heading dalam FAQ */
+.faq h4 {
+  font-size: 1rem; /* Ukuran font */
+  line-height: 2.2; /* Jarak vertikal antar baris teks */
+}
+
+/* Gaya ikon dalam FAQ */
+.faq_icon {
+  align-self: flex-start; /* Menempatkan ikon di atas */
+  font-size: 1.2rem; /* Ukuran font ikon */
+}
+
+/* Gaya paragraf dalam FAQ */
+.faq p {
+  margin: 0.8rem; /* Memberikan jarak sekitar paragraf */
+  display: none; /* Default tersembunyi */
+}
+
+/* Gaya paragraf saat FAQ dibuka */
+.faq.open p {
+  display: block; /* Menampilkan paragraf */
+}
+
+/*==================== Testimonials =========================*/
+
+/* Gaya container untuk bagian testimonial */
+.testimonials_container {
+  overflow-x: hidden; /* Menyembunyikan elemen yang keluar dari batas horizontal */
+  position: relative; /* Memungkinkan penggunaan elemen dengan posisi absolut di dalamnya */
+  margin-top: 5rem; /* Memberikan jarak atas */
+  margin-bottom: 5rem; /* Memberikan jarak bawah */
+}
+
+/* Gaya individual testimonial */
+.testimonial {
+  padding-top: 2rem; /* Jarak atas dalam elemen */
+  padding-bottom: 6rem; /* Jarak bawah dalam elemen */
+}
+
+/* Gaya untuk avatar di dalam testimonial */
+.avatar {
+  width: 6rem; /* Lebar avatar */
+  height: 6rem; /* Tinggi avatar */
+  border-radius: 50%; /* Membuat bentuk lingkaran */
+  overflow: hidden; /* Menyembunyikan elemen di luar lingkaran */
+  margin: 0 auto 1rem; /* Memusatkan elemen secara horizontal dan memberikan jarak bawah */
+  border: 1rem solid var(--color-bg1); /* Menambahkan border besar dengan warna latar */
+}
+
+/* Gaya informasi testimonial */
+.testimonial_info {
+  text-align: center; /* Memusatkan teks di tengah */
+}
+
+/* Gaya tubuh testimonial */
+.testimonial_body {
+  background: var(--color-primary); /* Warna latar dari variabel */
+  padding: 2rem; /* Memberikan ruang dalam */
+  margin-top: 3rem; /* Jarak atas dari elemen sebelumnya */
+  position: relative; /* Memungkinkan elemen pseudo ::before untuk diposisikan relatif ke elemen ini */
+}
+
+/* Elemen pseudo untuk menambahkan dekorasi pada testimonial */
+.testimonial_body::before {
+  content: ''; /* Membuat elemen kosong */
+  display: block; /* Memastikan elemen terlihat */
+  background: linear-gradient( /* Gradien warna */
+    135deg,
+    transparent,
+    var(--color-primary),
+    var(--color-primary),
+    var(--color-primary)
+  );
+  width: 3rem; /* Lebar elemen pseudo */
+  height: 3rem; /* Tinggi elemen pseudo */
+  position: absolute; /* Posisi absolut relatif ke .testimonial_body */
+  left: 47%; /* Memposisikan di tengah horizontal */
+  top: -1.5rem; /* Memposisikan di atas elemen utama */
+  transform: rotate(45deg); /* Memutar elemen 45 derajat */
+}
+
+/*==================== Footer =========================*/
+
+/* Gaya utama untuk elemen footer */
+footer {
+  background: var(--color-bg1); /* Warna latar belakang dari variabel */
+  padding-top: 5rem; /* Jarak atas dalam elemen */
+  font-size: 0.9rem; /* Ukuran font */
+}
+
+/* Gaya container untuk footer */
+.footer_container {
+  display: grid; /* Menggunakan grid layout */
+  grid-template-columns: repeat(4, 1fr); /* Membagi menjadi empat kolom dengan lebar sama */
+  gap: 5rem; /* Jarak antar kolom */
+}
+
+/* Gaya heading dalam setiap div di footer */
+.footer_container > div h4 {
+  margin-bottom: 1.2rem; /* Memberikan jarak bawah */
+}
+
+/* Gaya paragraf dalam footer pertama */
+.footer_1 p {
+  margin: 0 0 2rem; /* Memberikan jarak bawah */
+}
+
+/* Gaya untuk elemen daftar dalam footer */
+footer ul li {
+  margin-bottom: 0.7rem; /* Memberikan jarak bawah antar item daftar */
+}
+
+/* Gaya hover pada link dalam daftar footer */
+footer ul li a:hover {
+  text-decoration: underline; /* Menambahkan garis bawah saat hover */
+}
+
+/* Gaya untuk bagian sosial media di footer */
+.footer_socials {
+  display: flex; /* Menggunakan flexbox layout */
+  gap: 1rem; /* Jarak antar ikon sosial media */
+  font-size: 1.2rem; /* Ukuran font untuk ikon */
+  margin-top: 2rem; /* Jarak atas dari elemen sebelumnya */
+}
+
+/* Gaya untuk bagian copyright di footer */
+.footer_copyrights {
+  text-align: center; /* Memusatkan teks */
+  margin-top: 4rem; /* Jarak atas dari elemen sebelumnya */
+  padding: 1.2rem 0; /* Jarak vertikal dalam elemen */
+  border-top: 1px solid var(--color-bg2); /* Garis pembatas atas */
+}
+

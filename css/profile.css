@@ -1,0 +1,69 @@
+.profile_container {
+  max-width: 700px; /* Membatasi lebar maksimum kontainer profil hingga 700px */
+  margin: 2rem auto; /* Memberikan margin atas dan bawah sebesar 2rem, serta membuat kontainer berada di tengah secara horizontal */
+  padding: 2rem; /* Menambahkan padding dalam kontainer sebesar 2rem */
+  background-color: #f4f4f9; /* Memberikan warna latar belakang abu-abu terang */
+  border-radius: 8px; /* Membuat sudut kontainer menjadi melengkung */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Menambahkan bayangan lembut pada kontainer */
+  text-align: center; /* Mengatur teks di dalam kontainer agar rata tengah */
+}
+
+.profile_header {
+  text-align: center; /* Mengatur teks header agar rata tengah */
+  margin-bottom: 2rem; /* Memberikan jarak bawah sebesar 2rem */
+}
+
+.profile_image {
+  position: relative; /* Menjadikan posisi elemen relatif untuk kemungkinan elemen tambahan di dalamnya */
+}
+
+.profile_image img {
+  width: 120px; /* Mengatur lebar gambar profil menjadi 120px */
+  height: 120px; /* Mengatur tinggi gambar profil menjadi 120px */
+  border-radius: 50%; /* Membuat gambar menjadi lingkaran sempurna */
+  object-fit: cover; /* Menyesuaikan gambar agar pas di dalam lingkaran */
+  margin-bottom: 1rem; /* Memberikan jarak bawah sebesar 1rem */
+  border: 3px solid #007bff; /* Menambahkan border biru dengan ketebalan 3px */
+}
+
+#profile-image-upload {
+  display: none; /* Menyembunyikan input file untuk upload gambar */
+}
+
+.upload-btn {
+  margin-top: 0.5rem; /* Memberikan margin atas sebesar 0.5rem */
+  background-color: #007bff; /* Memberikan warna biru sebagai latar belakang tombol */
+  color: #fff; /* Mengatur warna teks menjadi putih */
+  padding: 0.5rem 1rem; /* Menambahkan padding vertikal 0.5rem dan horizontal 1rem */
+  border: none; /* Menghapus border default tombol */
+  border-radius: 4px; /* Membuat sudut tombol melengkung */
+  cursor: pointer; /* Mengubah kursor menjadi pointer saat tombol di-hover */
+}
+
+.profile_container h1 {
+  font-size: 1.8rem; /* Mengatur ukuran font untuk heading menjadi 1.8rem */
+  margin-bottom: 0.5rem; /* Memberikan jarak bawah sebesar 0.5rem */
+}
+
+.profile_container p {
+  color: #666; /* Mengatur warna teks menjadi abu-abu gelap */
+  margin-bottom: 1.5rem; /* Memberikan jarak bawah sebesar 1.5rem */
+}
+
+.form_actions {
+  display: flex; /* Mengatur elemen di dalam kontainer menjadi baris fleksibel */
+  justify-content: space-between; /* Memberikan jarak yang merata di antara elemen */
+}
+
+.btn {
+  padding: 0.5rem 1rem; /* Memberikan padding vertikal 0.5rem dan horizontal 1rem */
+  border: none; /* Menghapus border default tombol */
+  background-color: #007bff; /* Memberikan warna biru sebagai latar belakang tombol */
+  color: white; /* Mengatur warna teks menjadi putih */
+  border-radius: 4px; /* Membuat sudut tombol melengkung */
+  cursor: pointer; /* Mengubah kursor menjadi pointer saat tombol di-hover */
+}
+
+.btn-danger {
+  background-color: #dc3545; /* Memberikan warna merah sebagai latar belakang untuk tombol berbahaya */
+}

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <!-- Meta data untuk karakter encoding dan responsivitas -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon untuk halaman -->
+    <link rel="icon" href="./images/EduGames.png" type="image/x-icon" />
+    <title>Game Edukasi</title>
+    <style>
+        /* Styling dasar untuk halaman */
+        body {
+            font-family: 'Poppins', sans-serif; /* Mengatur font global */
+            background: linear-gradient(135deg, #1a1b47, #4caf50); /* Gradasi warna latar belakang */
+            animation: gradient-animation 8s ease infinite; /* Efek animasi pada latar */
+            display: flex; /* Menjadikan kontainer fleksibel */
+            flex-direction: column; /* Menyusun elemen secara vertikal */
+            align-items: center; /* Memusatkan elemen secara horizontal */
+            justify-content: center; /* Memusatkan elemen secara vertikal */
+            min-height: 100vh; /* Tinggi minimal 100% dari tinggi viewport */
+            margin: 0; /* Menghilangkan margin default */
+        }
+
+        /* Elemen dekorasi animasi */
+        .decoration {
+            position: absolute; /* Posisi absolut terhadap kontainer */
+            width: 100px; /* Lebar lingkaran */
+            height: 100px; /* Tinggi lingkaran */
+            background: rgba(255, 255, 255, 0.3); /* Warna dengan transparansi */
+            border-radius: 50%; /* Membentuk lingkaran */
+            animation: float 5s ease-in-out infinite; /* Animasi mengambang */
+        }
+
+        /* Posisi masing-masing dekorasi */
+        .decoration:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
+        .decoration:nth-child(2) { top: 50%; left: 10%; animation-delay: 2s; }
+        .decoration:nth-child(3) { top: 30%; left: 70%; animation-delay: 1s; }
+        .decoration:nth-child(4) { bottom: 20%; right: 15%; animation-delay: 3s; }
+
+        /* Keyframes untuk animasi mengambang */
+        @keyframes float {
+            0%, 100% { transform: translateY(-10px); }
+            50% { transform: translateY(10px); }
+        }
+
+        /* Kontainer utama game */
+        .game-container {
+            background: rgba(255, 255, 255, 0.9); /* Latar belakang putih transparan */
+            border: 4px solid #1a1b47; /* Border dengan warna biru gelap */
+            border-radius: 20px; /* Membulatkan sudut */
+            padding: 30px; /* Ruang dalam kontainer */
+            max-width: 800px; /* Lebar maksimal */
+            text-align: center; /* Teks rata tengah */
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Efek bayangan */
+        }
+
+        /* Heading utama */
+        h1 {
+            font-size: 48px; /* Ukuran teks */
+            color: #4caf50; /* Warna teks hijau */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Efek bayangan teks */
+        }
+
+        /* Tombol utama */
+        .button {
+            padding: 15px 30px; /* Ruang dalam tombol */
+            font-size: 20px; /* Ukuran font */
+            font-weight: bold; /* Ketebalan font */
+            background-color: #1a1b47; /* Warna latar */
+            color: white; /* Warna teks */
+            border: none; /* Menghilangkan border */
+            border-radius: 10px; /* Membulatkan sudut */
+            cursor: pointer; /* Mengubah kursor menjadi pointer */
+            transition: transform 0.3s, background-color 0.3s; /* Efek transisi pada hover */
+        }
+
+        /* Efek hover pada tombol utama */
+        .button:hover {
+            transform: scale(1.1); /* Membesarkan tombol */
+            background-color: #4caf50; /* Warna hijau saat hover */
+        }
+
+        /* Tombol jawaban */
+        .answer-button {
+            background-color: #1a1b47; /* Warna biru gelap */
+            font-size: 18px; /* Ukuran font */
+            color: white; /* Warna teks */
+            padding: 10px 20px; /* Ruang dalam */
+            margin: 5px; /* Jarak antar tombol */
+            border-radius: 10px; /* Membulatkan sudut */
+            cursor: pointer; /* Kursor pointer */
+            transition: transform 0.3s, background-color 0.3s; /* Efek transisi */
+        }
+
+        /* Efek hover tombol jawaban */
+        .answer-button:hover {
+            transform: scale(1.05); /* Sedikit membesarkan tombol */
+            background-color: #1a1b47; /* Warna tetap sama */
+        }
+
+        /* Timer */
+        .timer {
+            font-size: 30px; /* Ukuran font */
+            color: #4caf50; /* Warna hijau */
+            font-weight: bold; /* Ketebalan font */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Efek bayangan teks */
+        }
+
+        /* Popup (jendela modal) */
+        .popup {
+            display: none; /* Tersembunyi secara default */
+            position: fixed; /* Posisi tetap */
+            top: 50%; /* Tengah vertikal */
+            left: 50%; /* Tengah horizontal */
+            transform: translate(-50%, -50%); /* Memusatkan */
+            background: rgba(255, 255, 255, 0.95); /* Latar putih transparan */
+            border: 2px solid #1a1b47; /* Border biru gelap */
+            border-radius: 10px; /* Membulatkan sudut */
+            padding: 20px; /* Ruang dalam */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Efek bayangan */
+            text-align: center; /* Teks rata tengah */
+            z-index: 1000; /* Tingkat z tertinggi */
+        }
+
+        /* Heading dalam popup */
+        .popup h2 {
+            font-size: 24px; /* Ukuran font */
+            color: #4caf50; /* Warna hijau */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Efek bayangan teks */
+        }
+
+        /* Tombol dalam popup */
+        .popup button {
+            background-color: #1a1b47; /* Warna biru gelap */
+            color: white; /* Warna teks */
+            padding: 10px 20px; /* Ruang dalam */
+            border: none; /* Menghilangkan border */
+            border-radius: 5px; /* Membulatkan sudut */
+            font-size: 16px; /* Ukuran font */
+            cursor: pointer; /* Kursor pointer */
+            transition: transform 0.3s, background-color 0.3s; /* Efek transisi */
+        }
+
+        /* Efek hover pada tombol popup */
+        .popup button:hover {
+            transform: scale(1.1); /* Membesarkan tombol */
+            background-color: #ffcc00; /* Warna kuning saat hover */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Music -->
+<audio autoplay loop>
+    <!-- File musik latar yang diputar otomatis dan diulang -->
+    <source src="./music/pixel.mp3" type="audio/mpeg">
+    <!-- Pesan fallback untuk browser yang tidak mendukung elemen audio -->
+    Your browser does not support the audio element.
+</audio>
+
+<!-- Dekorasi visual -->
+<div class="decoration"></div>
+<div class="decoration"></div>
+<div class="decoration"></div>
+<div class="decoration"></div>
+
+<!-- Kontainer utama untuk game -->
+<div class="game-container">
+    <!-- Judul game -->
+    <h1>Tantangan Suara!</h1>
+    <!-- Tombol untuk memulai permainan -->
+    <button class="button" onclick="startGame()">Mulai</button>
+    <!-- Kontainer untuk menampilkan pertanyaan, disembunyikan saat pertama kali -->
+    <div class="question-container" id="question-container" style="display:none;">
+        <!-- Timer untuk menunjukkan waktu tersisa -->
+        <p id="timer" class="timer"></p>
+        <!-- Elemen untuk menampilkan pertanyaan -->
+        <p id="question"></p>
+        <!-- Elemen untuk menampilkan opsi jawaban -->
+        <div id="options"></div>
+    </div>
+    <!-- Elemen untuk menampilkan hasil jawaban -->
+    <p id="result" style="font-size: 24px; margin-top: 20px;"></p>
+</div>
+
+<!-- Popup untuk menunjukkan ringkasan level -->
+<div id="popup" class="popup">
+    <h2 id="popup-message"></h2>
+    <p id="level-summary"></p>
+    <!-- Tombol untuk melanjutkan ke level berikutnya -->
+    <button onclick="startNextLevel()">Lanjut</button>
+</div>
+
+<!-- Efek suara untuk jawaban benar -->
+<audio id="correctSound" src="./music/true.mp3"></audio>
+<!-- Efek suara untuk jawaban salah -->
+<audio id="wrongSound" src="./music/wrong.mp3"></audio>
+
+<script>
+    // Data untuk setiap level dalam game
+    const levels = [
+        {
+            time: 30, // Waktu untuk menyelesaikan level (dalam detik)
+            questions: [
+                // Pertanyaan untuk level 1
+                { correct: "Baju", options: ["Baju", "Kuda", "Sapi"], audio: "./music/BAJUU.mp3" },
+                { correct: "Rumah", options: ["Sawah", "Rumah", "Laut"], audio: "./music/RUMAH.mp3" },
+                { correct: "Bola", options: ["Sepatu", "Bola", "Gitar"], audio: "./music/BOLA.mp3" },
+                { correct: "Pohon", options: ["Pohon", "Bunga", "Roti"], audio: "./music/POHON.mp3" },
+                { correct: "Kucing", options: ["Anjing", "Kuda", "Kucing"], audio: "./music/KUCING.mp3" }
+            ]
+        },
+        {
+            time: 25, // Waktu untuk level 2
+            questions: [
+                { correct: "Gunung", options: ["Gunung", "Danau", "Hutan"], audio: "./music/GUNUNG.mp3" },
+                { correct: "Meja", options: ["Meja", "Kursi", "Kasur"], audio: "./music/MEJA.mp3" },
+                { correct: "Ayam", options: ["Ayam", "Itik", "Bebek"], audio: "./music/AYAM.mp3" },
+                { correct: "Mobil", options: ["Kereta", "Mobil", "Sepeda"], audio: "./music/MOBIL.mp3" },
+                { correct: "Sawah", options: ["Sawah", "Pohon", "Samudra"], audio: "./music/SAWAH.mp3" }
+            ]
+        },
+        {
+            time: 20, // Waktu untuk level 3
+            questions: [
+                { correct: "Padi", options: ["Beras", "Padi", "Kopi"], audio: "./music/PADI.mp3"},
+                { correct: "Radio", options: ["Radio", "TV", "Laptop"], audio: "./music/RADIO.mp3" },
+                { correct: "Hutan", options: ["Pantai", "Hutan", "Laut"], audio: "./music/HUTAN.mp3" },
+                { correct: "Sekolah", options: ["Rumah", "Sekolah", "Masjid"], audio: "./music/SEKOLAH.mp3" },
+                { correct: "Lilin", options: ["Lampu", "Lilin", "Kipas"], audio: "./music/LILIN.mp3" }
+            ]
+        },
+        {
+            time: 15, // Waktu untuk level 4
+            questions: [
+                { correct: "Komputer Meja", options: ["Laptop Lipat", "Komputer Meja", "Tablet Portable"], audio:"./music/Komputer Meja.mp3" },
+                { correct: "Bunga Matahari", options: ["Bunga Matahari", "Pohon Jati", "Akar Tumbuhan"], audio: "./music/Bunga Matahari.mp3" },
+                { correct: "Air Bersih", options: ["Air Bersih", "Bensin Solar", "Minyak Goreng"], audio: "./music/Air Bersih.mp3" },
+                { correct: "Roti Gandum", options: ["Roti Gandum", "Kue Bolu", "Donat Coklat"], audio: "./music/Roti Gandum.mp3" },
+                { correct: "Samudra Hindia", options: ["Laut Cina", "Samudra Hindia", "Danau Toba"], audio: "./music/Samudra Hindia.mp3" }
+            ]
+        },
+        {
+            time: 10, // Waktu untuk level 5
+            questions: [
+                { correct: "Piring Keramik Putih", options: ["Piring Keramik Putih", "Gelas Kaca Biru", "Cangkir Plastik Merah"], audio: "./music/Piring Keramik Putih.mp3" },
+                { correct: "Kursi Kayu Jati", options: ["Kursi Kayu Jati", "Meja Besi Kecil", "Kasur Busa Empuk"], audio: "./music/Kursi Kayu Jati.mp3" },
+                { correct: "Buku Cerita Anak", options: ["Buku Cerita Anak", "Pensil Warna Biru", "Penghapus Kecil Hitam"], audio: "./music/Buku Cerita anak.mp3" },
+                { correct: "Langit Biru Cerah", options: ["Langit Biru Cerah", "Bumi Hijau Subur", "Angin Dingin Kencang"], audio: "./music/langit biru cerah.mp3" },
+                { correct: "Gitar Akustik Kayu", options: ["Drum Besar Hitam", "Gitar Akustik Kayu", "Piano Elektrik Modern"], audio: "./music/gitar akustik kayu.mp3" }
+            ]
+        }
+    ];
+
+    let currentLevel = 0; // Menyimpan level saat ini
+    let currentQuestion = 0; // Menyimpan soal saat ini
+    let timer; // Timer untuk menghitung waktu
+    let timeLeft; // Waktu yang tersisa untuk menjawab
+    let correctCount = 0; // Jumlah jawaban benar pada level saat ini
+    let totalCorrect = 0; // Total jawaban benar sepanjang permainan
+    let totalIncorrect = 0; // Total jawaban salah sepanjang permainan
+    
+    // Fungsi untuk memulai permainan
+    function startGame() {
+        document.querySelector('.button').style.display = 'none'; // Sembunyikan tombol mulai
+        document.getElementById('question-container').style.display = 'block'; // Tampilkan kontainer soal
+        startLevel(); // Memulai level pertama
+    }
+    
+    // Fungsi untuk memulai level
+    function startLevel() {
+        currentQuestion = 0; // Reset nomor soal ke 0
+        correctCount = 0; // Reset jumlah jawaban benar pada level
+        showQuestion(); // Menampilkan soal pertama
+    }
+    
+    // Fungsi untuk menampilkan soal
+    function showQuestion() {
+        const question = levels[currentLevel].questions[currentQuestion]; // Mengambil soal saat ini
+        const audio = new Audio(question.audio); // Memuat audio soal
+        audio.play(); // Memutar audio soal
+    
+        document.getElementById('question').textContent = `Apa suara yang Anda dengar?`; // Menampilkan teks soal
+        const optionsDiv = document.getElementById('options'); // Referensi ke div opsi jawaban
+        optionsDiv.innerHTML = ''; // Membersihkan opsi sebelumnya
+    
+        question.options.forEach(option => {
+            const button = document.createElement('button'); // Membuat tombol untuk setiap opsi
+            button.className = 'answer-button'; // Menambahkan kelas untuk styling
+            button.textContent = option; // Menambahkan teks opsi
+            button.onclick = () => checkAnswer(option); // Menghubungkan tombol dengan fungsi pengecekan jawaban
+            optionsDiv.appendChild(button); // Menambahkan tombol ke div opsi
+        });
+    
+        timeLeft = levels[currentLevel].time; // Mengatur waktu tersisa untuk soal ini
+        document.getElementById('timer').textContent = `Waktu: ${timeLeft}s`; // Menampilkan waktu tersisa
+        clearInterval(timer); // Menghentikan timer sebelumnya jika ada
+        timer = setInterval(updateTimer, 1000); // Memulai timer untuk menghitung mundur
+    }
+    
+    // Fungsi untuk memperbarui timer setiap detik
+    function updateTimer() {
+        timeLeft--; // Mengurangi waktu tersisa
+        document.getElementById('timer').textContent = `Waktu: ${timeLeft}s`; // Memperbarui tampilan waktu
+        if (timeLeft <= 0) { // Jika waktu habis
+            clearInterval(timer); // Hentikan timer
+            showResult(false); // Tampilkan hasil salah
+        }
+    }
+    
+    // Fungsi untuk memeriksa jawaban pengguna
+    function checkAnswer(answer) {
+        const question = levels[currentLevel].questions[currentQuestion]; // Mengambil soal saat ini
+        clearInterval(timer); // Hentikan timer
+    
+        if (answer === question.correct) { // Jika jawaban benar
+            correctCount++; // Tambahkan jumlah benar untuk level ini
+            totalCorrect++; // Tambahkan total jawaban benar
+            playSound("./music/true.mp3"); // Putar suara jawaban benar
+            showResult(true); // Tampilkan hasil benar
+        } else { // Jika jawaban salah
+            totalIncorrect++; // Tambahkan total jawaban salah
+            playSound("./music/wrong.mp3"); // Putar suara jawaban salah
+            showResult(false); // Tampilkan hasil salah
+        }
+    }
+    
+    // Fungsi untuk menampilkan hasil setelah menjawab
+    function showResult(isCorrect) {
+        const resultDiv = document.getElementById('result'); // Referensi ke div hasil
+        resultDiv.textContent = isCorrect ? "Benar!" : "Salah!"; // Menampilkan hasil jawaban
+    
+        setTimeout(() => {
+            resultDiv.textContent = ''; // Menghapus pesan hasil jawaban
+            currentQuestion++; // Beralih ke soal berikutnya
+            if (currentQuestion < levels[currentLevel].questions.length) {
+                showQuestion(); // Jika masih ada soal, tampilkan soal berikutnya
+            } else {
+                showPopup(); // Jika semua soal selesai, tampilkan pop-up
+            }
+        }, 1000); // Menunggu 1 detik sebelum melanjutkan
+    }
+    
+    // Fungsi untuk menampilkan pop-up setelah level selesai
+    function showPopup() {
+        document.getElementById('popup').style.display = 'block'; // Menampilkan pop-up
+        document.getElementById('popup-message').textContent = `Level ${currentLevel + 1} selesai! Benar: ${correctCount}`; // Menampilkan pesan pop-up
+    
+        if (currentLevel + 1 === levels.length) { // Jika level terakhir selesai
+            const performance = getPerformance(totalCorrect); // Hitung performa pemain
+            document.getElementById('level-summary').textContent = `Total Benar: ${totalCorrect} - Total Salah: ${totalIncorrect} - ${performance}`; // Menampilkan ringkasan
+        }
+    }
+    
+    // Fungsi untuk menilai performa pemain
+    function getPerformance(score) {
+        if (score >= 22) {
+            return "Sangat Baik"; // Jika skor lebih dari atau sama dengan 22
+        } else if (score >= 17) {
+            return "Baik"; // Jika skor antara 17 dan 21
+        } else if (score >= 12) {
+            return "Cukup"; // Jika skor antara 12 dan 16
+        } else {
+            return "Kurang Baik"; // Jika skor kurang dari 12
+        }
+    }
+    
+    // Fungsi untuk memulai level berikutnya
+    function startNextLevel() {
+        document.getElementById('popup').style.display = 'none'; // Menyembunyikan pop-up
+        currentLevel++; // Beralih ke level berikutnya
+    
+        if (currentLevel < levels.length) { // Jika masih ada level
+            startLevel(); // Memulai level berikutnya
+        } else {
+            alert("Semua level selesai! Terima kasih telah bermain."); // Pesan saat semua level selesai
+        }
+    }
+    
+    // Fungsi untuk memutar suara efek
+    function playSound(file) {
+        const audio = new Audio(file); // Memuat file audio
+        audio.play(); // Memutar audio
+    }
+    
+    </script>
+</body>
+</html>

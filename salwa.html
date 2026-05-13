@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8"> <!-- Menentukan encoding karakter dokumen -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Memastikan halaman responsif -->
+    <link rel="icon" href="./images/EduGames.png" type="image/x-icon" /> <!-- Menambahkan ikon halaman -->
+    <title>Pilihan Belajar</title> <!-- Judul halaman -->
+
+    <style>
+        /* General Styles */
+        body {
+            margin: 0; /* Menghapus margin default browser */
+            padding: 0; /* Menghapus padding default browser */
+            font-family: 'Montserrat', sans-serif; /* Mengatur font utama halaman */
+            background-color: #141e3e; /* Warna latar belakang halaman */
+            color: white; /* Warna teks default */
+        }
+
+        /* Header Styling */
+        header {
+            width: 100%; /* Lebar penuh untuk header */
+            background-color: #2e3267; /* Warna latar belakang header */
+            display: flex; /* Menggunakan flexbox untuk tata letak */
+            justify-content: center; /* Memusatkan isi secara horizontal */
+            align-items: center; /* Memusatkan isi secara vertikal */
+            padding: 20px; /* Memberikan padding pada header */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Efek bayangan pada header */
+        }
+
+        header .logo img {
+            width: 50px; /* Lebar logo */
+            height: 50px; /* Tinggi logo */
+            margin-right: 15px; /* Jarak antara logo dan teks */
+        }
+
+        header .logo span {
+            color: white; /* Warna teks logo */
+            font-weight: bold; /* Menebalkan teks logo */
+            font-size: 24px; /* Ukuran font teks logo */
+        }
+
+        /* Main Content Styling */
+        .content {
+            text-align: center; /* Teks di tengah secara horizontal */
+            padding: 50px 20px; /* Memberikan ruang di dalam konten */
+        }
+
+        .content h1 {
+            font-size: 40px; /* Ukuran font heading utama */
+            margin-bottom: 40px; /* Jarak bawah heading */
+            color: #ffffff; /* Warna teks heading */
+        }
+
+        .menu-container {
+            display: grid; /* Menggunakan grid untuk tata letak */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Grid responsif */
+            gap: 30px; /* Jarak antar elemen grid */
+            justify-content: center; /* Menengahkan grid */
+            max-width: 1200px; /* Lebar maksimal grid */
+            margin: 0 auto; /* Pusatkan grid secara horizontal */
+        }
+
+        .menu-item {
+            background-color: #1e293b; /* Warna latar belakang elemen */
+            border-radius: 15px; /* Membulatkan sudut elemen */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Efek bayangan */
+            transition: transform 0.3s, box-shadow 0.3s; /* Animasi saat hover */
+            overflow: hidden; /* Menyembunyikan konten yang melampaui elemen */
+            cursor: pointer; /* Mengubah kursor menjadi pointer */
+            text-align: center; /* Menengahkan konten dalam elemen */
+            padding: 20px; /* Padding dalam elemen */
+            display: flex; /* Menggunakan flexbox untuk tata letak dalam elemen */
+            flex-direction: column; /* Menyusun konten secara vertikal */
+            justify-content: space-between; /* Sebarkan konten dalam elemen */
+            height: 500px; /* Tinggi tetap elemen untuk konsistensi */
+        }
+
+        .menu-item:hover {
+            transform: scale(1.05); /* Memperbesar elemen saat di-hover */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Bayangan lebih besar saat di-hover */
+        }
+
+        .menu-item .icon {
+            width: 100%; /* Lebar penuh ikon */
+            height: 250px; /* Tinggi tetap ikon */
+            background-color: #1a1b47; /* Warna latar belakang ikon */
+            display: flex; /* Menggunakan flexbox untuk tata letak ikon */
+            justify-content: center; /* Menengahkan ikon secara horizontal */
+            align-items: center; /* Menengahkan ikon secara vertikal */
+        }
+
+        .menu-item .icon img {
+            max-width: 100%; /* Maksimal lebar gambar ikon */
+            max-height: 100%; /* Maksimal tinggi gambar ikon */
+            object-fit: cover; /* Menjaga proporsi gambar */
+        }
+
+        .menu-item h3 {
+            font-size: 24px; /* Ukuran font judul */
+            color: #ffffff; /* Warna teks judul */
+            margin: 15px 0; /* Jarak atas dan bawah judul */
+        }
+
+        .menu-item p {
+            font-size: 16px; /* Ukuran font deskripsi */
+            color: #d1d5db; /* Warna teks deskripsi */
+            margin: 0 20px 20px; /* Margin dalam elemen */
+        }
+
+        .menu-item .play-button {
+            padding: 10px 20px; /* Padding tombol */
+            background-color: #1a1b47; /* Warna latar tombol */
+            color: white; /* Warna teks tombol */
+            text-decoration: none; /* Menghilangkan garis bawah pada teks */
+            font-size: 16px; /* Ukuran font tombol */
+            border-radius: 10px; /* Membulatkan sudut tombol */
+            display: inline-block; /* Menampilkan tombol sebagai blok */
+            transition: background-color 0.3s; /* Efek transisi warna tombol */
+            align-self: center; /* Memastikan tombol di tengah */
+            margin-top: auto; /* Memposisikan tombol di bagian bawah elemen */
+        }
+
+        .menu-item .play-button:hover {
+            background-color: #3b82f6; /* Warna tombol saat di-hover */
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Music -->
+    <audio autoplay loop> <!-- Menambahkan audio latar yang diputar otomatis -->
+        <source src="./music/doodle.mp3" type="audio/mpeg"> <!-- Menentukan sumber audio -->
+        Your browser does not support the audio element. <!-- Pesan jika browser tidak mendukung -->
+    </audio>
+
+    <!-- Main Content -->
+    <div class="content">
+        <h1>PILIH GAME</h1> <!-- Judul utama halaman -->
+        <div class="menu-container">
+            <!-- Membaca Section -->
+            <div class="menu-item">
+                <div class="icon">
+                    <img src="./images/membaca.jpeg" alt="Membaca"> <!-- Gambar untuk bagian Membaca -->
+                </div>
+                <h3>Membaca</h3> <!-- Judul game -->
+                <p>Uji pengetahuanmu dengan kuis interaktif yang menarik.</p> <!-- Deskripsi game -->
+                <a href="membaca.html" class="play-button">Play</a> <!-- Tombol untuk memulai game -->
+            </div>
+            <!-- Menyusun Kata Section -->
+            <div class="menu-item">
+                <div class="icon">
+                    <img src="./images/menyusun.jpeg" alt="Menyusun"> <!-- Gambar untuk bagian Menyusun -->
+                </div>
+                <h3>Menyusun</h3> <!-- Judul game -->
+                <p>Latih kreativitasmu dengan menyusun kata yang menantang.</p> <!-- Deskripsi game -->
+                <a href="menyusun.html" class="play-button">Play</a> <!-- Tombol untuk memulai game -->
+            </div>
+            <!-- Mendengar Section -->
+            <div class="menu-item">
+                <div class="icon">
+                    <img src="./images/mendengar.jpeg" alt="Mendengar"> <!-- Gambar untuk bagian Mendengar -->
+                </div>
+                <h3>Mendengar</h3> <!-- Judul game -->
+                <p>Tingkatkan kemampuan membaca dengan latihan sederhana.</p> <!-- Deskripsi game -->
+                <a href="mendengar.html" class="play-button">Play</a> <!-- Tombol untuk memulai game -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

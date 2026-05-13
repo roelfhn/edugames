@@ -1,0 +1,141 @@
+.main-div {
+  display: grid; /* Mengatur elemen dalam grid layout */
+  grid-template-columns: 40% 60%; /* Membagi kolom menjadi 40% dan 60% */
+  gap: 5rem; /* Memberikan jarak antar kolom */
+  overflow: hidden; /* Menyembunyikan konten yang melampaui batas elemen */
+}
+
+.left img {
+  margin-left: 15rem; /* Memberikan margin kiri pada gambar */
+  width: 90%; /* Menentukan lebar gambar sebesar 90% dari elemen induk */
+}
+
+.register_form {
+  display: flex; /* Mengatur form menjadi fleksibel */
+  flex-direction: column; /* Menyusun elemen form secara vertikal */
+  gap: 1.5rem; /* Menambahkan jarak antar elemen dalam form */
+  margin-right: 4rem; /* Memberikan margin kanan pada form */
+}
+
+.register_form input[type='text'],
+.register_form input[type='tel'],
+.register_form input[type='password'],
+.register_form select {
+  width: 60%; /* Menentukan lebar input dan select */
+  padding: 1rem; /* Menambahkan padding untuk kenyamanan pengguna */
+  color: var(--color-white); /* Warna teks sesuai variabel */
+  background: var(--color-bg); /* Latar belakang sesuai variabel */
+  border: 1px solid #ccc; /* Memberikan border untuk memperjelas area input */
+  border-radius: 5px; /* Membulatkan sudut input */
+}
+
+.register_form input[type='text'],
+.register_form input[type='tel'] {
+  height: 40px; /* Menentukan tinggi input teks dan nomor telepon */
+}
+
+.register_form select {
+  height: 40px; /* Tinggi untuk dropdown select */
+  -webkit-appearance: none; /* Menghilangkan tampilan default di browser berbasis WebKit */
+  -moz-appearance: none; /* Menghilangkan tampilan default di browser berbasis Mozilla */
+  appearance: none; /* Menghilangkan tampilan default dropdown */
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/9/97/Downwards_arrow.svg'); /* Menambahkan ikon dropdown */
+  background-repeat: no-repeat; /* Mengatur ikon tidak diulang */
+  background-position: right 1rem center; /* Menempatkan ikon di kanan */
+  padding-right: 3rem; /* Memberikan ruang tambahan di kanan untuk ikon */
+}
+
+.register_form .btn {
+  width: max-content; /* Lebar tombol menyesuaikan kontennya */
+  margin-top: 1rem; /* Memberikan jarak atas untuk tombol */
+  cursor: pointer; /* Mengubah kursor menjadi pointer saat di-hover */
+}
+
+input,
+textarea {
+  width: 100%; /* Menyesuaikan lebar input dan textarea dengan elemen induk */
+  padding: 1rem; /* Memberikan padding untuk kenyamanan input */
+  color: var(--color-white); /* Warna teks */
+  background: var(--color-bg); /* Warna latar belakang */
+}
+
+table {
+  font-size: 200%; /* Ukuran font dalam tabel lebih besar */
+  background-color: var(--color-bg1); /* Warna latar belakang tabel */
+  width: 50%; /* Menentukan lebar tabel */
+  text-align: center; /* Menengahkan teks di dalam tabel */
+  padding-bottom: 2rem; /* Memberikan padding bawah tabel */
+  padding-top: 2rem; /* Memberikan padding atas tabel */
+  margin-left: 12rem; /* Memberikan margin kiri */
+  box-shadow: -2rem 0 2rem rgba(0, 0, 0, 0.5); /* Memberikan efek bayangan */
+}
+
+input.log {
+  width: 300px; /* Lebar input khusus dengan kelas 'log' */
+  height: 40px; /* Tinggi input log */
+}
+
+h1 {
+  color: var(--color-white); /* Warna teks heading */
+  align-items: center; /* Menyusun elemen heading secara rata tengah */
+  margin: 5rem; /* Margin seragam */
+  margin-left: 22rem; /* Margin kiri tambahan */
+  margin-bottom: 3rem; /* Margin bawah lebih kecil */
+  margin-top: 7rem; /* Margin atas besar */
+}
+
+.text {
+  font-size: 20px; /* Menentukan ukuran font untuk teks tambahan */
+}
+
+a {
+  text-decoration: none; /* Menghilangkan garis bawah pada link */
+}
+
+message {
+  margin: 5px 0; /* Margin atas dan bawah kecil */
+  width: 100%; /* Lebar penuh */
+  border-radius: 5px; /* Membulatkan sudut pesan */
+  padding: 10px; /* Memberikan padding untuk kenyamanan */
+  text-align: center; /* Menengahkan teks */
+  background-color: var(--color-bg1); /* Warna latar belakang pesan */
+  color: var(--color-white); /* Warna teks */
+  font-size: 20px; /* Ukuran font pesan */
+}
+
+/* Media Queries for smaller screens */
+@media (max-width: 768px) {
+  .main-div {
+    display: flex; /* Mengubah layout menjadi flex untuk layar kecil */
+    flex-direction: column; /* Menyusun elemen secara vertikal */
+    align-items: center; /* Menengahkan elemen */
+  }
+
+  .left img {
+    width: 100%; /* Memastikan gambar memenuhi lebar layar */
+    margin-left: 0; /* Menghapus margin kiri */
+  }
+
+  .register_form {
+    margin-right: 0; /* Menghapus margin kanan */
+    width: 80%; /* Menyesuaikan lebar form */
+  }
+
+  table {
+    width: 80%; /* Lebar tabel lebih kecil untuk layar kecil */
+    margin-left: 0; /* Menghapus margin kiri */
+  }
+
+  h1 {
+    margin-left: 0; /* Menghapus margin kiri */
+    margin-bottom: 2rem; /* Margin bawah lebih kecil */
+    margin-top: 3rem; /* Margin atas lebih kecil */
+  }
+
+  .register_form input[type='text'],
+  .register_form input[type='tel'],
+  .register_form input[type='password'],
+  .register_form select {
+    width: 100%; /* Menyesuaikan input agar memenuhi lebar layar */
+  }
+}

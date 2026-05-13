@@ -1,0 +1,224 @@
+/* Basic Reset */
+
+/* Menghapus margin, padding, dan menggunakan model box-sizing border-box untuk semua elemen,
+   memastikan padding dan border disertakan dalam ukuran elemen. */
+   * {
+    margin: 0; /* Mengatur margin elemen menjadi 0 */
+    padding: 0; /* Mengatur padding elemen menjadi 0 */
+    box-sizing: border-box; /* Menggunakan box-sizing border-box */
+    font-family: Arial, sans-serif; /* Menetapkan font default ke Arial atau sans-serif */
+}
+
+/* Body Styling */
+
+/* Mengatur gaya dasar untuk elemen <body> */
+body {
+    background-color: #1A1B47; /* Warna latar belakang biru navy */
+    color: #FFFFFF; /* Warna teks putih */
+    font-size: 16px; /* Ukuran font dasar */
+    display: flex; /* Menggunakan flexbox untuk tata letak */
+    align-items: center; /* Memusatkan konten secara vertikal */
+    justify-content: center; /* Memusatkan konten secara horizontal */
+    height: 100vh; /* Tinggi elemen body 100% dari tinggi viewport */
+    overflow: hidden; /* Menyembunyikan overflow jika konten lebih besar dari viewport */
+    flex-direction: column; /* Menyusun elemen dalam kolom */
+}
+
+/* Navbar Header */
+
+/* Gaya untuk elemen <header> */
+header {
+    width: 100%; /* Memastikan header menutupi lebar penuh viewport */
+    background-color: #1A1B47; /* Warna latar belakang biru navy */
+    padding: 20px 0; /* Jarak vertikal di dalam header */
+    position: fixed; /* Membuat header tetap di posisi atas saat halaman di-scroll */
+    top: 0; /* Posisi vertikal dari header */
+    left: 0; /* Posisi horizontal dari header */
+    z-index: 1000; /* Memberikan prioritas tinggi pada header dalam lapisan elemen */
+}
+
+/* Container Styling */
+
+/* Gaya untuk elemen dengan class .container */
+.container {
+    max-width: 1200px; /* Lebar maksimum elemen container */
+    margin: 0 auto; /* Memusatkan container secara horizontal */
+    padding: 0 20px; /* Memberikan jarak horizontal di dalam container */
+    display: flex; /* Menggunakan flexbox untuk tata letak */
+    align-items: center; /* Menyelaraskan elemen secara vertikal di tengah */
+    justify-content: space-between; /* Menyusun elemen dengan jarak maksimal di antara mereka */
+}
+
+/* Logo Styling */
+
+/* Gaya untuk elemen logo */
+.logo img {
+    width: 50px; /* Lebar gambar logo */
+    height: auto; /* Tinggi otomatis sesuai proporsi asli */
+}
+
+/* Navbar Styling */
+
+/* Gaya untuk elemen navigasi */
+nav ul.navbar {
+    list-style: none; /* Menghapus bullet list default */
+    display: flex; /* Menggunakan flexbox untuk tata letak horizontal */
+    gap: 20px; /* Memberikan jarak antara item navigasi */
+}
+
+/* Gaya untuk setiap item navigasi */
+nav ul.navbar li {
+    position: relative; /* Memungkinkan elemen pseudo atau dropdown nanti */
+}
+
+/* Gaya untuk tautan navigasi */
+nav ul.navbar li a {
+    color: #FFFFFF; /* Warna teks putih */
+    text-decoration: none; /* Menghapus garis bawah pada tautan */
+    padding: 8px 16px; /* Memberikan jarak di dalam tautan */
+    transition: color 0.3s ease; /* Efek transisi warna saat hover */
+}
+
+/* Gaya hover pada tautan navigasi */
+nav ul.navbar li a:hover {
+    color: #FF4D5A; /* Mengubah warna teks menjadi merah terang saat hover */
+}
+
+/* Dropdown Styling */
+
+/* Mengatur gaya untuk konten dropdown */
+.dropdown-content {
+    display: none; /* Awalnya dropdown tidak terlihat */
+    position: absolute; /* Menempatkan dropdown relatif terhadap parent */
+    top: 100%; /* Posisi dropdown tepat di bawah elemen parent */
+    left: 0; /* Dropdown mulai dari sisi kiri elemen parent */
+    background-color: #333333; /* Warna latar belakang abu-abu gelap */
+    min-width: 160px; /* Lebar minimum dropdown */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Memberikan efek bayangan untuk tampilan dropdown */
+    z-index: 1; /* Memberikan prioritas lapisan pada dropdown agar di atas elemen lain */
+}
+
+/* Mengatur gaya setiap item dalam dropdown */
+.dropdown-content li {
+    width: 100%; /* Item mengambil seluruh lebar dropdown */
+}
+
+/* Mengatur gaya tautan dalam dropdown */
+.dropdown-content li a {
+    display: block; /* Menampilkan sebagai blok untuk mempermudah padding dan hover */
+    color: #FFFFFF; /* Warna teks putih */
+    padding: 10px; /* Jarak dalam pada tautan */
+}
+
+/* Gaya saat tautan di-hover */
+.dropdown-content li a:hover {
+    background-color: #FF4D5A; /* Mengubah warna latar belakang menjadi merah terang */
+    color: #FFFFFF; /* Warna teks tetap putih */
+}
+
+/* Menampilkan dropdown saat elemen parent di-hover */
+.dropdown:hover .dropdown-content {
+    display: block; /* Dropdown menjadi terlihat saat parent di-hover */
+}
+
+/* Search Button Styling */
+
+/* Gaya untuk tombol pencarian */
+.search-button {
+    color: #FFFFFF; /* Warna ikon tombol putih */
+    margin-right: 15px; /* Memberikan jarak ke kanan */
+    cursor: pointer; /* Menampilkan pointer untuk menunjukkan tombol dapat diklik */
+}
+
+/* Gaya hover untuk ikon pencarian */
+.search-button svg:hover {
+    stroke: #FF4D5A; /* Mengubah warna garis ikon menjadi merah terang saat di-hover */
+}
+
+/* Account Button Styling */
+
+/* Gaya untuk tombol akun */
+.button {
+    background-color: #FF4D5A; /* Warna latar belakang tombol merah terang */
+    color: #FFFFFF; /* Warna teks putih */
+    padding: 8px 16px; /* Padding untuk jarak dalam tombol */
+    text-decoration: none; /* Menghapus garis bawah pada teks */
+    border-radius: 5px; /* Membulatkan sudut tombol */
+    transition: background-color 0.3s ease; /* Efek transisi halus saat warna tombol berubah */
+}
+
+/* Gaya hover untuk tombol akun */
+.button:hover {
+    background-color: #3C88EF; /* Warna latar tombol berubah menjadi biru terang saat di-hover */
+}
+
+/* Title and Menu Styling */
+
+/* Gaya untuk judul utama */
+.title {
+    font-size: 2.5em; /* Ukuran font besar untuk judul utama */
+    color: #FF4D5A; /* Warna teks merah terang */
+    margin-top: 100px; /* Memberikan jarak di bawah navbar */
+    margin-bottom: 40px; /* Memberikan jarak antara judul dan elemen berikutnya */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Memberikan efek bayangan lembut pada teks */
+}
+
+/* Gaya untuk menu pilihan di bawah judul */
+.menu-options {
+    display: flex; /* Mengatur elemen dalam satu baris secara fleksibel */
+    justify-content: center; /* Menempatkan elemen di tengah secara horizontal */
+    gap: 20px; /* Memberikan jarak antar tombol menu */
+    margin-top: 20px; /* Memberikan jarak di atas menu */
+}
+
+/* Gaya untuk tombol menu */
+.option-button {
+    background-color: #3C88EF; /* Warna latar biru cerah */
+    border: none; /* Menghilangkan border tombol */
+    padding: 15px 20px; /* Jarak dalam tombol untuk ukuran klik yang nyaman */
+    font-size: 1.2em; /* Ukuran teks tombol lebih besar untuk visibilitas */
+    color: #FFFFFF; /* Warna teks putih untuk kontras */
+    border-radius: 10px; /* Membulatkan sudut tombol */
+    cursor: pointer; /* Menampilkan pointer untuk menunjukkan tombol dapat diklik */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Memberikan efek bayangan lembut pada tombol */
+    transition: transform 0.2s, background-color 0.2s; /* Efek transisi halus saat tombol di-hover atau diaktifkan */
+}
+
+/* Gaya hover untuk tombol menu */
+.option-button:hover {
+    background-color: #FF4D5A; /* Mengubah warna latar menjadi merah terang saat di-hover */
+    transform: scale(1.05); /* Membesarkan tombol sedikit untuk efek interaksi */
+}
+
+/* Gaya aktif untuk tombol menu */
+.option-button:active {
+    transform: scale(0.95); /* Mengecilkan tombol sedikit untuk memberi kesan tombol ditekan */
+}
+
+/* Responsive Styling */
+
+/* Media query untuk layar dengan lebar maksimum 768px */
+@media (max-width: 768px) {
+    /* Mengatur ulang tata letak container */
+    .container {
+        flex-direction: column; /* Elemen dalam container ditampilkan secara vertikal */
+        padding: 20px; /* Memberikan jarak dalam container untuk kenyamanan */
+    }
+
+    /* Mengatur ulang navbar agar lebih cocok dengan layar kecil */
+    nav ul.navbar {
+        flex-direction: column; /* Elemen navbar ditampilkan dalam kolom */
+        gap: 10px; /* Memberikan jarak antar elemen navbar */
+    }
+
+    /* Mengatur ulang tombol pencarian untuk layar kecil */
+    .search-button {
+        margin-right: 0; /* Menghilangkan jarak di sebelah kanan */
+        margin-top: 15px; /* Menambahkan jarak di atas tombol */
+    }
+
+    /* Menambahkan margin di atas tombol akun untuk layar kecil */
+    .button {
+        margin-top: 10px;
+    }
+}

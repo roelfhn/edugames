@@ -1,0 +1,220 @@
+<script>
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const feedbackMessages = ["Great!", "Awesome!", "Good Job!", "Well Done!"];
+    const errorMessages = ["Try Again!", "Not Quite Right!", "Almost, but not yet!", "Oops! Wrong Shape!"];
+    let currentLetterIndex = 0;
+    const canvas = document.getElementById('drawingCanvas');
+    const ctx = canvas.getContext('2d');
+    const letterTarget = document.getElementById('letterTarget');
+    const letterSilhouette = document.getElementById('letterSilhouette');
+    const feedbackMessage = document.getElementById('feedbackMessage');
+    const timerElement = document.getElementById('timer');
+    const pointsElement = document.getElementById('points');
+    const menuContainer = document.querySelector('.menu-container');
+    const gameContainer = document.getElementById('gameContainer');
+
+    let drawing = false;
+    let timerID;
+    let timeLeft = 10;
+    let points = 0; // Variabel untuk menyimpan jumlah poin
+
+    function openLevel(level) {
+        if (level === 1) {
+            menuContainer.style.display = 'none';
+            gameContainer.style.display = 'flex';
+            startGame();
+        } else {
+            alert('Level ini masih terkunci!');
+        }
+    }
+
+    function startGame() {
+        points = 0;
+        timeLeft = 10;
+        pointsElement.textContent = `Points: ${points}`;
+        timerElement.textContent = timeLeft;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        startTimer();
+    }
+
+    function backToMenu() {
+        clearInterval(timerID);
+        menuContainer.style.display = 'block';
+        gameContainer.style.display = 'none';
+    }
+
+    function resizeCanvas() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    canvas.addEventListener('mousedown', startDrawing);
+    canvas.addEventListener('touchstart', startDrawing, { passive: true });
+
+    canvas.addEventListener('mouseup', stopDrawing);
+    canvas.addEventListener('mouseleave', stopDrawing);
+    canvas.addEventListener('touchend', stopDrawing);
+
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('touchmove', draw, { passive: true });
+
+    function startDrawing(e) {
+        drawing = true;
+        ctx.lineWidth = 10; // Lebar garis
+        ctx.lineCap = 'round'; // Bentuk ujung garis
+        ctx.strokeStyle = 'black'; // Warna garis
+        ctx.beginPath(); // Mulai jalur baru
+        ctx.moveTo(getX(e), getY(e)); // Pindah ke posisi awal
+    }
+
+    function stopDrawing() {
+        drawing = false;
+        ctx.closePath(); // Tutup jalur
+        validateDrawing(); // Validasi gambar setelah selesai menggambar
+    }
+
+    function draw(e) {
+        if (!drawing) return; // Hentikan jika tidak menggambar
+        ctx.lineTo(getX(e), getY(e)); // Tambahkan titik ke jalur
+        ctx.stroke(); // Gambar garis
+    }
+
+    function getX(e) {
+        const rect = canvas.getBoundingClientRect();
+        return (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+    }
+
+    function getY(e) {
+        const rect = canvas.getBoundingClientRect();
+        return (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+    }
+
+    function validateDrawing() {
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const silhouetteRect = letterSilhouette.getBoundingClientRect();
+        const canvasRect = canvas.getBoundingClientRect();
+
+        const silhouetteXStart = (silhouetteRect.left - canvasRect.left) / canvas .width * canvas.width;
+        const silhouetteYStart = (silhouetteRect.top - canvasRect.top) / canvasRect.height * canvas.height;
+        const silhouetteWidth = silhouetteRect.width / canvasRect.width * canvas.width;
+        const silhouetteHeight = silhouetteRect.height / canvasRect.height * canvas.height;
+
+        let drawnPixels = 0;
+        let matchPixels = 0;
+
+        for (let y = 0; y < canvas.height; y++) {
+            for (let x = 0; x < canvas.width; x++) {
+                const index = (y * canvas.width + x) * 4;
+                const alpha = imageData.data[index + 3];
+
+                if (alpha > 0) {
+                    drawnPixels++;
+
+                    const isInsideSilhouette = (
+                        x >= silhouetteXStart &&
+                        x <= silhouetteXStart + silhouetteWidth &&
+                        y >= silhouetteYStart &&
+                        y <= silhouetteYStart + silhouetteHeight
+                    );
+
+                    if (isInsideSilhouette) matchPixels++;
+                }
+            }
+        }
+
+        const matchPercentage = (matchPixels / drawnPixels) * 100;
+
+        if (drawnPixels > 500 && matchPercentage > 70) {
+            letterSilhouette.style.color = 'rgba(0, 0, 0, 1)';
+            showFeedback(true);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            calculatePoints(); // Hitung poin saat berhasil menggambar
+            setTimeout(nextLetter, 1000);
+        } else {
+            showFeedback(false);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+    }
+
+    function calculatePoints() {
+        if (timeLeft > 5) {
+            points += 10; // Dapatkan 10 poin jika selesai sebelum detik ke lima
+        } else {
+            points += 5; // Dapatkan 5 poin jika selesai di bawah detik kelima
+        }
+        pointsElement.textContent = `Points: ${points}`; // Tampilkan jumlah poin
+    }
+
+    function showFeedback(success) {
+        if (success) {
+            const message = feedbackMessages[Math.floor(Math.random() * feedbackMessages.length)];
+            feedbackMessage.textContent = message;
+            feedbackMessage.style.color = "#abe9ec";
+        } else {
+            const message = errorMessages[Math.floor(Math.random() * errorMessages.length)];
+            feedbackMessage.textContent = message;
+            feedbackMessage.style.color = "#ff4d4d";
+        }
+        feedbackMessage.style.opacity = 1;
+        setTimeout(() => {
+            feedbackMessage.style.opacity = 0;
+        }, 1000);
+    }
+
+    function nextLetter() {
+        if (currentLetterIndex < letters.length - 1) {
+            currentLetterIndex++;
+            const newLetter = letters[currentLetterIndex];
+            letterTarget.textContent = newLetter;
+            letterSilhouette.textContent = newLetter;
+            letterSilhouette.style.color = 'rgba(191, 222, 255, 0.651)';
+            resetTimer();
+        } else {
+            feedbackMessage.textContent = "You've completed A-Z!";
+            feedbackMessage.style.color = "#abe9ec";
+            feedbackMessage.style.opacity = 1;
+            clearInterval(timerID);
+        }
+    }
+
+function startTimer() {
+    clearInterval(timerID);
+    timeLeft = 10;
+    timerElement.textContent = timeLeft;
+
+    timerID = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = timeLeft;
+        if (timeLeft <= 0) {
+            clearInterval(timerID);
+            feedbackMessage.textContent = "Time's up! Try again!";
+            feedbackMessage.style.color = "#ff4d4d";
+            feedbackMessage.style.opacity = 1;
+            resetGame();
+        }
+    }, 1000);
+}
+
+function resetTimer() {
+    clearInterval(timerID);
+    startTimer();
+}
+
+function resetGame() {
+    currentLetterIndex = 0;
+    points = 0; // Reset poin saat permainan diulang
+    pointsElement.textContent = `Points: ${points}`; // Tampilkan poin yang direset
+    const firstLetter = letters[currentLetterIndex];
+    letterTarget.textContent = firstLetter;
+    letterSilhouette.textContent = firstLetter;
+    letterSilhouette.style.color = 'white';
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    startTimer();
+}
+
+startTimer(); // Mulai timer saat halaman dimuat
+</script>
+</body>
+</html>

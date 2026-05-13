@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Menulis Huruf dan Angka</title>
+    <link rel="icon" type="image/jpg" href="./images/EduGames.png">
+    <style>
+    /* Reset margin, padding, dan atur box-sizing default untuk semua elemen */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif; /* Font default untuk semua elemen */
+    }
+    
+    /* Styling utama untuk elemen body */
+    body {
+        background: url('') no-repeat center center fixed; /* Gambar latar belakang dengan posisi tetap */
+        background-size: cover; /* Pastikan gambar menutupi seluruh viewport */
+        color: #FFFFFF; /* Warna teks putih untuk kontras */
+        font-size: 16px; /* Ukuran font dasar */
+        display: flex; /* Layout flex untuk pusat vertikal */
+        flex-direction: column; /* Konten mengalir secara vertikal */
+        align-items: center; /* Pusatkan elemen secara horizontal */
+        justify-content: center; /* Pusatkan elemen secara vertikal */
+        height: 100vh; /* Tinggi penuh viewport */
+        margin: 0; /* Hilangkan margin default */
+    }
+
+    /* Bagian utama styling untuk konten utama, halaman level, dan game */
+    #main-content, #level-page, #game-page {
+        text-align: center; /* Rata tengah teks */
+        width: 100%; /* Lebar penuh */
+        max-width: 600px; /* Lebar maksimum */
+    }
+    
+    /* Styling untuk tata letak container */
+    .container {
+        max-width: 1200px; /* Lebar maksimum container */
+        margin: 0 auto; /* Pusatkan container */
+        padding: 0 20px; /* Padding horizontal */
+        display: flex; /* Layout flex untuk penataan */
+        align-items: center; /* Penyelarasan vertikal di tengah */
+        justify-content: space-between; /* Sebarkan jarak antar elemen anak */
+    }
+    
+    /* Styling untuk header */
+    header {
+        background-color: #090735; /* Warna latar belakang gelap */
+        padding: 20px 0; /* Padding vertikal */
+        width: 100%; /* Lebar penuh */
+        position: sticky; /* Tetap berada di atas saat scroll */
+        top: 0; /* Posisi di bagian atas */
+        z-index: 10; /* Prioritas lapisan lebih tinggi */
+    }
+    
+    /* Logo di dalam header */
+    .logo img {
+        width: 80px; /* Lebar tetap untuk logo */
+        height: auto; /* Pertahankan rasio aspek */
+    }
+    
+    /* Styling navbar untuk item daftar */
+    nav ul.navbar {
+        list-style: none; /* Hilangkan bullet */
+        display: flex; /* Layout horizontal */
+        gap: 20px; /* Jarak antar item menu */
+    }
+    
+    nav ul.navbar li {
+        position: relative; /* Posisi relatif untuk dropdown menu */
+    }
+    
+    nav ul.navbar li a {
+        color: #FFFFFF; /* Warna teks putih */
+        text-decoration: none; /* Hilangkan underline */
+        padding: 8px 16px; /* Tambahkan padding pada link */
+        transition: color 0.3s ease; /* Transisi warna halus */
+    }
+    
+    nav ul.navbar li a:hover {
+        color: #FF4D5A; /* Ganti warna saat hover */
+    }
+    
+    /* Styling dropdown menu */
+    .dropdown-content {
+        display: none; /* Tersembunyi secara default */
+        position: absolute; /* Posisi relatif terhadap elemen induk */
+        top: 100%; /* Tepat di bawah elemen induk */
+        left: 0; /* Sejajar dengan elemen induk */
+        background-color: #333333; /* Latar belakang gelap */
+        min-width: 160px; /* Lebar minimum dropdown */
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Tambahkan bayangan untuk kesan mendalam */
+        z-index: 1; /* Pastikan di atas elemen lain */
+    }
+    
+    .dropdown-content li {
+        width: 100%; /* Lebar penuh untuk item dropdown */
+    }
+    
+    .dropdown-content li a {
+        display: block; /* Layout blok untuk link dropdown */
+        color: #FFFFFF; /* Warna teks putih */
+        padding: 10px; /* Padding sekitar link */
+    }
+    
+    .dropdown-content li a:hover {
+        background-color: #FF4D5A; /* Latar belakang sorot saat hover */
+        color: #FFFFFF; /* Warna teks tetap putih */
+    }
+    
+    .dropdown:hover .dropdown-content {
+        display: block; /* Tampilkan dropdown saat hover */
+    }
+    
+    /* Tombol pencarian */
+    .search-button {
+        color: #FFFFFF; /* Warna ikon putih */
+        margin-right: 15px; /* Tambahkan jarak di kanan */
+        cursor: pointer; /* Ubah kursor jadi pointer */
+    }
+    
+    .search-button svg:hover {
+        stroke: #FF4D5A; /* Ganti warna garis saat hover */
+    }
+    
+    /* Tombol utama */
+    .button {
+        background-color: #FF4D5A; /* Latar belakang merah */
+        color: #FFFFFF; /* Teks putih */
+        padding: 8px 16px; /* Padding ukuran tombol */
+        text-decoration: none; /* Hilangkan underline */
+        border-radius: 5px; /* Sudut tombol melengkung */
+        transition: background-color 0.3s ease; /* Transisi warna latar halus */
+    }
+    
+    .button:hover {
+        background-color: #3C88EF; /* Ganti warna latar saat hover */
+    }
+    
+    /* Garis horizontal setelah navbar */
+    .navbar-hr {
+        width: 100%; /* Lebar penuh */
+        border: 1px solid #FFFFFF; /* Garis warna putih */
+        margin-top: 0; /* Hilangkan margin */
+    }
+    
+    /* Styling untuk konten utama */
+    #main-content {
+        text-align: center; /* Rata tengah teks */
+        margin-top: 20px; /* Tambahkan jarak dari atas */
+    }
+    
+    #header h1 {
+        font-size: 2.5em; /* Ukuran font lebih besar untuk judul */
+        color: #ffffff; /* Warna teks putih */
+    }
+    
+    #header p {
+        font-size: 1.2em; /* Ukuran font untuk subteks */
+        color: #ffffff; /* Warna teks putih */
+    }
+    
+    /* Garis horizontal di bawah deskripsi */
+    .description-hr {
+        border: 1px solid #FFFFFF; /* Garis putih */
+        margin: 20px 0; /* Tambahkan jarak vertikal */
+        width: 100%; /* Lebar penuh */
+    }
+    
+    /* Wrapper untuk kontainer fleksibel */
+    .container-wrapper {
+        display: flex; /* Layout fleksibel */
+        justify-content: center; /* Pusatkan item */
+        align-items: center; /* Rata tengah secara vertikal */
+        gap: 20px; /* Jarak antar elemen */
+        margin-top: 30px; /* Tambahkan jarak dari atas */
+    }
+        
+       /* Container utama untuk game */
+.game-container {
+    width: 100%; /* Lebar penuh untuk responsif */
+    max-width: 300px; /* Lebar maksimum */
+    padding: 15px; /* Spasi dalam container */
+    border-radius: 15px; /* Sudut membulat */
+    background: rgba(5, 2, 46, 0.8); /* Warna latar dengan transparansi */
+    border: 2px solid rgba(64, 69, 224, 0.8); /* Batas dengan warna dan transparansi */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Efek bayangan */
+    text-align: center; /* Teks di tengah */
+}
+
+/* Styling untuk elemen heading (h1) dan paragraf (p) */
+h1, p {
+    margin: 10px 0; /* Jarak vertikal atas dan bawah */
+    line-height: 1.5; /* Jarak antar garis teks */
+    color: #ffffff; /* Warna teks putih */
+}
+
+/* Styling untuk tombol */
+button {
+    padding: 10px 20px; /* Spasi dalam tombol */
+    font-size: 1em; /* Ukuran font */
+    border: none; /* Tidak ada batas */
+    border-radius: 5px; /* Sudut membulat */
+    cursor: pointer; /* Mengubah kursor menjadi pointer */
+    transition: background-color 0.3s ease; /* Animasi perubahan warna */
+}
+
+/* Styling tombol khusus untuk huruf */
+.button-huruf {
+    background-color: #2196f3; /* Warna latar biru */
+    color: white; /* Warna teks putih */
+}
+
+/* Efek hover untuk tombol huruf */
+.button-huruf:hover {
+    background-color: #174063; /* Warna latar saat hover */
+}
+
+/* Styling tombol khusus untuk angka */
+.button-angka {
+    background-color: #2196f3; /* Warna latar biru */
+    color: white; /* Warna teks putih */
+}
+
+/* Efek hover untuk tombol angka */
+.button-angka:hover {
+    background-color: #174063; /* Warna latar saat hover */
+}
+
+/* Styling responsif untuk layar kecil */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Susun elemen secara vertikal */
+        align-items: center; /* Pusatkan elemen */
+    }
+
+    nav ul.navbar {
+        flex-direction: column; /* Susun item navigasi secara vertikal */
+        gap: 10px; /* Jarak antar item */
+    }
+
+    .search-button {
+        margin-right: 0; /* Hapus margin kanan */
+        margin-top: 15px; /* Tambahkan margin atas */
+    }
+
+    .button {
+        margin-top: 10px; /* Tambahkan margin atas */
+    }
+
+    .container-wrapper {
+        flex-direction: column; /* Susun elemen secara vertikal */
+    }
+}
+
+/* Styling untuk pemilihan level */
+.level-container {
+    display: none; /* Sembunyikan secara default */
+    margin-top: 30px; /* Tambahkan margin atas */
+    text-align: center; /* Teks di tengah */
+}
+
+/* Styling untuk tabel */
+table {
+    border-collapse: collapse; /* Hapus garis ganda pada tabel */
+    background: rgba(5, 2, 46, 0.8); /* Warna latar tabel */
+    color: white; /* Warna teks putih */
+    width: 80%; /* Lebar 80% dari container */
+    max-width: 600px; /* Lebar maksimum */
+    border-radius: 10px; /* Sudut membulat */
+    overflow: hidden; /* Hapus elemen yang keluar dari batas */
+    text-align: center; /* Teks di tengah */
+    margin: 0 auto; /* Pusatkan tabel */
+}
+
+/* Styling untuk header dan sel tabel */
+th, td {
+    padding: 15px; /* Spasi dalam sel */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Garis bawah dengan transparansi */
+}
+
+/* Warna latar untuk header tabel */
+th {
+    background-color: #3C88EF; /* Warna biru */
+}
+
+/* Styling untuk level yang terkunci */
+.locked {
+    background-color: #999999; /* Warna abu-abu */
+    cursor: not-allowed; /* Kursor menunjukkan tidak dapat diklik */
+    opacity: 0.6; /* Kurangi kejelasan */
+}
+
+/* Efek hover untuk tombol level yang tidak terkunci */
+button.level-btn:hover:not(.locked) {
+    background-color: #d94149; /* Warna merah saat hover */
+}
+
+/* Styling untuk halaman permainan */
+.game-page {
+    text-align: center; /* Teks di tengah */
+    display: none; /* Sembunyikan secara default */
+}
+
+/* Styling tombol pada halaman permainan */
+.game-page button {
+    margin-top: 20px; /* Tambahkan margin atas */
+}
+    </style>
+</head>
+<!-- ICONSCOUT Icons -->
+<!-- Menyertakan file CSS untuk ikon dari IconScout -->
+<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css" />
+
+<!-- Google Fonts -->
+<!-- Menyambungkan ke Google Fonts untuk mengimpor font yang digunakan di halaman ini -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<!-- Mengimpor font Kanit, Montserrat, dan Outfit dari Google Fonts -->
+<link
+ href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Montserrat:wght@300;400;500;600;700;800;900&family=Outfit:wght@100;200;400;500;700;800;900&display=swap"
+ rel="stylesheet"
+/>
+
+<!-- SWIPER JS -->
+<!-- Menyertakan file CSS untuk library Swiper untuk membuat slideshow atau tampilan gambar dinamis -->
+<link
+ rel="stylesheet"
+ href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
+/>
+
+<!-- Link ke file CSS eksternal untuk styling halaman -->
+<link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body>
+
+   <!-- Musik Latar Belakang -->
+   <!-- Menambahkan musik latar yang diputar otomatis dan berulang -->
+   <audio autoplay loop>
+    <source src="./music/doodle.mp3" type="audio/mpeg">
+    <!-- Pesan untuk pengguna jika browser mereka tidak mendukung elemen audio -->
+    Your browser does not support the audio element.
+  </audio>
+
+    <!-- Konten Utama -->
+    <div id="main-content">
+        <!-- Bagian Header -->
+        <div id="header">
+            <h1>PILIHAN GAME</h1>
+            <p>Selamat datang di game menulis huruf dan angka! Pilih kategori untuk memulai.</p>
+        </div>
+
+        <!-- Garis Horizontal di bawah deskripsi -->
+        <hr class="description-hr">
+
+        <!-- Pilihan Game -->
+        <div class="container-wrapper">
+            <!-- Pilihan Game Huruf -->
+            <div class="game-container">
+                <h2>Huruf</h2>
+                <p>Latih keterampilan mengetik Anda dengan huruf A-Z.</p>
+                <!-- Tombol untuk memulai game huruf -->
+                <button class="button-huruf" onclick="showLevelSelection('huruf')">Mulai</button>
+            </div>
+
+            <!-- Pilihan Game Angka -->
+            <div class="game-container">
+                <h2>Angka</h2>
+                <p>Latih keterampilan mengetik Anda dengan angka 0-9.</p>
+                <!-- Tombol untuk memulai game angka -->
+                <button class="button-angka" onclick="showLevelSelection('angka')">Mulai</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Halaman Pemilihan Level -->
+    <div id="level-page" class="level-container">
+        <h1>Pilih Level</h1>
+        <!-- Tabel Pemilihan Level -->
+        <table>
+            <tr>
+                <th>Level</th>
+                <th>Status</th>
+            </tr>
+            <!-- Baris untuk level 1 -->
+            <tr>
+                <td>Level 1</td>
+                <!-- Tombol untuk memulai level 1 -->
+                <td><button class="level-btn" onclick="startGame(1)">Mulai</button></td>
+            </tr>
+            <!-- Baris untuk level 2 yang terkunci -->
+            <tr>
+                <td>Level 2</td>
+                <!-- Tombol yang terkunci untuk level 2 -->
+                <td><button id="level2-btn" class="level-btn locked" disabled>Locked</button></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Halaman Game -->
+    <div id="game-page" class="game-page">
+        <h2 id="game-title">Game Menulis Huruf atau Angka</h2>
+        <p>Selamat bermain!</p>
+        <!-- Tombol untuk kembali ke halaman pemilihan level -->
+        <button onclick="goBack()">Kembali ke Pilihan Level</button>
+    </div>
+<script>
+    // Menyimpan tipe permainan yang sedang dipilih (huruf atau angka)
+let currentGame = '';
+
+// Fungsi untuk menampilkan halaman pemilihan level saat sebuah kategori game dipilih
+function showLevelSelection(gameType) {
+    // Menyimpan jenis game yang dipilih (huruf atau angka)
+    currentGame = gameType;
+
+    // Menyembunyikan konten utama (halaman pilihan kategori)
+    document.getElementById('main-content').style.display = 'none';
+    
+    // Menampilkan halaman pemilihan level
+    document.getElementById('level-page').style.display = 'block';
+}
+
+// Fungsi untuk memulai game berdasarkan level yang dipilih
+function startGame(level) {
+    // Jika level yang dipilih adalah level 1
+    if (level === 1) {
+        // Menyimpan status bahwa level 1 telah selesai di localStorage
+        localStorage.setItem(currentGame + '-level1-completed', true);
+
+        // Mengecek apakah game yang dipilih adalah 'huruf' atau 'angka'
+        if (currentGame === 'huruf') {
+            // Mengarahkan pengguna ke halaman game huruf jika kategori yang dipilih adalah 'huruf'
+            window.location.href = 'huruf.html'; // Redirect ke halaman game huruf
+        } else {
+            // Mengarahkan pengguna ke halaman game angka jika kategori yang dipilih adalah 'angka'
+            window.location.href = 'angka.html'; // Redirect ke halaman game angka
+        }
+    }
+}
+
+// Fungsi untuk kembali ke halaman pemilihan level dari halaman game
+function goBack() {
+    // Menyembunyikan halaman game
+    document.getElementById('game-page').style.display = 'none';
+    
+    // Menampilkan kembali halaman pemilihan level
+    document.getElementById('level-page').style.display = 'block';
+}
+    </script>
+</body>
+</html>

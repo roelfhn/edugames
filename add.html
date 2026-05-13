@@ -1,0 +1,90 @@
+<!DOCTYPE html> <!-- Tag pembuka untuk dokumen HTML5 -->
+<html lang="en"> <!-- Tag pembuka HTML dengan atribut bahasa di-set ke "en" (bahasa Inggris) -->
+<head> <!-- Tag pembuka untuk bagian head dokumen, tempat metadata dan link -->
+  <meta charset="UTF-8"> <!-- Tag meta untuk pengaturan set karakter UTF-8 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Tag meta untuk pengaturan responsivitas layar perangkat -->
+  <link rel="icon" href="./images/EduGames.png" type="image/x-icon" />
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!-- Menghubungkan pustaka ikon Font Awesome -->
+  <link rel="stylesheet" href="./css/add.css"> <!-- Menghubungkan file CSS eksternal untuk styling halaman -->
+  
+  <title>Add</title> <!-- Menetapkan judul halaman yang tampil pada tab browser -->
+</head> <!-- Penutup tag head -->
+
+<body> <!-- Tag pembuka body, tempat semua konten halaman -->
+
+  <!-- Background Music -->
+  <audio autoplay loop>
+    <source src="./music/pixel.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+  
+  <audio id="myAudio"> <!-- Tag audio untuk pemutaran suara (benar/salah) -->
+    <source src="./music/wrong.mp3" type="audio/mpeg"> <!-- Suara saat jawaban salah -->
+    <source src="./music/true.mp3" type="audio/mpeg"> <!-- Suara saat jawaban benar -->
+  </audio> <!-- Penutup tag audio -->
+
+  <header> <!-- Tag pembuka untuk bagian header, tempat judul dan menu navigasi -->
+    <div class="container"> <!-- Div untuk container utama di dalam header -->
+      <div class="nav"> <!-- Div untuk elemen navigasi -->
+        <h2> <!-- Tag h2 untuk menampilkan judul permainan -->
+          <span><i class="fa fa-trophy" aria-hidden="true"></i></span> MATH 4 KIDS <!-- Menampilkan trofi dan teks judul -->
+        </h2>
+        <nav> <!-- Tag pembuka untuk elemen navigasi -->
+          <ul> <!-- Tag ul untuk daftar menu -->
+            <li class="current"><a href="index.html">Level 1</a></li> <!-- Menu untuk Level 1, dengan kelas 'current' untuk menunjukkan level aktif -->
+            <li><a href="#" onclick="showWarning()">Level 2</a></li> <!-- Menu untuk Level 2, dengan fungsi untuk menampilkan peringatan -->
+            <li><a href="#" onclick="showWarning()">Level 3</a></li> <!-- Menu untuk Level 3 -->
+            <li><a href="#" onclick="showWarning()">Level 4</a></li> <!-- Menu untuk Level 4 -->
+          </ul> <!-- Penutup tag ul -->
+        </nav> <!-- Penutup tag nav -->
+      </div> <!-- Penutup div.nav -->
+    </div> <!-- Penutup div.container -->
+  </header> <!-- Penutup tag header -->
+
+  <div class="wrapper"> <!-- Tag div pembuka untuk wrapper utama yang mengelompokkan konten permainan -->
+    <div class="equation" style="position: relative;"> <!-- Div untuk menampilkan soal matematika dengan posisi relatif -->
+      <h1 id="num1" style="color:#FE4A49"></h1> <!-- Tempat untuk menampilkan angka pertama (warna merah) -->
+      <h1 style="color: #2AB7CA;">+</h1> <!-- Simbol "+" dengan warna biru -->
+      <h1 id="num2" style="color: #FED766">1</h1> <!-- Tempat untuk menampilkan angka kedua (warna kuning) -->
+      <h1 style="color: #F86624">=</h1> <!-- Simbol "=" dengan warna oranye -->
+      <h1 style="color: gray">?</h1> <!-- Tanda tanya sebagai tempat jawaban yang harus dipilih -->
+      
+      <div class="points">Points: 0</div> <!-- Menampilkan skor pemain (mulai dengan 0) -->
+      <div class="timer">Time: <span id="time-remaining">5:00</span></div> <!-- Menampilkan waktu yang tersisa (dimulai dengan 5:00) -->
+      
+      <!-- Elemen gambar untuk dekorasi bintang -->
+      <img src="./images/bintang.png" class="bintang_1"> <!-- Gambar bintang pertama -->
+      <img src="./images/bintang.png" class="bintang_2"> <!-- Gambar bintang kedua -->
+      <img src="./images/bintang.png" class="bintang_3"> <!-- Gambar bintang ketiga -->
+      <img src="./images/bintang.png" class="bintang_4"> <!-- Gambar bintang keempat -->
+      <img src="./images/bintang.png" class="bintang_5"> <!-- Gambar bintang kelima -->
+      <img src="./images/bintang.png" class="bintang_6"> <!-- Gambar bintang keenam -->
+      <img src="./images/bintang.png" class="bintang_7"> <!-- Gambar bintang ketujuh -->
+      <img src="./images/bintang.png" class="bintang_8"> <!-- Gambar bintang kedelapan -->
+    </div> <!-- Penutup div.equation -->
+
+    <!-- Div untuk menampilkan pilihan jawaban -->
+    <div class="answer-options"> <!-- Pembuka div.answer-options -->
+      <div class="options" style="background-color: #FE4A49;" onclick="checkAnswer(1)"> <!-- Pilihan jawaban pertama dengan latar belakang merah -->
+        <h1 id="option1">1</h1> <!-- Menampilkan pilihan jawaban pertama (1) -->
+      </div> <!-- Penutup div.options -->
+      <div class="options" style="background-color: #2AB7CA;" onclick="checkAnswer(2)"> <!-- Pilihan jawaban kedua dengan latar belakang biru -->
+        <h1 id="option2">2</h1> <!-- Menampilkan pilihan jawaban kedua (2) -->
+      </div> <!-- Penutup div.options -->
+      <div class="options" style="background-color: #FED766;" onclick="checkAnswer(3)"> <!-- Pilihan jawaban ketiga dengan latar belakang kuning -->
+        <h1 id="option3">3</h1> <!-- Menampilkan pilihan jawaban ketiga (3) -->
+      </div> <!-- Penutup div.options -->
+
+      <!-- Modal untuk menampilkan notifikasi, seperti waktu habis atau permainan selesai -->
+      <div id="notification-modal" class="modal"> <!-- Modal untuk menampilkan pesan akhir permainan -->
+        <div class="modal-content"> <!-- Konten modal -->
+            <div id="modal-body"></div> <!-- Tempat untuk menampilkan isi modal (notifikasi) -->
+        </div> <!-- Penutup div.modal-content -->
+      </div> <!-- Penutup div.modal -->
+    </div> <!-- Penutup div.answer-options -->
+  </div> <!-- Penutup div.wrapper -->
+
+  <script src="./js/add.js"></script> <!-- Memasukkan file JavaScript eksternal untuk logika permainan -->
+</body> <!-- Penutup tag body -->
+</html> <!-- Penutup tag html -->

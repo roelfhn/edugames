@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Mendefinisikan karakter yang digunakan di dalam dokumen -->
+    <meta charset="UTF-8">
+    
+    <!-- Mengatur tampilan responsif pada berbagai perangkat -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Menambahkan favicon untuk halaman -->
+    <link rel="icon" href="./images/EduGames.png" type="image/x-icon" />
+    
+    <!-- Judul halaman ditampilkan di tab browser -->
+    <title>E-Certificate Edugames</title>
+    
+    <!-- Bagian style digunakan untuk mengatur tampilan halaman -->
+    <style>
+        /* Mengatur tampilan keseluruhan halaman, termasuk margin, padding, font, dan warna latar belakang */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #141e3e;
+            color: white;
+        }
+
+        /* Memodifikasi tampilan kotak utama sertifikat, termasuk lebar, tinggi, dan posisi */
+        #main {
+            height: 650px;
+            width: 1000px;
+            display: none; /* Tidak ditampilkan sampai fungsi JavaScript memanggilnya */
+            margin: auto;
+            background-color: rgb(251, 251, 251);
+            margin-top: 50px;
+            border: 6px solid black;
+            position: relative;
+        }
+
+        /* Memodifikasi tampilan elemen anak dari kotak utama sertifikat */
+        #child1 {
+            height: 600px;
+            width: 900px;
+            background-color: #141e3e;
+            margin: auto;
+            position: absolute;
+            margin-top: 25px;
+            margin-left: 45px;
+            border: 3px solid #00bf8e;
+            text-align: center;
+        }
+
+        /* Menata gambar yang berada di bagian kiri atas sertifikat */
+        .img1 {
+            height: auto;
+            width: 140px;
+            float: left;
+            margin-left: 50px;
+            margin-top: 30px;
+            border-radius: 20px;
+        }
+
+        /* Menata teks judul utama sertifikat */
+        #img2 {
+            font-size: 85px;
+            margin-top: 38px;
+            margin-left: 280px;
+        }
+
+        /* Menata teks yang berisi informasi utama tentang sertifikat */
+        .body {
+            font-size: 50px;
+            text-align: center;
+            font-family: Bookman Old Style;
+            font-weight: bolder;
+            margin-top: -37px;
+        }
+
+        /* Menata teks tambahan terkait partisipasi di dalam sertifikat */
+        .body2 {
+            font-size: 50px;
+            text-align: center;
+            font-family: Bookman Old Style;
+            margin-left: 165px;
+            font-weight: bolder;
+        }
+
+        /* Memodifikasi tampilan formulir input data */
+        #cform {
+            text-align: center;
+            height: 500px;
+            width: 600px;
+            margin: 50px auto;
+            border: 2px solid black;
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Mengatur layout dalam formulir, termasuk pengaturan warna dan ukuran elemen */
+        #chform {
+            height: auto;
+            width: 90%;
+            background-color: #141e3e;
+            border-radius: 20px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        /* Menata input field untuk nama, detail sertifikat, dan nama organisasi */
+        #fname, #fdetails, #forganisername {
+            height: 40px;
+            width: 90%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            padding: 5px;
+        }
+
+        /* Menata tombol untuk menghasilkan dan mengunduh sertifikat */
+        #bcertificate, #downloaddata {
+            height: 40px;
+            width: 45%;
+            font-weight: bolder;
+            border-radius: 5px;
+            margin: 10px 5px;
+        }
+
+        /* Memberikan warna dan gaya pada tombol "Generate E-Certificate" */
+        #bcertificate {
+            background-color:rgb(77, 104, 243);
+            color: white;
+        }
+
+        /* Memberikan warna dan gaya pada tombol "Download E-Certificate" */
+        #downloaddata {
+            background-color: rgb(77, 104, 243);
+            color: white;
+        }
+
+        /* Menyesuaikan tampilan detail informasi pada sertifikat */
+        .details {
+            font-size: x-large;
+            color: #f7c94b;
+        }
+
+        /* Menata nama organisasi pada sertifikat */
+        .organisername {
+            font-size: large;
+            color: #f7c94b;
+            font-family: 'Montserrat';
+            flex-wrap: wrap;
+        }
+
+        /* Menata tampilan nama yang dimasukkan oleh pengguna pada sertifikat */
+        #name {
+            font-size: xx-large;
+            background-color: rgb(77, 104, 243);
+            font-family: Lucida Handwriting;
+        }
+    </style>
+    
+    <!-- Bagian JavaScript untuk menangani logika interaksi pengguna -->
+    <script>
+        // Fungsi 'check' digunakan untuk memeriksa apakah nama telah diisi sebelum memanggil fungsi 'ecertificate'
+        function check() {
+            var input = document.getElementById('fname'); // Mengambil elemen input nama
+            if (input.value !== "") { // Memeriksa apakah input tidak kosong
+                ecertificate(); // Memanggil fungsi ecertificate untuk menampilkan sertifikat
+            } else {
+                alert("Input field is empty."); // Menampilkan peringatan jika input kosong
+            }
+        }
+
+        // Fungsi 'ecertificate' digunakan untuk menampilkan sertifikat setelah semua informasi dimasukkan
+        function ecertificate() {
+            var x = document.getElementById("main"); // Mengambil elemen utama yang menyimpan sertifikat
+            x.style.display = "block"; // Menampilkan elemen sertifikat
+            var name = document.getElementById('fname').value; // Mengambil nama dari input
+            var details = document.getElementById('fdetails').value; // Mengambil detail sertifikat dari input
+            var oname = document.getElementById('forganisername').value; // Mengambil nama organisasi dari input
+            document.getElementsByTagName('h3')[0].innerHTML = name; // Menampilkan nama pengguna di dalam elemen sertifikat
+            document.getElementsByTagName('h4')[0].innerHTML = details; // Menampilkan detail sertifikat
+            document.getElementsByTagName('h5')[0].innerHTML = oname; // Menampilkan nama organisasi
+        }
+
+        // Fungsi 'dcheck' digunakan untuk memeriksa apakah nama telah diisi sebelum memanggil fungsi 'download'
+        function dcheck() {
+            var input = document.getElementById('fname'); // Mengambil elemen input nama
+            if (input.value !== "") { // Memeriksa apakah input tidak kosong
+                download(); // Memanggil fungsi download untuk mengunduh sertifikat
+            } else {
+                alert("Input field is empty."); // Menampilkan peringatan jika input kosong
+            }
+        }
+
+        // Fungsi 'download' digunakan untuk mengunduh sertifikat dalam bentuk PDF atau cetakan
+        function download() {
+            var body = document.getElementById('body').innerHTML; // Mengambil konten seluruh body
+            var main = document.getElementById('main').innerHTML; // Mengambil konten elemen sertifikat
+            document.getElementById('body').innerHTML = main; // Mengganti body dengan konten sertifikat
+            window.print(); // Memulai proses cetak
+            document.getElementById('body').innerHTML = body; // Mengembalikan konten asli body setelah cetak selesai
+        }
+    </script>
+</head>
+<body id="body">
+    <!-- Form input untuk menerima data pengguna untuk e-sertifikat -->
+    <div id="cform">
+        <div id="chform">
+            <h1>E-Certificate Form</h1>
+            <p>Masukan Nama User</p>
+            <input type="text" id="fname" placeholder="Enter Your Name...." />
+            <p>Masukan Detail E-Certificate</p>
+            <input type="text" id="fdetails" placeholder="Enter Your Certificate Details...." />
+            <p>Masukan Organisasi</p>
+            <input type="text" id="forganisername" placeholder="Enter Organiser Name...." />
+            <button id="bcertificate" onclick="check()">Generate E-Certificate</button>
+            <button id="downloaddata" onclick="dcheck()">Download E-Certificate</button>
+        </div>
+    </div>
+    
+    <!-- Background Music -->
+   <audio autoplay loop>
+    <source src="./music/doodle.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+    <div id="main">
+        <div id="child1">
+            <img src="./images/EduGames.png" alt="Favicon" class="img1">
+            <h1 id="img2">Edugames Learn</h1>
+            <div class="body">Certificate</div>
+            <div class="body2">Of Participation</div>
+            <h3 id="name"></h3>
+            <h4 class="details"></h4>
+            <h5 class="organisername"></h5>
+        </div>
+    </div>
+</body>
+</html>

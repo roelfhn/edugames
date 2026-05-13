@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Menulis Huruf A-Z</title>
+    <link rel="icon" type="image/jpg" href="./images/EduGames.png">
+    <style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Mengatur agar padding dan border tidak mempengaruhi ukuran elemen */
+}
+
+/* Menentukan gaya untuk elemen body */
+body {
+    background: url('./images/bg2.jpeg') no-repeat; /* Menggunakan gambar latar belakang yang ditentukan, tanpa pengulangan */
+    /* background-color: #1A1B47; */ /* Menggunakan warna latar belakang, ini bisa diaktifkan jika gambar latar belakang dihapus */
+    background-size: cover; /* Mengatur ukuran latar belakang agar menutupi seluruh area viewport */
+    background-position: center; /* Menempatkan gambar latar di tengah halaman */
+    background-attachment: fixed; /* Mengatur gambar latar agar tetap di tempat saat halaman digulir */
+    display: flex; /* Menggunakan Flexbox untuk menata elemen di dalamnya */
+    flex-direction: column; /* Menata elemen secara vertikal */
+    align-items: center; /* Menyelaraskan semua elemen secara horizontal di tengah */
+    justify-content: center; /* Menyelaraskan semua elemen secara vertikal di tengah */
+    height: 100vh; /* Mengatur tinggi body agar sesuai dengan tinggi viewport */
+    font-family: Arial, sans-serif; /* Menggunakan font Arial untuk teks */
+    overflow: hidden; /* Menyembunyikan elemen yang meluap dari area viewport */
+    position: relative; /* Posisi relatif untuk penataan elemen anak yang absolut */
+}
+
+/* Menata elemen instruksi huruf */
+.letter-instruction {
+    position: absolute; /* Posisi absolut agar dapat ditempatkan di tempat yang diinginkan */
+    top: 40%; /* Menempatkan elemen di 40% dari tinggi viewport */
+    left: 30%; /* Menempatkan elemen di 30% dari lebar viewport */
+    font-size: 1.5rem; /* Menetapkan ukuran font instruksi */
+    color: #fffefe; /* Warna font putih dengan sedikit transparansi */
+    transform: translateX(-50%); /* Memindahkan elemen secara horizontal agar berada di tengah */
+}
+
+/* Menata elemen target huruf besar */
+.letter-target {
+    position: absolute; /* Posisi absolut untuk menempatkan target huruf */
+    top: 35%; /* Menempatkan target huruf di 35% dari tinggi viewport */
+    left: 40%; /* Menempatkan target huruf di 40% dari lebar viewport */
+    transform: translateX(-50%); /* Memindahkan elemen secara horizontal agar berada di tengah */
+    font-size: 17rem; /* Ukuran font sangat besar untuk menampilkan huruf target */
+    color: rgb(255, 255, 255); /* Warna huruf putih */
+    z-index: 1; /* Memberikan prioritas tampilan lebih tinggi daripada elemen lainnya */
+}
+
+/* Menata latar belakang elemen huruf dengan efek garis-garis */
+.letter-background {
+    position: absolute; /* Posisi absolut untuk latar belakang huruf */
+    top: 60%; /* Menempatkan latar belakang di 60% dari tinggi viewport */
+    left: 70%; /* Menempatkan latar belakang di 70% dari lebar viewport */
+    width: 18rem; /* Menentukan lebar latar belakang */
+    height: 18rem; /* Menentukan tinggi latar belakang */
+    background: repeating-linear-gradient( /* Membuat pola garis-garis menggunakan gradien linear berulang */
+        135deg, /* Mengatur sudut gradien */
+        rgba(224, 247, 250, 0.3), /* Warna pertama dengan transparansi */
+        rgba(224, 247, 250, 0.3) 10px, /* Ulangi warna pertama hingga 10px */
+        rgba(255, 255, 255, 0.3) 10px, /* Warna kedua dengan transparansi */
+        rgba(255, 255, 255, 0.3) 20px /* Ulangi warna kedua hingga 20px */
+    );
+    border-radius: 10px; /* Membuat sudut latar belakang menjadi melengkung */
+    transform: translate(-50%, -50%); /* Memindahkan elemen ke tengah dengan cara transformasi */
+    z-index: 0; /* Menempatkan latar belakang di bawah elemen lain */
+    border: 8px solid; /* Membuat border pada elemen latar belakang */
+    border-image: linear-gradient( /* Menambahkan gradien ke border */
+        45deg, /* Mengatur sudut gradien border */
+        #ff5733, /* Warna gradien pertama */
+        #33ff57, /* Warna gradien kedua */
+        #3357ff /* Warna gradien ketiga */
+    ) 1; /* Menyertakan gradien sebagai border dengan ketebalan 1 */
+    animation: gradientBorder 3s infinite; /* Menambahkan animasi pada border dengan durasi 3 detik berulang */
+}
+
+/* Animasi untuk border gradien agar berputar */
+@keyframes gradientBorder {
+    0% { 
+        border-image: linear-gradient(45deg, #ff5733, #33ff57, #3357ff) 1; 
+    }
+    50% { 
+        border-image: linear-gradient(45deg, #3357ff, #ff5733, #33ff57) 1; 
+    }
+    100% { 
+        border-image: linear-gradient(45deg, #33ff57, #3357ff, #ff5733) 1; 
+    }
+}
+
+/* Menata elemen siluet huruf */
+.letter-silhouette {
+    font-size: 15rem; /* Ukuran font besar untuk siluet huruf */
+    color: rgba(191, 222, 255, 0.651); /* Warna dengan transparansi untuk efek siluet */
+    position: absolute; /* Posisi absolut untuk menempatkan elemen */
+    top: 60%; /* Menempatkan elemen di 60% dari tinggi viewport */
+    left: 70%; /* Menempatkan elemen di 70% dari lebar viewport */
+    transform: translate(-50%, -50%); /* Memindahkan elemen ke tengah */
+    pointer-events: none; /* Menonaktifkan interaksi pengguna dengan elemen ini */
+    transition: color 0.3s ease; /* Menambahkan transisi perubahan warna */
+    z-index: 1; /* Memprioritaskan tampilan elemen ini di atas latar belakang */
+}
+
+/* Menata elemen canvas untuk menggambar */
+canvas {
+    position: absolute; /* Posisi absolut untuk menempatkan canvas */
+    top: 50%; /* Menempatkan canvas di tengah tinggi viewport */
+    left: 70%; /* Menempatkan canvas di tengah lebar viewport */
+    transform: translate(-50%, -50%); /* Memindahkan canvas ke tengah */
+    width: 18rem; /* Lebar canvas */
+    height: 18rem; /* Tinggi canvas */
+    border-radius: 10px; /* Membuat sudut canvas melengkung */
+    z-index: 2; /* Memastikan canvas berada di atas elemen lainnya */
+}
+
+/* Menata pesan umpan balik (feedback) */
+.feedback-message {
+    position: absolute; /* Posisi absolut untuk elemen feedback */
+    top: 10%; /* Menempatkan pesan di bagian atas viewport */
+    left: 50%; /* Menempatkan pesan di tengah horizontal */
+    transform: translateX(-50%); /* Memindahkan elemen agar berada di tengah secara horizontal */
+    font-size: 5rem; /* Ukuran font besar untuk pesan feedback */
+    color: #abe9ec; /* Warna teks pesan feedback */
+    opacity: 0; /* Mengatur opacity ke 0 agar tersembunyi awalnya */
+    transition: opacity 0.9s ease; /* Menambahkan efek transisi saat opacity berubah */
+}
+
+/* Menata timer di pojok kanan atas */
+.timer {
+    position: absolute; /* Posisi absolut untuk timer */
+    top: 20px; /* Menempatkan timer 20px dari atas */
+    right: 20px; /* Menempatkan timer 20px dari kanan */
+    width: 72px; /* Lebar timer */
+    height: 72px; /* Tinggi timer */
+    border-radius: 50%; /* Membuat timer berbentuk lingkaran */
+    background-color: #6da7e9; /* Warna latar belakang timer */
+    border: 2px solid rgb(227, 226, 247); /* Menambahkan border dengan warna cerah */
+    font-size: 24px; /* Ukuran font di dalam timer */
+    font-weight: 600; /* Menebalkan teks dalam timer */
+    display: flex; /* Menggunakan Flexbox untuk menata teks di dalam timer */
+    justify-content: center; /* Menyelaraskan teks di tengah secara horizontal */
+    align-items: center; /* Menyelaraskan teks di tengah secara vertikal */
+    animation: pulse 1s ease-in-out infinite; /* Menambahkan animasi pemulsa untuk efek interaktif */
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2); /* Menambahkan efek bayangan */
+}
+
+/* Menata elemen poin di bagian kiri atas */
+.points {
+    position: absolute; /* Posisi absolut untuk elemen poin */
+    top: 20px; /* Menempatkan poin 20px dari atas */
+    left: 30px; /* Menempatkan poin 30px dari kiri */
+    font-size: 1.2rem; /* Ukuran font poin */
+    color: white; /* Warna teks putih */
+    background: rgba(0, 0, 0, 0.3); /* Latar belakang dengan sedikit transparansi */
+    padding: 10px 20px; /* Memberikan padding di dalam elemen */
+    border-radius: 5px; /* Membuat sudut elemen menjadi melengkung */
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2); /* Menambahkan bayangan */
+}
+
+/* Animasi untuk efek pemulsa pada elemen */
+@keyframes pulse {
+    0% { transform: scale(1); } /* Memulai dengan ukuran normal */
+    50% { transform: scale(1.2); } /* Meningkatkan ukuran saat animasi berjalan */
+    100% { transform: scale(1); } /* Mengembalikan ukuran normal */
+}
+
+        /* Menyembunyikan elemen "nextLevel" secara default, elemen ini akan muncul saat level selesai */
+#nextLevel {
+    display: none; /* Elemen tidak terlihat saat halaman dimuat */
+    position: absolute; /* Posisi absolut agar bisa ditempatkan sesuai koordinat */
+    top: 70%; /* Menempatkan elemen di 70% dari tinggi viewport */
+    left: 50%; /* Menempatkan elemen di tengah horizontal */
+    transform: translate(-50%, -50%); /* Menggeser elemen agar berada tepat di tengah */
+    text-align: center; /* Menyelaraskan teks di tengah */
+}
+
+/* Menata tombol "Next Level" */
+#nextLevelButton {
+    padding: 10px 20px; /* Memberikan padding di sekitar teks tombol */
+    font-size: 1.2rem; /* Ukuran font pada tombol */
+    background-color: #6da7e9; /* Warna latar belakang tombol */
+    color: white; /* Warna teks tombol */
+    border: none; /* Menghilangkan border default tombol */
+    border-radius: 5px; /* Memberikan sudut melengkung pada tombol */
+    cursor: pointer; /* Menunjukkan bahwa tombol bisa diklik */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Menambahkan bayangan pada tombol */
+    transition: background-color 0.3s ease; /* Menambahkan efek transisi pada warna latar belakang */
+}
+
+/* Efek hover pada tombol */
+#nextLevelButton:hover {
+    background-color: #5a96d1; /* Mengubah warna latar belakang saat mouse diarahkan ke tombol */
+}
+    </style>
+</head>
+
+<body>
+    <!-- Menampilkan poin yang diperoleh oleh pemain -->
+    <div class="points" id="points">Points: 0</div>
+    <!-- Menampilkan target huruf yang harus digambar -->
+    <div class="letter-target" id="letterTarget">A</div>
+    <!-- Menampilkan latar belakang huruf dengan efek garis -->
+    <div class="letter-background" id="letterBackground"></div>
+    <!-- Menampilkan siluet huruf untuk panduan menggambar -->
+    <div class="letter-silhouette" id="letterSilhouette">A</div>
+    <!-- Elemen canvas untuk menggambar -->
+    <canvas id="drawingCanvas"></canvas>
+    <!-- Pesan umpan balik yang muncul setelah menggambar -->
+    <div class="feedback-message" id="feedbackMessage">Great!</div>
+    <!-- Timer yang menunjukkan waktu tersisa -->
+    <div class="timer" id="timer">10</div>
+    <!-- Elemen untuk tombol 'Next Level' yang muncul setelah level selesai -->
+    <div id="nextLevel">
+        <button id="nextLevelButton" onclick="goToNextLevel()">Next Level</button>
+    </div>
+
+    <!-- Audio background yang akan diputar selama permainan -->
+    <audio id="gameMusic" autoplay loop>
+        <source src="./music/replay.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // Daftar huruf yang bisa dipilih sebagai target
+const feedbackMessages = ["Great!", "Awesome!", "Good Job!", "Well Done!"]; // Pesan umpan balik positif
+const errorMessages = ["Coba lagi!", "Oops, Salah nih", "Hampir.."]; // Pesan umpan balik negatif
+let currentLetterIndex = 0; // Menyimpan indeks huruf yang sedang digunakan sebagai target
+const canvas = document.getElementById('drawingCanvas'); // Mengambil elemen canvas untuk menggambar
+const ctx = canvas.getContext('2d'); // Mengambil konteks 2D untuk menggambar di canvas
+const letterTarget = document.getElementById('letterTarget'); // Mengambil elemen target huruf
+const letterSilhouette = document.getElementById('letterSilhouette'); // Mengambil elemen siluet huruf
+const feedbackMessage = document.getElementById('feedbackMessage'); // Mengambil elemen pesan umpan balik
+const timerElement = document.getElementById('timer'); // Mengambil elemen timer
+const pointsElement = document.getElementById('points'); // Mengambil elemen poin
+const nextLevelDiv = document.getElementById('nextLevel'); // Mengambil elemen "nextLevel"
+const nextLevelButton = document.getElementById('nextLevelButton'); // Mengambil tombol "Next Level"
+
+/* Mengatur volume musik latar */
+const audio = document.getElementById('gameMusic');
+audio.volume = 1.0; // Mengatur volume musik ke 100%
+
+let drawing = false; // Status apakah pemain sedang menggambar
+let timerID; // Menyimpan ID untuk timer
+let timeLeft = 10; // Menyimpan waktu yang tersisa dalam detik
+let points = 0; // Menyimpan jumlah poin yang didapat oleh pemain
+
+// Fungsi untuk mengubah ukuran canvas saat ukuran layar berubah
+function resizeCanvas() {
+    canvas.width = canvas.offsetWidth; // Menetapkan lebar canvas sesuai dengan lebar elemen
+    canvas.height = canvas.offsetHeight; // Menetapkan tinggi canvas sesuai dengan tinggi elemen
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas); // Menambahkan event listener untuk resize
+
+// Event listener untuk mulai menggambar
+canvas.addEventListener('mousedown', startDrawing);
+canvas.addEventListener('touchstart', startDrawing, { passive: true });
+
+// Event listener untuk berhenti menggambar
+canvas.addEventListener('mouseup', stopDrawing);
+canvas.addEventListener('mouseleave', stopDrawing);
+canvas.addEventListener('touchend', stopDrawing);
+
+// Event listener untuk menggambar saat bergerak
+canvas.addEventListener('mousemove', draw);
+canvas.addEventListener('touchmove', draw, { passive: true });
+
+// Fungsi untuk mulai menggambar
+function startDrawing(e) {
+    drawing = true; // Mengatur status menggambar menjadi true
+    ctx.lineWidth = 10; // Menetapkan lebar garis
+    ctx.lineCap = 'round'; // Menetapkan ujung garis menjadi bulat
+    ctx.strokeStyle = 'black'; // Menetapkan warna garis menjadi hitam
+    ctx.beginPath(); // Memulai jalur gambar
+    ctx.moveTo(getX(e), getY(e)); // Memindahkan posisi awal ke posisi pointer/touch
+}
+
+// Fungsi untuk berhenti menggambar dan memvalidasi gambar
+function stopDrawing() {
+    drawing = false; // Mengatur status menggambar menjadi false
+    ctx.closePath(); // Menutup jalur gambar
+    validateDrawing(); // Memvalidasi gambar yang telah dibuat
+}
+
+// Fungsi untuk menggambar saat pointer/touch bergerak
+function draw(e) {
+    if (!drawing) return; // Jika tidak menggambar, tidak perlu melanjutkan
+    ctx.lineTo(getX(e), getY(e)); // Menambahkan garis baru ke posisi baru
+    ctx.stroke(); // Menampilkan garis
+}
+
+// Fungsi untuk mendapatkan posisi X dari pointer/touch pada canvas
+function getX(e) {
+    const rect = canvas.getBoundingClientRect(); // Mengambil posisi canvas pada layar
+    return (e.touches ? e.touches[0].clientX : e.clientX) - rect.left; // Menghitung posisi X
+}
+
+// Fungsi untuk mendapatkan posisi Y dari pointer/touch pada canvas
+function getY(e) {
+    const rect = canvas.getBoundingClientRect(); // Mengambil posisi canvas pada layar
+    return (e.touches ? e.touches[0].clientY : e.clientY) - rect.top; // Menghitung posisi Y
+}
+
+// Fungsi untuk memvalidasi gambar yang dibuat sesuai dengan siluet huruf
+function validateDrawing() {
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height); // Mengambil data gambar dari canvas
+    const silhouetteRect = letterSilhouette.getBoundingClientRect(); // Mengambil posisi dan ukuran siluet
+    const canvasRect = canvas.getBoundingClientRect(); // Mengambil posisi dan ukuran canvas
+
+    // Menghitung posisi dan ukuran siluet relatif terhadap canvas
+    const silhouetteXStart = (silhouetteRect.left - canvasRect.left) / canvasRect.width * canvas.width;
+    const silhouetteYStart = (silhouetteRect.top - canvasRect.top) / canvasRect.height * canvas.height;
+    const silhouetteWidth = silhouetteRect.width / canvasRect.width * canvas.width;
+    const silhouetteHeight = silhouetteRect.height / canvasRect.height * canvas.height;
+
+    let drawnPixels = 0; // Variabel untuk menghitung jumlah piksel yang digambar
+    let matchPixels = 0; // Variabel untuk menghitung jumlah piksel yang sesuai dengan siluet
+
+    // Memeriksa setiap piksel pada canvas
+    for (let y = 0; y < canvas.height; y++) {
+        for (let x = 0; x < canvas.width; x++) {
+            const index = (y * canvas.width + x) * 4; // Menghitung indeks data gambar
+            const alpha = imageData.data[index + 3]; // Mengambil nilai alpha (transparansi)
+
+            if (alpha > 0) { // Jika piksel digambar (tidak transparan)
+                drawnPixels++; // Menambahkan jumlah piksel yang digambar
+
+                // Memeriksa apakah piksel berada di dalam area siluet
+                const isInsideSilhouette = (
+                    x >= silhouetteXStart &&
+                    x <= silhouetteXStart + silhouetteWidth &&
+                    y >= silhouetteYStart &&
+                    y <= silhouetteYStart + silhouetteHeight
+                );
+
+                if (isInsideSilhouette) matchPixels++; // Menambahkan jumlah piksel yang cocok dengan siluet
+            }
+        }
+    }
+    // Menghitung persentase kecocokan antara gambar yang digambar dan siluet
+            const matchPercentage = (matchPixels / drawnPixels) * 100;
+    
+            if (drawnPixels > 500 && matchPercentage > 70) {
+                letterSilhouette.style.color = 'rgba(0, 0, 0, 1)';// Mengubah warna siluet menjadi hitam jika gambar benar
+                showFeedback(true);// Menampilkan umpan balik positif
+                ctx.clearRect(0, 0, canvas.width, canvas.height);// Membersihkan kanvas setelah menggambar
+                calculatePoints(); // Hitung poin saat berhasil menggambar
+                setTimeout(nextLetter, 1000);// Berpindah ke huruf berikutnya setelah 1 detik
+            } else {
+                showFeedback(false);// Menampilkan umpan balik negatif jika gambar tidak sesuai
+            }
+        }
+
+        // Fungsi untuk menghitung poin berdasarkan sisa waktu
+        function calculatePoints() {
+            if (timeLeft > 5) {
+                points += 10; // Dapatkan 10 poin jika selesai sebelum detik ke lima
+            } else {
+                points += 5; // Dapatkan 5 poin jika selesai di bawah detik kelima
+            }
+            pointsElement.textContent = `Points: ${points}`; // Tampilkan jumlah poin
+        }
+    
+        function showFeedback(success) {
+            if (success) {
+                const message = feedbackMessages[Math.floor(Math.random() * feedbackMessages.length)];
+                feedbackMessage.textContent = message; // Menampilkan pesan umpan balik positif
+                feedbackMessage.style.color = "#abe9ec"; // Mengubah warna teks menjadi biru muda
+            } else {
+                const message = errorMessages[Math.floor(Math.random() * errorMessages.length)];
+                feedbackMessage.textContent = message; // Menampilkan pesan umpan balik negatif
+                feedbackMessage.style.color = "#ff4d4d";// Mengubah warna teks menjadi merah
+            }
+            feedbackMessage.style.opacity = 1; // Menampilkan pesan umpan balik
+            setTimeout(() => {
+                feedbackMessage.style.opacity = 0; // Menyembunyikan pesan umpan balik setelah 1 detik
+            }, 1000);
+        }
+    
+        // Fungsi untuk mengganti huruf target dan siluet ke huruf berikutnya
+        function nextLetter() {
+            if (currentLetterIndex < letters.length - 1) {
+                currentLetterIndex++; // Pindah ke huruf berikutnya
+                const newLetter = letters[currentLetterIndex];
+                letterTarget.textContent = newLetter; // Menampilkan huruf baru sebagai target
+                letterSilhouette.textContent = newLetter;// Menampilkan huruf baru sebagai siluet
+                letterSilhouette.style.color = 'rgba(191, 222, 255, 0.651)';// Mengubah warna siluet
+                resetTimer();// Mereset timer
+            } else {
+                feedbackMessage.textContent = "Yeayy Keren!!";// Menampilkan pesan jika selesai
+                feedbackMessage.style.color = "#abe9ec";// Warna biru muda
+                feedbackMessage.style.opacity = 1;// Menampilkan pesan umpan balik
+                clearInterval(timerID); // Menghentikan timer
+                unlockNextLevel(); // Menampilkan tombol untuk melanjutkan ke level berikutnya
+            }
+        }
+        
+        // Fungsi untuk menampilkan tombol Next Level dan menyimpan status
+        function unlockNextLevel() {
+            nextLevelDiv.style.display = "block"; // Menampilkan tombol Next Level
+            localStorage.setItem("level2", "unlocked"); // Menyimpan status level yang telah terbuka di localStorage
+        }
+        
+        // Fungsi untuk melanjutkan ke level berikutnya
+        function goToNextLevel() {
+            window.location.href = "hurufk2.html"; // Mengarahkan pengguna ke level berikutnya
+        }
+        
+        // Fungsi untuk memulai timer
+        function startTimer() {
+            clearInterval(timerID); // Menghentikan timer sebelumnya
+            timeLeft = 10; // Menetapkan waktu sisa 10 detik
+            timerElement.textContent = timeLeft; // Menampilkan waktu yang tersisa
+        
+            timerID = setInterval(() => {
+                timeLeft--; // Mengurangi waktu per detik
+                timerElement.textContent = timeLeft; // Memperbarui tampilan waktu
+                if (timeLeft <= 0) {
+                    clearInterval(timerID); // Menghentikan timer
+                    alert("Waktu habis, mulai lagi yuk!"); // Mengganti feedback dengan pop-up
+                    resetGame(); // Mereset permainan
+                }
+            }, 1000);
+        }
+        
+    // Fungsi untuk mereset timer
+        function resetTimer() {
+            clearInterval(timerID); // Menghentikan timer yang sedang berjalan
+            startTimer(); // Memulai timer baru
+        }
+
+    // Fungsi untuk mereset permainan dan mengatur ulang nilai
+        function resetGame() {
+            currentLetterIndex = 0; // Mengatur ulang indeks huruf
+            points = 0; // Reset poin saat permainan diulang
+            pointsElement.textContent = `Points: ${points}`; // Tampilkan poin yang direset
+            const firstLetter = letters[currentLetterIndex];
+            letterTarget.textContent = firstLetter; // Menampilkan huruf pertama
+            letterSilhouette.textContent = firstLetter; // Menampilkan siluet huruf pertama
+            letterSilhouette.style.color = 'white'; // Mengubah warna siluet menjadi putih
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Membersihkan kanvas
+            startTimer(); // Memulai timer
+        }
+    
+        // Fungsi untuk menampilkan tombol Next Level
+        function unlockNextLevel() {
+            nextLevelDiv.style.display = "block"; // Menampilkan tombol Next Level
+            localStorage.setItem("level2", "unlocked"); // Menyimpan status level
+        }
+    
+        // Fungsi untuk melanjutkan ke level berikutnya
+        function goToNextLevel() {
+            window.location.href = "hurufk2.html"; // Arahkan ke level berikutnya
+        }
+    
+        startTimer(); // Mulai timer saat halaman dimuat
+    </script>
+    

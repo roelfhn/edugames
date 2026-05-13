@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8"> <!-- Menentukan encoding karakter untuk dokumen -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Memastikan tampilan responsif pada semua perangkat -->
+    <link rel="icon" href="./images/EduGames.png" type="image/x-icon" /> <!-- Menambahkan ikon untuk tab browser -->
+    <title>Game Isi Kata Kosong</title> <!-- Judul halaman -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;600&display=swap');
+        /* Mengimpor font dari Google Fonts */
+
+        * {
+            margin: 0; /* Menghilangkan margin default pada semua elemen */
+            padding: 0; /* Menghilangkan padding default pada semua elemen */
+            box-sizing: border-box; /* Mengatur ukuran elemen termasuk border dan padding */
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif; /* Mengatur font default untuk seluruh halaman */
+            background: linear-gradient(135deg,#1a1b47, #4caf50); /* Menambahkan gradasi warna untuk latar belakang */
+            height: 100vh; /* Mengatur tinggi halaman sesuai tinggi viewport */
+            display: flex; /* Menggunakan flexbox untuk tata letak */
+            justify-content: center; /* Memusatkan kontainer secara horizontal */
+            align-items: center; /* Memusatkan kontainer secara vertikal */
+            overflow: hidden; /* Menghilangkan scroll jika konten melebihi viewport */
+            position: relative; /* Memungkinkan elemen posisi relatif di dalamnya */
+            color: #000000; /* Warna teks default */
+        }
+
+        .game-container {
+            width: 600px; /* Lebar maksimum untuk kontainer game */
+            background: #f4f9e9; /* Warna latar belakang kontainer */
+            padding: 30px; /* Padding dalam kontainer */
+            border-radius: 25px; /* Membuat sudut kontainer melengkung */
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); /* Memberikan bayangan untuk kontainer */
+            text-align: center; /* Menengahkan teks di dalam kontainer */
+        }
+
+        .game-container h1 {
+            font-family: 'Fredoka One', sans-serif; /* Menggunakan font Fredoka One untuk heading */
+            font-size: 28px; /* Ukuran font untuk heading */
+            color: #4caf50; /* Warna teks heading */
+            margin-bottom: 20px; /* Memberikan jarak bawah pada heading */
+        }
+
+        .timer {
+            font-size: 18px; /* Ukuran font untuk timer */
+            background: #a8e063; /* Warna latar belakang timer */
+            color: #fff; /* Warna teks timer */
+            padding: 10px 20px; /* Padding dalam elemen timer */
+            border-radius: 20px; /* Membulatkan sudut timer */
+            font-weight: bold; /* Membuat teks menjadi tebal */
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Memberikan bayangan untuk timer */
+            display: inline-block; /* Membuat timer menjadi elemen blok dalam baris */
+            margin-bottom: 20px; /* Memberikan jarak bawah pada timer */
+        }
+
+        .instruction {
+            font-size: 20px; /* Ukuran font untuk instruksi */
+            margin-bottom: 20px; /* Memberikan jarak bawah pada instruksi */
+            color: #56ab2f; /* Warna teks instruksi */
+        }
+
+        .sentence {
+            font-size: 20px; /* Ukuran font untuk kalimat */
+            color: #4caf50; /* Warna teks kalimat */
+            margin-bottom: 30px; /* Memberikan jarak bawah pada kalimat */
+            font-weight: bold; /* Membuat teks menjadi tebal */
+        }
+
+        .word-container {
+            display: flex; /* Menggunakan flexbox untuk tata letak kata */
+            flex-wrap: wrap; /* Membungkus kata jika tidak muat dalam satu baris */
+            gap: 15px; /* Memberikan jarak antar kata */
+            justify-content: center; /* Menengahkan kata secara horizontal */
+            margin-top: 20px; /* Memberikan jarak atas pada kontainer kata */
+        }
+
+        .word-card {
+            background: #f9a825; /* Warna latar belakang kartu kata */
+            color: #fff; /* Warna teks kartu kata */
+            padding: 12px 25px; /* Padding dalam kartu kata */
+            border: none; /* Menghilangkan border kartu kata */
+            border-radius: 15px; /* Membulatkan sudut kartu kata */
+            font-size: 18px; /* Ukuran font untuk kartu kata */
+            font-weight: bold; /* Membuat teks menjadi tebal */
+            cursor: pointer; /* Mengubah kursor menjadi pointer saat di-hover */
+            transition: transform 0.4s, box-shadow 0.4s; /* Menambahkan transisi pada efek hover */
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); /* Memberikan bayangan untuk kartu kata */
+        }
+
+        .word-card:hover {
+            transform: scale(1.1); /* Memperbesar kartu saat di-hover */
+            box-shadow: 0px 6px 20px rgba(249, 168, 37, 0.8); /* Memberikan bayangan lebih besar saat di-hover */
+        }
+
+        .feedback {
+            margin-top: 20px; /* Memberikan jarak atas pada feedback */
+            font-size: 22px; /* Ukuran font untuk feedback */
+            font-weight: bold; /* Membuat teks feedback menjadi tebal */
+        }
+
+        .feedback.correct {
+            color: #4caf50; /* Warna teks untuk feedback benar */
+        }
+
+        .feedback.incorrect {
+            color: #e53935; /* Warna teks untuk feedback salah */
+        } 
+
+        /* Memastikan popup tidak tampil pada awal */
+#popup {
+    display: none;
+    position: fixed; /* Membuat popup tetap di tempat saat di-scroll */
+    top: 50%; /* Memposisikan popup di tengah secara vertikal */
+    left: 50%; /* Memposisikan popup di tengah secara horizontal */
+    transform: translate(-50%, -50%); /* Mengatur posisi agar tepat di tengah */
+    width: 400px; /* Lebar popup */
+    background: #fff; /* Warna latar belakang popup */
+    padding: 20px; /* Memberikan jarak dalam popup */
+    border-radius: 15px; /* Membuat sudut popup melengkung */
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); /* Menambahkan bayangan untuk efek 3D */
+    text-align: center; /* Mengatur teks di tengah */
+}
+
+/* Gaya teks judul dalam popup */
+#popup h2 {
+    font-size: 24px; /* Ukuran font untuk judul */
+    color: #4caf50; /* Warna hijau untuk judul */
+}
+
+/* Gaya teks paragraf dalam popup */
+#popup p {
+    font-size: 18px; /* Ukuran font untuk paragraf */
+    margin: 10px 0; /* Jarak vertikal antara paragraf */
+}
+
+/* Gaya tombol dalam popup */
+#popup button {
+    padding: 10px 20px; /* Jarak dalam tombol */
+    background: #4caf50; /* Warna latar belakang tombol */
+    color: white; /* Warna teks tombol */
+    border: none; /* Menghilangkan border default */
+    border-radius: 5px; /* Membuat sudut tombol melengkung */
+    cursor: pointer; /* Mengubah kursor saat hover */
+    font-size: 16px; /* Ukuran font untuk teks tombol */
+}
+
+/* Efek hover untuk tombol */
+#popup button:hover {
+    background: #388e3c; /* Warna latar belakang tombol saat di-hover */
+}
+
+/* Gaya dekorasi */
+.decoration {
+    position: absolute; /* Posisi absolut untuk elemen dekorasi */
+    width: 100px; /* Lebar dekorasi */
+    height: 100px; /* Tinggi dekorasi */
+    background: rgba(255, 255, 255, 0.3); /* Warna latar belakang dekorasi transparan */
+    border-radius: 50%; /* Membuat dekorasi berbentuk lingkaran */
+    animation: float 5s ease-in-out infinite; /* Animasi mengapung */
+}
+
+/* Dekorasi pertama */
+.decoration:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
+/* Dekorasi kedua */
+.decoration:nth-child(2) { top: 50%; left: 10%; animation-delay: 2s; }
+/* Dekorasi ketiga */
+.decoration:nth-child(3) { top: 30%; left: 70%; animation-delay: 1s; }
+/* Dekorasi keempat */
+.decoration:nth-child(4) { bottom: 20%; right: 15%; animation-delay: 3s; }
+
+/* Keyframes untuk animasi mengapung */
+@keyframes float {
+    0%, 100% { transform: translateY(-10px); } /* Posisi awal dan akhir */
+    50% { transform: translateY(10px); } /* Posisi tengah */
+}
+
+    </style>
+</head>
+<body>
+    <div class="decoration"></div>
+    <div class="decoration"></div>
+    <div class="decoration"></div>
+    <div class="decoration"></div>
+
+    </style>
+</head>
+<body>
+
+    <!-- Bagian ini menyisipkan musik latar yang akan otomatis diputar dan diulang. -->
+<audio autoplay loop>
+    <source src="./music/pixel.mp3" type="audio/mpeg">
+    Browser Anda tidak mendukung elemen audio.
+</audio>
+
+<!-- Ini adalah wadah utama untuk antarmuka permainan. -->
+<div class="game-container">
+    <h1>Game Isi Kata Kosong</h1>
+    <!-- Elemen timer untuk menampilkan waktu yang tersisa. -->
+    <div class="timer" id="timer">01:00</div>
+    <!-- Petunjuk untuk permainan. -->
+    <div class="instruction">Pilih kata yang tepat untuk melengkapi kalimat!</div>
+    <!-- Tempat untuk kalimat yang akan dilengkapi oleh pengguna. -->
+    <div class="sentence" id="sentence">_______ sedang bermain di taman.</div>
+    <!-- Wadah untuk opsi kata yang bisa dipilih oleh pengguna. -->
+    <div class="word-container" id="word-container"></div>
+    <!-- Elemen untuk memberikan umpan balik kepada pengguna (misalnya, jawaban benar atau salah). -->
+    <div class="feedback" id="feedback"></div>
+</div>
+
+<!-- Elemen popup yang muncul ketika level selesai. -->
+<div id="popup">
+    <h2>Level Selesai!</h2>
+    <p>Benar: <span id="correctAnswers">0</span></p>
+    <p>Salah: <span id="incorrectAnswers">0</span></p>
+    <button onclick="startNextLevel()">Mulai Level Berikutnya</button>
+</div>
+
+<!-- Elemen audio untuk suara jawaban benar dan salah. -->
+<audio id="correctSound" src="./music/true.mp3"></audio>
+<audio id="wrongSound" src="./music/wrong.mp3"></audio>
+
+<script>
+    let currentLevel = 0; // Variabel untuk melacak level saat ini dari permainan.
+    let correctAnswers = 0; // Variabel untuk melacak jumlah jawaban benar.
+    let incorrectAnswers = 0; // Variabel untuk melacak jumlah jawaban salah.
+    let timerInterval; // Variabel untuk menyimpan interval timer.
+    let questionIndex = 0; // Variabel untuk melacak indeks pertanyaan saat ini.
+
+    // Array yang berisi level-level yang berbeda dan pertanyaannya masing-masing.
+    const levels = [
+        {
+            time: 60, // Waktu dalam detik untuk level ini.
+            questions: [
+                { sentence: "_______ sedang bermain di taman.", options: ["Anjing", "Batu", "Rumah"], correctAnswer: "Anjing" },
+                { sentence: "Di pasar, banyak orang menjual _______.", options: ["Batu", "Sayuran", "Rumah"], correctAnswer: "Sayuran" },
+                { sentence: "Saya melihat _______ di pohon.", options: ["Televisi", "Motor", "Burung"], correctAnswer: "Burung" },
+                { sentence: "_______ sangat indah di malam hari.", options: ["Kursi", "Bintang", "Kopi"], correctAnswer: "Bintang" },
+                { sentence: "_______ adalah hewan peliharaan yang lucu.", options: ["Gitar", "Komputer", "Kucing"], correctAnswer: "Kucing" },
+            ]
+        },
+        {
+            time: 50, // Waktu dalam detik untuk level ini.
+            questions: [
+                { sentence: "_______ berlari sangat cepat.", options: ["Kuda", "Lemari", "Buku"], correctAnswer: "Kuda" },
+                { sentence: "Saya membeli _______ di toko.", options: ["Rumah", "Pohon", "Roti"], correctAnswer: "Roti" },
+                { sentence: "_______ adalah minuman segar.", options: ["Mobil", "Jus", "Gitar"], correctAnswer: "Jus" },
+                { sentence: "_______ terbang di langit.", options: ["Pesawat", "Meja", "Kopi"], correctAnswer: "Pesawat" },
+                { sentence: "_______ sangat pandai berenang.", options: ["Pena", "Laptop", "Ikan"], correctAnswer: "Ikan" },
+            ]
+        },
+        {
+            time: 40, // Waktu dalam detik untuk level ini.
+            questions: [
+                { sentence: "_______ suka memanjat pohon.", options: ["Kursi", "Monyet", "Kamera"], correctAnswer: "Monyet" },
+                { sentence: "Di pagi hari, saya suka _______.", options: ["Jogging", "Menulis", "Tidur"], correctAnswer: "Jogging" },
+                { sentence: "_______ sangat harum di taman.", options: ["Kursi", "Sepeda", "Bunga"], correctAnswer: "Bunga" },
+                { sentence: "_______ tinggal di dalam laut.", options: ["Sepatu", "Ikan", "Jam"], correctAnswer: "Ikan" },
+                { sentence: "_______ adalah kendaraan roda dua.", options: ["Sepeda", "Kipas", "Kursi"], correctAnswer: "Sepeda" },
+            ]
+        },
+        {
+            time: 30, // Waktu dalam detik untuk level ini.
+            questions: [
+                { sentence: "_______ bersinar terang di langit.", options: ["Kertas", "Pintu", "Matahari"], correctAnswer: "Matahari" },
+                { sentence: "Saya belajar menggunakan _______.", options: ["Buku", "Lampu", "Mobil"], correctAnswer: "Buku" },
+                { sentence: "_______ adalah tempat tinggal burung.", options: ["Meja", "Sarang", "Jam"], correctAnswer: "Sarang" },
+                { sentence: "_______ membantu kita melihat di malam hari.", options: ["Kulkas", "Sepatu", "Lampu"], correctAnswer: "Lampu" },
+                { sentence: "_______ adalah buah yang manis dan merah.", options: ["Apel", "Batu", "Televisi"], correctAnswer: "Apel" },
+            ]
+        },
+        {
+            time: 20, // Waktu dalam detik untuk level ini.
+            questions: [
+                { sentence: "Saya menulis surat dengan _______.", options: ["Kamera", "Pena", "Pohon"], correctAnswer: "Pena" },
+                { sentence: "_______ suka menggonggong di malam hari.", options: ["Meja", "Sepatu", "Anjing"], correctAnswer: "Anjing" },
+                { sentence: "_______ adalah hewan yang sangat besar.", options: ["Gajah", "Televisi", "Kursi"], correctAnswer: "Gajah" },
+                { sentence: "_______ adalah minuman berwarna hitam.", options: ["Pohon", "Kopi", "Mobil"], correctAnswer: "Kopi" },
+                { sentence: "_______ bisa digunakan untuk mendengarkan musik.", options: ["Piring", "Lampu", "Radio"], correctAnswer: "Radio" },
+            ]
+        },
+    ];
+
+    function startLevel(levelIndex) {
+        // Mengambil level berdasarkan indeks level saat ini.
+        const level = levels[levelIndex];
+        const question = level.questions[questionIndex];
+    
+        // Menampilkan kalimat yang akan dilengkapi oleh pengguna.
+        document.getElementById("sentence").textContent = question.sentence;
+        const wordContainer = document.getElementById("word-container");
+        wordContainer.innerHTML = "";
+    
+        // Menambahkan opsi kata ke dalam kontainer kata.
+        question.options.forEach(option => {
+            const button = document.createElement("button");
+            button.classList.add("word-card");
+            button.textContent = option;
+            button.onclick = () => checkAnswer(option, question.correctAnswer);
+            wordContainer.appendChild(button);
+        });
+    
+        // Memulai timer untuk level saat ini.
+        startTimer(level.time);
+    }
+    
+    function checkAnswer(selectedAnswer, correctAnswer) {
+        const feedback = document.getElementById("feedback");
+        const correctSound = document.getElementById("correctSound");
+        const wrongSound = document.getElementById("wrongSound");
+    
+        // Memeriksa apakah jawaban yang dipilih benar atau salah.
+        if (selectedAnswer === correctAnswer) {
+            correctAnswers++; // Menambah jumlah jawaban benar.
+            feedback.textContent = "Jawaban Benar!";
+            feedback.className = "feedback correct";
+            correctSound.play(); // Memutar suara benar.
+        } else {
+            incorrectAnswers++; // Menambah jumlah jawaban salah.
+            feedback.textContent = "Jawaban Salah!";
+            feedback.className = "feedback incorrect";
+            wrongSound.play(); // Memutar suara salah.
+        }
+    
+        // Mengosongkan umpan balik setelah 1 detik dan lanjut ke pertanyaan berikutnya.
+        setTimeout(() => {
+            feedback.textContent = "";
+            nextQuestion();
+        }, 1000);
+    }
+    
+    function nextQuestion() {
+        const level = levels[currentLevel];
+        questionIndex++;
+    
+        // Mengecek apakah masih ada pertanyaan di level saat ini.
+        if (questionIndex < level.questions.length) {
+            startLevel(currentLevel); // Memulai pertanyaan berikutnya di level saat ini.
+        } else {
+            clearInterval(timerInterval); // Menghentikan timer.
+            showPopup(); // Menampilkan popup level selesai.
+        }
+    }
+    
+    function startTimer(time) {
+        const timerElement = document.getElementById("timer");
+        let remainingTime = time;
+    
+        timerElement.textContent = `01:00`;
+        clearInterval(timerInterval); // Menghentikan timer jika masih berjalan.
+    
+        // Memulai interval timer.
+        timerInterval = setInterval(() => {
+            const minutes = Math.floor(remainingTime / 60);
+            const seconds = remainingTime % 60;
+            timerElement.textContent = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            remainingTime--;
+    
+            // Mengecek apakah waktu telah habis.
+            if (remainingTime < 0) {
+                clearInterval(timerInterval); // Menghentikan timer.
+                showPopup(); // Menampilkan popup level selesai.
+            }
+        }, 1000);
+    }
+    
+    function showPopup() {
+        const totalQuestions = levels.reduce((sum, level) => sum + level.questions.length, 0);
+        const assessment = getFinalAssessment(correctAnswers, totalQuestions);
+    
+        document.getElementById("popup").style.display = "block";
+        document.getElementById("correctAnswers").textContent = correctAnswers;
+        document.getElementById("incorrectAnswers").textContent = incorrectAnswers;
+    
+        // Menambahkan elemen untuk menampilkan hasil penilaian di akhir semua soal.
+        if (currentLevel === levels.length - 1 && questionIndex === levels[currentLevel].questions.length) {
+            const popup = document.getElementById("popup");
+            let assessmentElement = document.getElementById("finalAssessment");
+    
+            if (!assessmentElement) {
+                assessmentElement = document.createElement("p");
+                assessmentElement.id = "finalAssessment";
+                popup.appendChild(assessmentElement);
+            }
+    
+            assessmentElement.textContent = `Penilaian Akhir: ${assessment}`;
+            const totalScore = `Total Nilai: ${correctAnswers} dari ${totalQuestions}`;
+            const totalScoreElement = document.createElement("p");
+            totalScoreElement.textContent = totalScore;
+            popup.appendChild(totalScoreElement);
+        }
+    }
+    
+    function startNextLevel() {
+        document.getElementById("popup").style.display = "none";
+        currentLevel++;
+        questionIndex = 0;
+    
+        // Mengecek apakah masih ada level berikutnya.
+        if (currentLevel < levels.length) {
+            startLevel(currentLevel); // Memulai level berikutnya.
+        } else {
+            alert("Semua level selesai!"); // Menampilkan pesan bahwa semua level telah selesai.
+        }
+    }
+    
+    function getFinalAssessment(correct, total) {
+        const percentage = (correct / total) * 100;
+        if (percentage >= 85) {
+            return "Sangat Baik";
+        } else if (percentage >= 70) {
+            return "Baik";
+        } else if (percentage >= 50) {
+            return "Cukup Baik";
+        } else {
+            return "Kurang Baik";
+        }
+    }
+    
+    // Memulai level pertama pada saat memuat halaman.
+    startLevel(currentLevel);    
+    </script>
+</body>
+</html>

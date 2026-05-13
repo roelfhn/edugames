@@ -1,0 +1,115 @@
+/*========Contact Container========*/
+/* Mengatur tata letak grid untuk container kontak, dengan 40% untuk aside dan 60% untuk form. 
+Memberikan jarak antar elemen dengan `gap`, tinggi, margin, padding, dan radius border */
+.contact_container {
+  background: var(--color-bg1); /* Mengatur warna latar belakang container */
+  padding: 4rem; /* Menambahkan padding di semua sisi container */
+  display: grid; /* Menggunakan grid layout */
+  grid-template-columns: 40% 60%; /* Kolom pertama mengambil 40% lebar, kolom kedua 60% */
+  gap: 4rem; /* Jarak antar kolom dalam grid */
+  height: 30rem; /* Mengatur tinggi container */
+  margin: 7rem auto; /* Mengatur margin dengan jarak atas-bawah 7rem dan horizontal auto */
+  border-radius: 1rem; /* Menambahkan radius pada sudut container */
+}
+
+/*========Aside========*/
+/* Mengatur gaya untuk bagian aside yang berada di dalam container kontak. Memberikan warna latar, 
+padding, dan radius border untuk sudut */
+.contact_aside {
+  background: var(--color-primary); /* Mengatur warna latar belakang aside */
+  padding: 3rem; /* Menambahkan padding di dalam aside */
+  border-radius: 1rem; /* Radius pada sudut aside */
+  position: relative; /* Mengatur posisi relative, memungkinkan perubahan posisi */
+  bottom: 10rem; /* Menempatkan aside 10rem ke bawah */
+  width: 25rem; /* Lebar aside diatur sebesar 25rem */
+}
+
+/*========Aside Image========*/
+/* Mengatur lebar gambar di dalam aside serta margin bawah */
+.aside_image {
+  width: 17rem; /* Mengatur lebar gambar dalam aside */
+  margin-bottom: 2rem; /* Jarak bawah gambar 2rem */
+}
+
+/*========Aside Heading========*/
+/* Mengatur posisi dan margin heading di dalam aside */
+.contact_aside h2 {
+  text-align: left; /* Menyelaraskan teks ke kiri */
+  margin-bottom: 1rem; /* Memberi jarak bawah sebesar 1rem */
+}
+
+/*========Aside Paragraph========*/
+/* Mengatur ukuran font dan jarak bawah paragraf dalam aside */
+.contact_aside p {
+  font-size: 0.9rem; /* Ukuran font paragraf */
+  margin-bottom: 2rem; /* Jarak bawah paragraf 2rem */
+}
+
+/*========Contact Details========*/
+/* Mengatur gaya daftar detail kontak, seperti tata letak flex dan jarak antar item */
+.contact_details li {
+  display: flex; /* Mengatur elemen menjadi flexbox */
+  gap: 1rem; /* Memberikan jarak antar elemen dalam satu baris */
+  align-items: center; /* Menyelaraskan item di tengah secara vertikal */
+  margin-bottom: 1rem; /* Memberikan jarak bawah antara item */
+}
+
+/*========Contact Socials========*/
+/* Mengatur tata letak flexbox dan jarak antar ikon media sosial */
+.contact_socials {
+  display: flex; /* Menyusun ikon media sosial dalam satu baris */
+  gap: 0.8rem; /* Jarak antar ikon */
+  margin-top: 3rem; /* Menambahkan jarak atas dari elemen sebelumnya */
+}
+
+/* Mengatur tampilan tautan media sosial, dengan padding dan radius */
+.contact_socials a {
+  background: var(--color-bg2); /* Warna latar belakang ikon */
+  padding: 0.5rem; /* Padding di sekitar konten ikon */
+  padding-left: 0.6rem; /* Padding kiri ikon */
+  padding-right: 0.6rem; /* Padding kanan ikon */
+  border-radius: 50%; /* Membuat ikon berbentuk lingkaran */
+  font-size: 1rem; /* Ukuran font ikon */
+  transition: var(--transition); /* Menambahkan efek transisi */
+}
+
+/* Mengatur efek hover pada ikon media sosial */
+.contact_socials a:hover {
+  background: transparent; /* Menghilangkan latar belakang saat hover */
+}
+
+/*========Contact Form========*/
+/* Mengatur tata letak vertikal form kontak dan jarak antar elemen form */
+.contact_form {
+  display: flex; /* Menyusun elemen form dalam kolom vertikal */
+  flex-direction: column; /* Mengatur arah flex menjadi kolom */
+  gap: 1.2rem; /* Jarak antar elemen form */
+  margin-right: 4rem; /* Jarak kanan dari form */
+}
+
+/* Mengatur form untuk input nama, dengan layout flex dan jarak antar field */
+.form_name {
+  display: flex; /* Menyusun field nama dalam satu baris */
+  gap: 1.2rem; /* Jarak antar field input */
+}
+
+/* Mengatur lebar input teks form */
+.contact_form input[type='text'] {
+  width: 50%; /* Input field mengambil 50% dari lebar container */
+}
+
+/* Mengatur gaya umum input dan textarea */
+input,
+textarea {
+  width: 100%; /* Input dan textarea memenuhi lebar container */
+  padding: 1rem; /* Padding di dalam field input dan textarea */
+  color: var(--color-white); /* Warna teks dalam input dan textarea */
+  background: var(--color-bg); /* Warna latar belakang input dan textarea */
+}
+
+/* Mengatur tombol submit pada form kontak */
+.contact_form .btn {
+  width: max-content; /* Tombol mengikuti ukuran kontennya */
+  margin-top: 1rem; /* Jarak atas tombol dari elemen sebelumnya */
+  cursor: pointer; /* Mengganti kursor menjadi pointer */
+}

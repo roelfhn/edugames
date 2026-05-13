@@ -1,0 +1,196 @@
+<!DOCTYPE html> <!-- Deklarasi dokumen HTML5 -->
+<html lang="en"> <!-- Tag pembuka HTML dengan atribut bahasa "en" (Inggris) -->
+  <head> <!-- Bagian head, berisi metadata dan link ke sumber eksternal -->
+    <meta charset="UTF-8" /> <!-- Set karakter encoding untuk dokumen HTML (UTF-8 mencakup hampir semua karakter teks) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Mengatur agar tampilan sesuai dengan lebar perangkat pengguna (responsif) -->
+    <link rel="icon" href="./images/EduGames.png" type="image/x-icon" /> <!-- Menyertakan favicon yang akan muncul di tab browser -->
+    <title>Contact</title> <!-- Judul halaman yang ditampilkan pada tab browser -->
+
+    <!-- ICONSCOUT Icons -->
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
+    /> <!-- Menyertakan pustaka ikon dari Unicons, digunakan untuk ikon grafis di halaman -->
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" /> <!-- Preconnect ke Google Fonts untuk mempercepat pemuatan -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> <!-- Preconnect ke Google Fonts CDN, mengizinkan pengambilan sumber daya dari domain yang berbeda -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Montserrat:wght@300;400;500;600;700;800;900&family=Outfit:wght@100;200;400;500;700;800;900&display=swap"
+      rel="stylesheet"
+    /> <!-- Menyertakan font dari Google Fonts dengan jenis font Kanit, Montserrat, dan Outfit -->
+
+    <!-- Menghubungkan file CSS eksternal untuk styling halaman -->
+    <link rel="stylesheet" href="./css/style.css" /> <!-- Style umum -->
+    <link rel="stylesheet" href="./css/contact.css" /> <!-- Style khusus halaman contact -->
+  </head> <!-- Penutup tag head -->
+
+  <body> <!-- Bagian utama halaman, tempat konten ditampilkan -->
+
+     <!-- Background Music -->
+     <audio autoplay loop> <!-- Tag audio yang memutar musik secara otomatis dan berulang -->
+      <source src="./music/lunar.mp3" type="audio/mpeg"> <!-- Sumber file audio yang akan diputar, dalam format MP3 -->
+      Your browser does not support the audio element. <!-- Pesan fallback jika browser tidak mendukung tag audio -->
+    </audio>
+    
+    <!-- Bagian Navigasi -->
+    <nav>
+      <div class="container nav_container"> <!-- Kontainer untuk menampung elemen-elemen navigasi -->
+        <a href="index.html"><h4>EDUGAMES</h4></a> <!-- Logo/tulisan EDUGAMES yang mengarah ke halaman index (Home) -->
+        <ul class="nav_menu"> <!-- Daftar navigasi menu -->
+          <li><a href="index.html">Home</a></li> <!-- Link menuju halaman Home -->
+          <li><a href="about.html">About</a></li> <!-- Link menuju halaman About -->
+          <li><a href="courses.html">Courses</a></li> <!-- Link menuju halaman Courses -->
+          <li><a href="contact.html">Contact</a></li> <!-- Link menuju halaman Contact -->
+        </ul>
+        <!-- Tombol untuk membuka dan menutup menu pada tampilan perangkat kecil (mobile) -->
+        <button id="open-menu-btn"><i class="uil uil-bars"></i></button> <!-- Tombol untuk membuka menu (ikon bar) -->
+        <button id="close-menu-btn"><i class="uil uil-multiply"></i></button> <!-- Tombol untuk menutup menu (ikon silang) -->
+      </div>
+    </nav> <!-- Penutup tag navigasi -->
+
+    <section class="contact"> <!-- Membuat section baru dengan kelas "contact" untuk bagian kontak halaman -->
+      <div class="container contact_container"> <!-- Membungkus seluruh elemen dalam container dengan class "contact_container" untuk penataan yang lebih baik -->
+        
+        <!-- Bagian samping kontak -->
+        <aside class="contact_aside"> <!-- Menambahkan aside yang menampung informasi tambahan, dalam hal ini, detail kontak -->
+          <div class="aside_image"> <!-- Menyediakan area gambar untuk bagian aside -->
+            <img src="./images/contact.png" alt="" /> <!-- Menampilkan gambar kontak dengan atribut "alt" sebagai deskripsi gambar -->
+          </div>
+          
+          <!-- Judul dan deskripsi kontak -->
+          <h2>Contact Us</h2> <!-- Judul untuk bagian kontak -->
+          <p>
+            Hubungi kami untuk informasi dan bantuan lebih lanjut. Kami siap membantu Anda!
+          </p> <!-- Paragraf yang memberikan informasi untuk menghubungi tim untuk bantuan lebih lanjut -->
+    
+          <!-- Detail Kontak -->
+          <ul class="contact_details"> <!-- Daftar unordered (bullets) yang menampilkan detail kontak -->
+            <li>
+              <i class="uil uil-phone-times"></i> <!-- Ikon telepon dari Unicons untuk memperjelas simbol kontak telepon -->
+              <h5>0857-9551-7549</h5> <!-- Nomor telepon yang bisa dihubungi -->
+            </li>
+            <li>
+              <i class="uil uil-envelope"></i> <!-- Ikon email dari Unicons -->
+              <h5>edugames@gmail.com</h5> <!-- Alamat email untuk kontak -->
+            </li>
+            <li>
+              <i class="uil uil-location-point"></i> <!-- Ikon lokasi dari Unicons -->
+              <h5>Jl. Veteran No. 8, Purwakarta 41115, Jawa Barat, Indonesia</h5> <!-- Alamat fisik perusahaan atau layanan -->
+            </li>
+          </ul> <!-- Penutup daftar detail kontak -->
+    
+          <!-- Media Sosial -->
+          <ul class="contact_socials"> <!-- Daftar unordered (bullets) untuk ikon media sosial -->
+            <li>
+              <a href="#"><i class="uil uil-facebook-f"></i></a> <!-- Tautan ke halaman Facebook, ikon Facebook dari Unicons -->
+            </li>
+            <li>
+              <a href="#"><i class="uil uil-instagram-alt"></i></a> <!-- Tautan ke halaman Instagram, ikon Instagram dari Unicons -->
+            </li>
+            <li>
+              <a href="#"><i class="uil uil-twitter"></i></a> <!-- Tautan ke halaman Twitter, ikon Twitter dari Unicons -->
+            </li>
+            <li>
+              <a href="#"><i class="uil uil-linkedin-alt"></i></a> <!-- Tautan ke halaman LinkedIn, ikon LinkedIn dari Unicons -->
+            </li>
+          </ul> <!-- Penutup daftar media sosial -->
+        </aside> <!-- Penutup aside yang menampung detail kontak dan sosial media -->
+
+        <form
+          action="https://formspree.io/f/xdkknzaq"
+          method="POST"
+          class="contact_form"
+        >
+          <div class="form_name">
+            <input
+              type="text"
+              name="First Name"
+              placeholder="First Name"
+              required
+            />
+            <input
+              type="text"
+              name="Last Name"
+              placeholder="Last Name"
+              required
+            />
+          </div>
+          <input
+            type="email"
+            name="Email Address"
+            placeholder="example@gmail.com"
+            required
+          />
+          <textarea
+            name="Message"
+            placeholder="Message"
+            rows="7"
+            required
+          ></textarea>
+          <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container footer_container">
+        <div class="footer_1">
+          <a href="index.html" class="footer_logo"><h4>EDUGAMES</h4></a>
+          <p>
+            Belajar dan bermain bersama EduGames, solusi edukasi interaktif untuk anak-anak!
+          </p>
+        </div>
+       
+        <div class="footer_2">
+          <h4>Team</h4>
+          <ul class="premalinks">
+              <p>Adetya Priatna Putra </p>
+              <p>Ayumi Febrianty </p>
+              <p>Salwa Aulia </p>
+              <p>Salma Nurkamila </p>
+              <p>Syahrul Fahrudin </p>
+          </ul>
+        </div>
+
+        <div class="footer_3">
+          <h4>Shortcut</h4>
+          <ul class="privacy">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="courses.html">Courses</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>        
+
+        <div class="footer_4">
+          <h4>Contact Us</h4>
+          <div>
+            <p>0857-9551-7549</p>
+            <p>EduGames@gmail.com</p>
+          </div>
+          <ul class="footer_socials">
+            <li>
+              <a href="#"><i class="uil uil-facebook-f"></i></a>
+            </li>
+            <li>
+              <a href="#"><i class="uil uil-instagram-alt"></i></a>
+            </li>
+            <li>
+              <a href="#"><i class="uil uil-twitter"></i></a>
+            </li>
+            <li>
+              <a href="#"><i class="uil uil-linkedin-alt"></i></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer_copyrights">
+        <small>Copyrights &copy; EduGames</small>
+      </div>
+    </footer>
+
+    <script src="./main.js"></script>
+  </body>
+</html>

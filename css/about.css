@@ -1,0 +1,141 @@
+/*==================== Achievements Section ==========================*/
+.about_achievements {
+  margin-top: 3rem; /* Memberikan jarak atas pada bagian Achievements */
+}
+
+.about_achievements-container {
+  display: grid; /* Menggunakan grid layout */
+  grid-template-columns: 40% 60%; /* Membagi kolom dengan 40% untuk kiri dan 60% untuk kanan */
+  gap: 5rem; /* Memberikan jarak antar elemen */
+}
+
+.about_achievements-right > p {
+  margin: 1.6rem 0 2.5rem; /* Memberikan jarak atas dan bawah pada elemen <p> di dalam .about_achievements-right */
+}
+
+.achievements_cards {
+  display: grid; /* Menggunakan grid layout untuk menata kartu pencapaian */
+  grid-template-columns: repeat(3, 1fr); /* Membuat 3 kolom dengan lebar sama */
+  gap: 1.5rem; /* Jarak antar kartu */
+}
+
+.red-text {
+  color: rgb(13, 24, 120); /* Menetapkan warna teks menjadi biru gelap */
+}
+
+.achievements_card {
+  background: var(--color-bg1); /* Menggunakan variabel warna latar belakang */
+  padding: 1.6rem; /* Memberikan padding dalam kartu */
+  border-radius: 1rem; /* Memberikan sudut melengkung pada kartu */
+  text-align: center; /* Menyelaraskan teks ke tengah */
+  transition: var(--transition); /* Memberikan efek transisi untuk perubahan gaya */
+}
+
+.achievements_card:hover {
+  background: var(--color-bg2); /* Mengubah warna latar belakang saat hover */
+  box-shadow: 0 3rem 3rem rgba(0, 0, 0, 0.3); /* Memberikan bayangan saat hover */
+}
+
+.achievements_icon {
+  background: var(--color-danger); /* Memberikan warna latar belakang ikon */
+  padding: 0.6rem; /* Memberikan padding pada ikon */
+  border-radius: 1rem; /* Memberikan sudut melengkung pada ikon */
+  display: inline-block; /* Menjadikan ikon elemen inline-block */
+  margin-bottom: 2rem; /* Memberikan jarak bawah pada ikon */
+  font-size: 2rem; /* Ukuran font ikon */
+  width: 5rem; /* Menetapkan lebar ikon */
+}
+
+.achievements_card:nth-child(2) .achievements_icon {
+  background: var(--color-success); /* Mengubah latar belakang ikon pada kartu kedua */
+}
+
+.achievements_card:nth-child(3) .achievements_icon {
+  background: var(--color-primary); /* Mengubah latar belakang ikon pada kartu ketiga */
+}
+
+.achievements_card p {
+  margin-top: 1rem; /* Memberikan jarak atas pada paragraf dalam kartu */
+}
+
+/*==================== Team Section ==========================*/
+.team {
+  background: var(--color-bg1); /* Memberikan latar belakang untuk bagian tim */
+  box-shadow: inset 0 0 3rem rgba(0, 0, 0, 0.5); /* Memberikan bayangan di dalam elemen */
+}
+
+.team_container {
+  display: grid; /* Menggunakan grid layout untuk menata anggota tim */
+  grid-template-columns: repeat(3, 1fr); /* Membuat 3 kolom dengan lebar sama */
+  gap: 2rem; /* Jarak antar elemen anggota tim */
+}
+
+.team_member {
+  background: var(--color-bg2); /* Menetapkan latar belakang pada setiap anggota tim */
+  padding: 2rem; /* Memberikan padding pada anggota tim */
+  border: 1px solid transparent; /* Menambahkan border transparan */
+  transition: var(--transition); /* Memberikan efek transisi */
+  position: relative; /* Posisi relatif untuk penataan elemen anak */
+  overflow: hidden; /* Menghilangkan bagian yang meluap dari elemen */
+}
+
+.team_container {
+  display: flex; /* Menggunakan flexbox untuk menyusun anggota tim secara fleksibel */
+  flex-wrap: wrap; /* Membungkus elemen jika diperlukan */
+  justify-content: center; /* Menyusun elemen secara terpusat */
+  gap: 2rem; /* Jarak antar elemen anggota tim */
+}
+
+.team_member {
+  flex: 1 1 calc(33.333% - 2rem); /* Membuat kolom responsif (3 kolom) */
+  max-width: 300px; /* Batas lebar maksimal untuk anggota tim */
+  text-align: center; /* Menyelaraskan teks ke tengah */
+}
+
+.team_member:nth-child(4),
+.team_member:nth-child(5) {
+  flex: 1 1 calc(50% - 2rem); /* Membuat anggota tim ke-4 dan ke-5 tampil dalam 2 kolom */
+}
+
+.team_member:hover {
+  background: transparent; /* Mengubah latar belakang menjadi transparan saat hover */
+  border-color: var(--color-primary); /* Mengubah border menjadi warna primer saat hover */
+}
+
+.team_member-image img {
+  filter: saturate(0); /* Menurunkan saturasi gambar */
+}
+
+.team_member:hover img {
+  filter: saturate(1); /* Meningkatkan saturasi gambar saat hover */
+}
+
+.team_member-info * {
+  text-align: center; /* Menyelaraskan semua teks dalam informasi anggota tim ke tengah */
+  margin-top: 1.4rem; /* Memberikan jarak atas pada elemen informasi anggota tim */
+}
+
+.team_member-info p {
+  color: var(--color-light); /* Mengubah warna teks menjadi terang */
+}
+
+.team_member-socials {
+  position: absolute; /* Menempatkan elemen sosial secara mutlak di dalam anggota tim */
+  top: 50%; /* Menempatkan elemen sosial di tengah secara vertikal */
+  transform: translateY(-50%); /* Menyeimbangkan posisi vertikal */
+  right: -100%; /* Menempatkan elemen sosial di luar layar di sisi kanan */
+  display: flex; /* Menggunakan flexbox untuk menata ikon sosial */
+  flex-direction: column; /* Menyusun ikon sosial secara vertikal */
+  background: var(--color-primary); /* Memberikan latar belakang warna primer */
+  border-radius: 1rem 0 0 1rem; /* Memberikan sudut melengkung pada sisi kiri */
+  box-shadow: -2rem 0 2rem rgba(0, 0, 0, 0.3); /* Menambahkan bayangan pada sisi kanan */
+  transition: var(--transition); /* Memberikan efek transisi */
+}
+
+.team_member:hover .team_member-socials {
+  right: 0; /* Menampilkan ikon sosial saat hover pada anggota tim */
+}
+
+.team_member-socials a {
+  padding: 1rem; /* Memberikan padding pada elemen sosial */
+}

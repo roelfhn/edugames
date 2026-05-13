@@ -1,0 +1,76 @@
+.main-div {
+  display: grid; /* Menggunakan grid layout untuk menata elemen di dalam main-div */
+  grid-template-columns: 40% 60%; /* Membagi grid menjadi dua kolom, kolom pertama 40% dan kolom kedua 60% */
+  gap: 5rem; /* Menambahkan jarak (gap) sebesar 5rem antara kolom */
+  overflow: hidden; /* Mencegah konten meluap dari elemen */
+}
+
+.right {
+  margin-top: 5rem; /* Memberikan jarak (margin) sebesar 5rem dari atas untuk elemen dengan kelas right */
+}
+
+.left img {
+  margin-left: 15rem; /* Memberikan jarak (margin) sebesar 15rem dari sisi kiri untuk gambar dalam elemen left */
+  width: 90%; /* Mengatur lebar gambar menjadi 90% dari lebar kontainernya */
+}
+
+.login_form {
+  display: flex; /* Menggunakan flexbox untuk menata elemen dalam login_form */
+  flex-direction: column; /* Menata elemen anak dalam arah kolom (vertikal) */
+  gap: 1rem; /* Menambahkan jarak (gap) sebesar 1rem antar elemen anak */
+  margin-right: 4rem; /* Memberikan jarak (margin) sebesar 4rem dari sisi kanan */
+}
+
+.login_form input[type='text'] {
+  width: 60%; /* Mengatur lebar input teks menjadi 60% dari kontainernya */
+}
+
+.login_form input[type='password'] {
+  width: 60%; /* Mengatur lebar input password menjadi 60% dari kontainernya */
+}
+
+.login_form .btn {
+  width: max-content; /* Mengatur lebar tombol sesuai dengan kontennya */
+  margin-top: 1rem; /* Menambahkan jarak (margin) sebesar 1rem dari atas */
+  cursor: pointer; /* Mengubah kursor menjadi pointer saat berada di atas tombol */
+}
+
+input,
+textarea {
+  padding: 1rem; /* Menambahkan padding sebesar 1rem di semua sisi input dan textarea */
+  color: var(--color-white); /* Mengatur warna teks menjadi warna putih (var warna putih) */
+  background: var(--color-bg); /* Mengatur warna latar belakang input dan textarea sesuai variabel */
+}
+
+table {
+  font-size: 200%; /* Mengatur ukuran font dalam tabel menjadi 200% dari ukuran default */
+  background-color: var(--color-bg1); /* Mengatur warna latar belakang tabel menggunakan variabel */
+  width: 40%; /* Mengatur lebar tabel menjadi 40% dari kontainernya */
+  text-align: center; /* Mengatur teks dalam tabel agar rata tengah */
+  padding-bottom: 2rem; /* Memberikan padding bawah sebesar 2rem */
+  padding-top: 2rem; /* Memberikan padding atas sebesar 2rem */
+  margin-left: 17rem; /* Memberikan jarak (margin) sebesar 17rem dari sisi kiri */
+  box-shadow: -2rem 0 2rem rgba(0, 0, 0, 0.5); /* Menambahkan bayangan pada tabel dengan arah dari kiri */
+}
+
+input.log {
+  width: 300px; /* Mengatur lebar input log menjadi 300px */
+  height: 40px; /* Mengatur tinggi input log menjadi 40px */
+}
+
+h1 {
+  color: var(--color-white); /* Mengatur warna teks h1 menjadi putih (var warna putih) */
+  align-items: center; /* Menjajarkan elemen di tengah secara horizontal */
+  margin: 5rem; /* Memberikan margin di semua sisi sebesar 5rem */
+  margin-left: -7rem; /* Memberikan margin kiri sebesar -7rem (menggeser ke kiri) */
+  margin-bottom: 3rem; /* Memberikan margin bawah sebesar 3rem */
+  margin-top: 10rem; /* Memberikan margin atas sebesar 10rem */
+}
+
+.text {
+  font-size: 20px; /* Mengatur ukuran font untuk elemen dengan kelas text menjadi 20px */
+}
+
+a {
+  text-decoration: none; /* Menghilangkan garis bawah dari teks tautan */
+}

@@ -1,0 +1,441 @@
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+/* Mengimpor font "Luckiest Guy" dari Google Fonts untuk digunakan pada teks dalam body */
+
+*{
+  padding: 0;
+  margin: 0;
+}
+/* Menghapus padding dan margin default dari semua elemen agar styling menjadi lebih teratur */
+
+body{
+  font-family: 'Luckiest Guy', cursive;
+  /* Mengatur font keluarga untuk teks di body menggunakan font "Luckiest Guy" */
+  background-color: #1A1B47;
+  /* Mengatur warna latar belakang body menjadi biru gelap */
+}
+
+header{
+  background: #1A1B47;
+  /* Mengatur warna latar belakang header menjadi biru gelap */
+}
+
+.container{
+  width: 95%;
+  margin: auto;
+  /* Mengatur lebar container menjadi 95% dari lebar layar dan menempatkannya di tengah */
+}
+
+.nav{
+  overflow: hidden;
+  /* Mengatur agar konten dalam navbar tidak meluap */
+  background: #1A1B47;
+  /* Mengatur warna latar belakang navbar menjadi biru gelap */
+  color: #fff;
+  /* Mengatur warna teks dalam navbar menjadi putih */
+  padding: 20px 0;
+  /* Menambahkan padding vertikal 20px untuk navbar */
+}
+
+.nav h2{
+  font-size: 2rem;
+  /* Mengatur ukuran font untuk heading di navbar */
+  float: left;
+  /* Membuat heading berada di sebelah kiri dengan float */
+}
+
+nav{
+  float: right;
+  /* Membuat elemen nav berada di sebelah kanan dengan float */
+}
+
+nav ul{
+  list-style-type: none;
+  /* Menghilangkan bullet points pada daftar dalam elemen ul */
+}
+
+nav li{
+  font-size: 1.3rem;
+  /* Mengatur ukuran font untuk item dalam daftar */
+  margin-top: 5px;
+  /* Menambahkan jarak atas 5px untuk setiap item */
+  float: left;
+  /* Mengatur item dalam daftar secara horizontal menggunakan float */
+  padding: 0 15px;
+  /* Menambahkan padding horizontal pada setiap item */
+}
+
+nav a{
+  text-decoration: none;
+  /* Menghilangkan garis bawah pada tautan */
+  color: #fff;
+  /* Mengatur warna teks tautan menjadi putih */
+}
+
+.current a::after{
+  content: '-';
+  /* Menambahkan karakter tanda hubung setelah tautan yang memiliki class "current" */
+  font-size: 4px;
+  /* Mengatur ukuran font dari tanda hubung */
+  background-color: white;
+  /* Mengatur warna latar belakang dari tanda hubung menjadi putih */
+  display: block;
+  /* Menampilkan tanda hubung sebagai block element */
+}
+
+.wrapper{
+  display: grid;
+  /* Menggunakan grid layout untuk wrapper */
+  grid-template-columns: 82% 18%;
+  /* Mengatur proporsi grid untuk dua kolom: 82% untuk konten utama, dan 18% untuk sidebar */
+  height: 85vh;
+  /* Mengatur tinggi wrapper menjadi 85% dari tinggi layar */
+}
+
+.equation{
+  display: flex;
+  /* Menggunakan flexbox untuk layout konten dalam equation */
+  justify-content: center;
+  /* Menjajarkan konten secara horizontal di tengah */
+  align-items: center;
+  /* Menjajarkan konten secara vertikal di tengah */
+  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.9);
+  /* Menambahkan bayangan di sekitar elemen equation */
+  font-size: 5.2vw;
+  /* Mengatur ukuran font dalam satuan lebar layar agar responsif */
+  background: #fff;
+  /* Mengatur warna latar belakang equation menjadi putih */
+  border-radius: 3px;
+  /* Membuat sudut dari elemen equation menjadi melengkung */
+  text-align: center;
+  /* Menyusun teks dalam equation agar rata tengah */
+  margin: 5px 5px 0px 0px;
+  /* Menambahkan margin di sekitar equation */
+  position: fixed;
+  /* Membuat posisi elemen equation tetap di satu posisi pada layar */
+  height: 100%;
+  /* Mengatur tinggi equation memenuhi layar */
+}
+
+.points {
+  position: absolute;
+  /* Menempatkan elemen secara absolut di dalam elemen induknya */
+  top: 10px;
+  /* Mengatur jarak elemen dari bagian atas sebanyak 10px */
+  right: 10px;
+  /* Mengatur jarak elemen dari bagian kanan sebanyak 10px */
+  font-size: 24px;
+  /* Mengatur ukuran font untuk elemen poin */
+  color: #333;
+  /* Mengatur warna teks menjadi abu-abu gelap */
+  background-color: #fff;
+  /* Mengatur warna latar belakang menjadi putih */
+  border: 1px solid #ddd;
+  /* Menambahkan border dengan warna abu-abu terang */
+  border-radius: 5px;
+  /* Membuat sudut border menjadi melengkung */
+  padding: 5px;
+  /* Menambahkan padding di sekitar teks */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* Menambahkan bayangan di sekitar elemen untuk efek kedalaman */
+  margin: 10px;
+  /* Menambahkan margin di sekitar elemen */
+}
+
+.timer {
+  position: absolute;
+  /* Menempatkan elemen secara absolut di dalam elemen induknya */
+  top: 10px;
+  /* Mengatur jarak elemen dari bagian atas sebanyak 10px */
+  left: 10px;
+  /* Mengatur jarak elemen dari bagian kiri sebanyak 10px */
+  font-size: 24px;
+  /* Mengatur ukuran font untuk elemen timer */
+  color: #333;
+  /* Mengatur warna teks menjadi abu-abu gelap */
+  background-color: #fff;
+  /* Mengatur warna latar belakang menjadi putih */
+  border: 1px solid #ddd;
+  /* Menambahkan border dengan warna abu-abu terang */
+  border-radius: 5px;
+  /* Membuat sudut border menjadi melengkung */
+  padding: 5px;
+  /* Menambahkan padding di sekitar teks */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* Menambahkan bayangan di sekitar elemen untuk efek kedalaman */
+  margin: 10px;
+  /* Menambahkan margin di sekitar elemen */
+}
+
+
+.bintang_1{
+  position: absolute;
+  left: 20px; /* Position at the right */
+  width: 100px;      /* Atur lebar gambar sesuai kebutuhan */
+  height: 50px;     /* Atur tinggi gambar sesuai kebutuhan */
+  object-fit: contain;  /* Menjaga gambar tidak terdistorsi */
+}
+
+/* Mengecilkan ukuran gambar bintang 2 */
+.bintang_2 {
+  position: absolute;
+  right: 20px; /* Position at the right */
+  width: 100px;      /* Atur lebar gambar sesuai kebutuhan */
+  height: 50px;     /* Atur tinggi gambar sesuai kebutuhan */
+  object-fit: contain;  /* Menjaga gambar tidak terdistorsi */
+}
+
+.bintang_3{
+  position: absolute;
+  bottom: 30px;
+  width: 100px;      /* Atur lebar gambar sesuai kebutuhan */
+  height: 50px;     /* Atur tinggi gambar sesuai kebutuhan */
+  object-fit: contain;  /* Menjaga gambar tidak terdistorsi */
+}
+
+.bintang_4{
+  position: absolute;
+  top: 30px;
+  width: 100px;      /* Atur lebar gambar sesuai kebutuhan */
+  height: 50px;     /* Atur tinggi gambar sesuai kebutuhan */
+  object-fit: contain;  /* Menjaga gambar tidak terdistorsi */
+}
+
+.bintang_5{
+  position: absolute;
+  bottom: 65px;
+  left :180px;
+  width: 100px;      /* Atur lebar gambar sesuai kebutuhan */
+  height: 50px;     /* Atur tinggi gambar sesuai kebutuhan */
+  object-fit: contain;  /* Menjaga gambar tidak terdistorsi */
+}
+
+.bintang_6{
+  position: absolute;
+  top: 75px;
+  right :160px;
+  width: 100px;      /* Atur lebar gambar sesuai kebutuhan */
+  height: 50px;     /* Atur tinggi gambar sesuai kebutuhan */
+  object-fit: contain;  /* Menjaga gambar tidak terdistorsi */
+}
+
+.bintang_7{
+  position: absolute;
+  top: 65px;
+  left :180px;
+  width: 100px;      /* Atur lebar gambar sesuai kebutuhan */
+  height: 50px;     /* Atur tinggi gambar sesuai kebutuhan */
+  object-fit: contain;  /* Menjaga gambar tidak terdistorsi */
+}
+
+.bintang_8{
+  position: absolute;
+  bottom: 75px;
+  right :160px;
+  width: 100px;      /* Atur lebar gambar sesuai kebutuhan */
+  height: 50px;     /* Atur tinggi gambar sesuai kebutuhan */
+  object-fit: contain;  /* Menjaga gambar tidak terdistorsi */
+}
+
+.equation h1{
+  display: inline;
+  padding: 20px;
+}
+
+.answer-options{
+  font-size: 5.2vw; /* Mengatur ukuran font untuk opsi jawaban berdasarkan lebar layar */
+  margin-right: 10px; /* Memberikan margin kanan 10px pada elemen opsi */
+}
+
+.options{
+  display: flex; /* Menggunakan flexbox untuk layout opsi */
+  justify-content: center; /* Menjajarkan opsi secara horizontal di tengah */
+  align-items: center; /* Menjajarkan opsi secara vertikal di tengah */
+  cursor: pointer; /* Menampilkan kursor pointer saat hover di atas opsi */
+  border-radius: 3px; /* Membuat sudut border menjadi melengkung */
+  margin-top: 10px; /* Memberikan margin atas 10px pada opsi */
+  color: #fff; /* Mengatur warna teks opsi menjadi putih */
+  transition: 2s; /* Menambahkan transisi selama 2 detik pada perubahan state */
+  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.9); /* Menambahkan bayangan pada opsi */
+  width: 100% ;
+  height: 31%;
+}
+
+@media(max-width:768px) {
+  /* Responsif untuk layar dengan lebar maksimum 768px */
+  
+  .nav h2 {
+    font-size: 1.5rem; /* Ubah ukuran font heading di navbar */
+    float: none; /* Hapus perataan ke kiri/kanan */
+    text-align: center; /* Pusatkan teks */
+  }
+
+  nav {
+    float: none; /* Hapus perataan float */
+    display: flex; /* Gunakan flexbox untuk tata letak */
+    justify-content: center; /* Pusatkan item di navbar */
+  }
+
+  nav li {
+    font-size: 1rem; /* Atur ukuran font untuk item daftar di navbar */
+  }
+}
+
+@media(max-width:480px) {
+  /* Responsif untuk layar dengan lebar maksimum 480px */
+  
+  .nav h2 {
+    float: none; /* Hapus perataan float */
+    text-align: center; /* Pusatkan teks */
+  }
+
+  .equation h1 {
+    display: inline; /* Tampilkan heading sebagai inline */
+    padding: 10px; /* Tambahkan padding untuk ruang di sekitar teks */
+  }
+
+  nav li {
+    font-size: .8rem; /* Kurangi ukuran font untuk item daftar */
+  }
+}
+
+.result {
+  display: block; /* Tampilkan elemen dengan gaya block */
+  visibility: visible; /* Pastikan elemen terlihat */
+  opacity: 1; /* Atur transparansi penuh */
+  color: black; /* Pastikan teks berwarna hitam agar terlihat */
+}
+
+#option1, #option2, #option3 {
+  font-size: 112px; /* Atur ukuran font untuk elemen opsi */
+}
+
+/* Modal Styles */
+.modal {
+  display: none; /* Modal tersembunyi secara default */
+  position: fixed; /* Modal tetap pada posisinya walau halaman digulir */
+  z-index: 1000; /* Pastikan modal berada di depan elemen lain */
+  left: 0;
+  top: 0;
+  width: 100%; /* Modal memenuhi lebar layar */
+  height: 100%; /* Modal memenuhi tinggi layar */
+  overflow: auto; /* Aktifkan scroll jika modal melebihi layar */
+  background-color: rgba(0, 0, 0, 0.4); /* Warna latar belakang semi-transparan */
+}
+
+.modal-content {
+  background-color: #fff; /* Warna latar belakang modal */
+  margin: 10% auto; /* Modal muncul di tengah layar secara vertikal */
+  padding: 20px; /* Ruang di dalam modal */
+  border-radius: 10px; /* Sudut membulat */
+  border: 1px solid #888; /* Garis batas abu-abu */
+  width: 80%; /* Lebar modal 80% dari layar */
+  max-width: 400px; /* Maksimal lebar modal 400px */
+  text-align: center; /* Pusatkan teks di modal */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Efek bayangan */
+}
+
+/* Gaya untuk tombol dalam modal */
+.btn {
+  padding: 10px 20px; /* Ukuran padding tombol */
+  border: none; /* Hapus border tombol */
+  border-radius: 5px; /* Sudut membulat */
+  cursor: pointer; /* Ubah kursor menjadi pointer saat hover */
+  font-size: 16px; /* Ukuran font tombol */
+  margin: 10px; /* Ruang di sekitar tombol */
+  color: #fff; /* Warna teks putih */
+}
+
+/* Tombol sukses (Lanjut ke Level 2) */
+.btn-success {
+  background-color: #28a745; /* Warna hijau untuk tombol sukses */
+}
+
+.btn-success:hover {
+  background-color: #218838; /* Warna saat tombol sukses di-hover */
+}
+
+/* Tombol bahaya (Coba Lagi) */
+.btn-danger {
+  background-color: #dc3545; /* Warna merah untuk tombol gagal */
+}
+
+.btn-danger:hover {
+  background-color: #c82333; /* Warna saat tombol gagal di-hover */
+}
+
+.congratulations {
+  font-size: 30px; /* Ukuran font untuk teks selamat */
+  font-weight: bold; /* Teks ditebalkan */
+  margin-top: 10px; /* Jarak atas setelah teks */
+}
+
+.try-again {
+  font-size: 30px; /* Ukuran font untuk teks coba lagi */
+  font-weight: bold; /* Teks ditebalkan */
+  margin-top: 10px; /* Jarak atas setelah teks */
+}
+
+.modal {
+  display: none; /* Modal tersembunyi secara default */
+  position: fixed; /* Modal tetap pada posisinya meskipun digulir */
+  z-index: 1; /* Letakkan modal di depan semua elemen */
+  left: 0;
+  top: 0;
+  width: 100%; /* Modal mengambil seluruh lebar layar */
+  height: 100%; /* Modal mengambil seluruh tinggi layar */
+  overflow: auto; /* Aktifkan scroll jika konten modal terlalu besar */
+  background-color: rgba(0, 0, 0, 0.5); /* Warna latar belakang semi-transparan */
+}
+
+/* Kontainer konten modal */
+.modal-content {
+  background-color: #fff; /* Latar belakang modal berwarna putih */
+  margin: 10% auto; /* Modal ditempatkan di tengah vertikal layar */
+  padding: 20px; /* Ruang di dalam modal */
+  border-radius: 10px; /* Sudut membulat pada modal */
+  border: 1px solid #888; /* Garis tepi abu-abu */
+  width: 80%; /* Modal mengambil 80% lebar layar */
+  max-width: 400px; /* Lebar maksimal modal 400px */
+  text-align: center; /* Konten modal dirata tengah */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Efek bayangan pada modal */
+}
+
+/* Teks dalam modal */
+.modal-content p {
+  font-size: 20px; /* Ukuran font untuk teks di dalam modal */
+  color: #333; /* Warna teks abu-abu gelap */
+  margin: 20px 0; /* Jarak vertikal di sekitar teks */
+}
+
+/* Tombol di dalam modal */
+.modal-content button {
+  padding: 10px 20px; /* Ukuran padding untuk tombol */
+  margin: 20px; /* Jarak di sekitar tombol */
+  font-size: 15px; /* Ukuran font tombol */
+  border: none; /* Hapus border tombol */
+  border-radius: 5px; /* Sudut membulat untuk tombol */
+  cursor: pointer; /* Ubah kursor menjadi pointer */
+  transition: background-color 0.3s; /* Animasi transisi untuk background */
+}
+
+.modal-content button:hover {
+  opacity: 0.8; /* Kurangi opacity saat tombol di-hover */
+}
+
+/* Tombol OK atau aksi */
+.modal-content .btn {
+  background-color: #007BFF; /* Warna biru untuk tombol OK */
+  color: white; /* Warna teks putih */
+}
+
+.modal-content .btn:hover {
+  background-color: #0056b3; /* Warna lebih gelap saat di-hover */
+}
+
+/* Responsif untuk layar kecil */
+@media (max-width: 600px) {
+  .modal-content {
+      width: 90%; /* Lebar modal 90% dari layar pada perangkat kecil */
+  }
+}
+

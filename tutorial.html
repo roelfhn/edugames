@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8"> <!-- Menentukan karakter encoding dokumen -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Memastikan responsivitas pada perangkat -->
+    <link rel="icon" href="./images/EduGames.png" type="image/x-icon" /> <!-- Ikon halaman -->
+    <title>Video Tutorial</title> <!-- Judul halaman -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Montserrat:wght@300;400;500;600;700;800;900&family=Outfit:wght@100;200;400;500;700;800;900&display=swap');
+        /* Mengimpor font dari Google Fonts */
+
+        body {
+            margin: 0; /* Menghilangkan margin default browser */
+            padding: 0; /* Menghilangkan padding default browser */
+            font-family: 'Kanit', sans-serif; /* Mengatur font untuk halaman */
+            background-color: #1A1B47; /* Warna latar belakang */
+            color: #ffffff; /* Warna teks */
+            display: flex; /* Menggunakan flexbox untuk tata letak */
+            justify-content: center; /* Memusatkan elemen secara horizontal */
+            align-items: center; /* Memusatkan elemen secara vertikal */
+            min-height: 100vh; /* Tinggi minimal halaman sebesar tinggi viewport */
+            text-align: center; /* Menengahkan teks */
+        }
+
+        .content {
+            max-width: 1200px; /* Lebar maksimum kontainer */
+            padding: 20px; /* Padding dalam kontainer */
+        }
+
+        .content h1 {
+            font-size: 3rem; /* Ukuran font heading */
+            color: white; /* Warna teks heading */
+            margin-bottom: 20px; /* Margin bawah heading */
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Bayangan teks */
+        }
+
+        .content p {
+            font-size: 1.2rem; /* Ukuran font paragraf */
+            color: #E0E0E0; /* Warna teks paragraf */
+            margin-bottom: 40px; /* Margin bawah paragraf */
+        }
+
+        .menu-container {
+            display: grid; /* Menggunakan grid layout untuk menu */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Kolom dengan lebar minimum 300px dan maksimum 1fr */
+            gap: 30px; /* Jarak antar elemen grid */
+            justify-content: center; /* Menengahkan grid */
+            max-width: 1200px; /* Lebar maksimum grid */
+            width: 100%; /* Lebar penuh pada grid */
+        }
+
+        .menu-item {
+            background: linear-gradient(145deg, #3A3F8F, #4A51A3); /* Gradasi warna latar belakang */
+            border-radius: 15px; /* Membulatkan sudut elemen */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Memberikan bayangan pada elemen */
+            overflow: hidden; /* Menyembunyikan konten yang melampaui elemen */
+            display: flex; /* Menggunakan flexbox untuk tata letak dalam elemen */
+            flex-direction: column; /* Menyusun elemen secara vertikal */
+            justify-content: space-between; /* Menyebar elemen dalam kolom */
+            transition: transform 0.3s, box-shadow 0.3s; /* Efek transisi pada hover */
+            cursor: pointer; /* Mengubah kursor menjadi pointer saat di-hover */
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px); /* Memindahkan elemen ke atas saat di-hover */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5); /* Memberikan bayangan lebih besar saat di-hover */
+        }
+
+        .menu-item .video-container {
+            width: 100%; /* Lebar penuh untuk kontainer video */
+            height: 200px; /* Tinggi tetap untuk kontainer video */
+            display: flex; /* Menggunakan flexbox untuk tata letak */
+            justify-content: center; /* Menengahkan konten secara horizontal */
+            align-items: center; /* Menengahkan konten secara vertikal */
+            background-color: #2C2F7B; /* Warna latar belakang kontainer video */
+            position: relative; /* Membuat posisi relatif untuk pengaturan elemen di dalamnya */
+        }
+
+        .menu-item .video-container iframe {
+            width: 100%; /* Lebar penuh untuk iframe video */
+            height: 100%; /* Tinggi penuh untuk iframe video */
+            border: none; /* Menghilangkan border iframe */
+        }
+
+        .menu-item h3 {
+            font-size: 1.6rem; /* Ukuran font untuk judul video */
+            color: white; /* Warna teks judul video */
+            margin: 15px 0; /* Margin atas dan bawah judul video */
+        }
+
+        .menu-item p {
+            font-size: 1rem; /* Ukuran font untuk deskripsi video */
+            color: #E0E0E0; /* Warna teks deskripsi video */
+            margin: 0 15px 15px; /* Margin untuk mengatur posisi deskripsi */
+        }
+
+        .menu-item button {
+            padding: 10px 15px; /* Padding tombol */
+            margin: 15px; /* Margin tombol */
+            background-color: #FF5722; /* Warna latar tombol */
+            border: none; /* Menghilangkan border tombol */
+            color: #ffffff; /* Warna teks tombol */
+            font-size: 1rem; /* Ukuran font tombol */
+            border-radius: 8px; /* Membulatkan sudut tombol */
+            cursor: pointer; /* Mengubah kursor menjadi pointer saat di-hover */
+            transition: background 0.3s; /* Efek transisi warna latar pada hover */
+        }
+
+        .menu-item button:hover {
+            background-color: #E64A19; /* Warna latar tombol saat di-hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Tutorial Bermain EduGames</h1> <!-- Heading utama halaman -->
+        <p>Panduan bermain EduGames yang seru dan menyenangkan untuk anak-anak. Yuk, pelajari sambil bermain!</p>
+        <!-- Deskripsi umum halaman -->
+        <div class="menu-container">
+            <!-- Kontainer menu video -->
+
+            <!-- Membaca Section -->
+            <div class="menu-item">
+                <div class="video-container">
+                    <!-- Kontainer untuk video "Belajar Membaca" -->
+                    <iframe id="membaca-video" src="https://www.youtube.com/embed/oo7SYTXhs28" allowfullscreen></iframe>
+                    <!-- Menyematkan video YouTube dengan ID khusus -->
+                </div>
+                <h3>Belajar Membaca</h3> <!-- Judul video -->
+                <p>Panduan interaktif untuk meningkatkan kemampuan membaca.</p> <!-- Deskripsi video -->
+                <button onclick="goToVideo('https://www.youtube.com/watch?v=oo7SYTXhs28')">Klik Untuk Menonton</button>
+                <!-- Tombol untuk membuka video di halaman YouTube -->
+            </div>
+
+            <!-- Menulis Section -->
+            <div class="menu-item">
+                <div class="video-container">
+                    <!-- Kontainer untuk video "Kreativitas Menulis" -->
+                    <iframe id="menulis-video" src="https://www.youtube.com/embed/_ICPJBXtP6k" allowfullscreen></iframe>
+                    <!-- Menyematkan video YouTube dengan ID khusus -->
+                </div>
+                <h3>Kreativitas Menulis</h3> <!-- Judul video -->
+                <p>Teknik untuk mengasah kreativitas menulis dengan menyenangkan.</p> <!-- Deskripsi video -->
+                <button onclick="goToVideo('https://www.youtube.com/watch?v=_ICPJBXtP6k')">Klik Untuk Menonton</button>
+                <!-- Tombol untuk membuka video di halaman YouTube -->
+            </div>
+
+            <!-- Menghitung Section -->
+            <div class="menu-item">
+                <div class="video-container">
+                    <!-- Kontainer untuk video "Kemampuan Menghitung" -->
+                    <iframe id="menghitung-video" src="https://www.youtube.com/embed/ojV5U8oKov0" allowfullscreen></iframe>
+                    <!-- Menyematkan video YouTube dengan ID khusus -->
+                </div>
+                <h3>Kemampuan Menghitung</h3> <!-- Judul video -->
+                <p>Meningkatkan keterampilan berhitung dengan cara yang menyenangkan.</p> <!-- Deskripsi video -->
+                <button onclick="goToVideo('https://www.youtube.com/watch?v=ojV5U8oKov0')">Klik Untuk Menonton</button>
+                <!-- Tombol untuk membuka video di halaman YouTube -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fungsi untuk membuka halaman YouTube langsung
+        function goToVideo(videoUrl) {
+            window.open(videoUrl, '_blank'); // Membuka video di tab baru
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <!-- Metadata dasar untuk dokumen HTML -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./images/EduGames.png" type="image/x-icon" />
+    <title>Permainan Susun Huruf Acak</title>
+
+    <!-- Gaya CSS -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;600&display=swap');
+
+        /* Reset dan pengaturan dasar untuk semua elemen */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Gaya utama untuk badan dokumen */
+        body {
+            font-family: 'Poppins', sans-serif; /* Font utama */
+            background: linear-gradient(135deg, #1a1b47, #4caf50); /* Gradien warna latar belakang */
+            height: 100vh; /* Tinggi penuh viewport */
+            display: flex; /* Menggunakan Flexbox */
+            justify-content: center; /* Memusatkan secara horizontal */
+            align-items: center; /* Memusatkan secara vertikal */
+            overflow: hidden; /* Menghilangkan scroll */
+            position: relative; /* Untuk elemen dekorasi */
+            color: #fff; /* Warna teks default */
+        }
+
+        /* Dekorasi lingkaran mengambang di latar belakang */
+        .decoration {
+            position: absolute; /* Posisi relatif ke elemen induk */
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.3); /* Warna transparan */
+            border-radius: 50%; /* Membuat lingkaran */
+            animation: float 5s ease-in-out infinite; /* Animasi mengambang */
+        }
+
+        /* Posisi masing-masing lingkaran dekorasi */
+        .decoration:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
+        .decoration:nth-child(2) { top: 50%; left: 10%; animation-delay: 2s; }
+        .decoration:nth-child(3) { top: 30%; left: 70%; animation-delay: 1s; }
+        .decoration:nth-child(4) { bottom: 20%; right: 15%; animation-delay: 3s; }
+
+        /* Animasi lingkaran naik-turun */
+        @keyframes float {
+            0%, 100% { transform: translateY(-10px); }
+            50% { transform: translateY(10px); }
+        }
+
+        /* Kontainer utama permainan */
+        #mainWrapper {
+            display: flex; /* Flexbox untuk tata letak */
+            align-items: center;
+            justify-content: center;
+            flex-direction: column; /* Susunan vertikal */
+            background: #f4f9e9; /* Warna latar belakang kontainer */
+            border-radius: 25px; /* Membulatkan sudut */
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); /* Bayangan */
+            padding: 30px; /* Jarak dalam */
+            text-align: center; /* Pusatkan teks */
+            max-width: 800px; /* Lebar maksimum */
+            width: 90%; /* Lebar relatif */
+        }
+
+        /* Kotak untuk timer */
+        #timerBox {
+            font-size: 36px; /* Ukuran font besar */
+            font-weight: bold; /* Teks tebal */
+            color: #4caf50; /* Warna hijau */
+            background-color: #ffffff; /* Warna latar belakang putih */
+            padding: 15px 30px; /* Jarak dalam */
+            border-radius: 10px; /* Membulatkan sudut */
+            margin-bottom: 20px; /* Jarak bawah */
+            display: inline-block; /* Elemen sejajar */
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); /* Bayangan */
+        }
+
+        /* Gaya untuk teks instruksi */
+        .instruction {
+            font-size: 24px; /* Ukuran font sedang */
+            color: #4caf50; /* Warna hijau */
+            margin-bottom: 20px; /* Jarak bawah */
+        }
+
+        /* Area untuk tempat menyusun huruf */
+        #dropArea {
+            display: flex; /* Flexbox untuk tata letak */
+            justify-content: center; /* Pusatkan secara horizontal */
+            gap: 10px; /* Jarak antar elemen */
+            margin-bottom: 30px; /* Jarak bawah */
+        }
+
+        /* Kotak kosong untuk menyusun huruf */
+        .drop-box {
+            width: 60px;
+            height: 60px;
+            font-size: 30px; /* Ukuran font besar */
+            display: flex; /* Flexbox untuk tata letak */
+            align-items: center; /* Pusatkan secara vertikal */
+            justify-content: center; /* Pusatkan secara horizontal */
+            background-color: #f7f7f9; /* Warna latar belakang terang */
+            border-radius: 8px; /* Membulatkan sudut */
+            color: #4caf50; /* Warna hijau */
+            font-weight: bold; /* Teks tebal */
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Bayangan */
+        }
+
+        /* Kontainer untuk huruf-huruf acak */
+        #letterContainer {
+            display: flex; /* Flexbox untuk tata letak */
+            flex-wrap: wrap; /* Huruf akan melipat ke baris berikutnya */
+            justify-content: center; /* Pusatkan secara horizontal */
+            gap: 10px; /* Jarak antar elemen */
+            margin-bottom: 20px; /* Jarak bawah */
+        }
+
+        /* Gaya untuk setiap huruf */
+        .box {
+            display: inline-flex; /* Flexbox untuk elemen */
+            align-items: center; /* Pusatkan secara vertikal */
+            justify-content: center; /* Pusatkan secara horizontal */
+            width: 60px; /* Lebar kotak */
+            height: 60px; /* Tinggi kotak */
+            font-size: 30px; /* Ukuran font besar */
+            font-weight: bold; /* Teks tebal */
+            color: #ffffff; /* Warna teks putih */
+            background-color: #4caf50; /* Warna latar hijau */
+            border-radius: 8px; /* Membulatkan sudut */
+            cursor: pointer; /* Mengubah kursor saat hover */
+            user-select: none; /* Mencegah teks terpilih */
+            animation: bounce 1s infinite alternate; /* Animasi melompat */
+            transition: transform 0.4s, background-color 0.3s; /* Transisi animasi */
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Bayangan */
+        }
+
+        .box:hover {
+            transform: scale(1.1); /* Elemen akan diperbesar 10% saat hover */
+            background-color: #66bb6a; /* Warna latar belakang berubah menjadi hijau */
+            box-shadow: 0px 6px 20px rgba(102, 187, 106, 0.8); /* Bayangan elemen menjadi lebih besar dan terang */
+        }
+        
+        .box.selected {
+            background-color: #ff7043; /* Warna latar belakang berubah menjadi oranye */
+            pointer-events: none; /* Elemen menjadi tidak dapat diklik lagi */
+        }
+        
+        .result {
+            font-size: 24px; /* Ukuran teks menjadi 24px */
+            font-weight: bold; /* Teks ditampilkan dengan gaya tebal */
+            color: #4caf50; /* Warna teks menjadi hijau */
+            margin-top: 10px; /* Memberikan jarak ke atas */
+            opacity: 0; /* Awalnya teks tidak terlihat */
+            transition: opacity 0.5s; /* Perubahan opacity akan terjadi selama 0.5 detik */
+        }
+        
+        .completion-message {
+            font-size: 32px; /* Ukuran teks menjadi lebih besar, 32px */
+            color: #4caf50; /* Warna teks menjadi hijau */
+            margin-top: 20px; /* Memberikan jarak ke atas */
+        }
+        
+        #popup {
+            display: none; /* Popup tersembunyi secara default */
+            background: rgba(0, 0, 0, 0.5); /* Latar belakang semi-transparan hitam */
+            position: fixed; /* Posisi tetap di layar */
+            top: 0; /* Dimulai dari atas layar */
+            left: 0; /* Dimulai dari kiri layar */
+            right: 0; /* Memenuhi lebar layar */
+            bottom: 0; /* Memenuhi tinggi layar */
+            justify-content: center; /* Konten dipusatkan secara horizontal */
+            align-items: center; /* Konten dipusatkan secara vertikal */
+        }
+        
+        #popupContent {
+            background: #fff; /* Latar belakang putih untuk konten popup */
+            padding: 20px; /* Memberikan ruang di dalam konten */
+            border-radius: 10px; /* Sudut konten dibuat membulat */
+            text-align: center; /* Teks di tengah */
+            color: #4caf50; /* Warna teks hijau */
+            font-size: 20px; /* Ukuran font teks dalam popup */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Music -->
+    <audio autoplay loop>
+        <source src="./music/pixel.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    
+    <!-- Dekorasi latar belakang -->
+    <div class="decoration"></div>
+    <div class="decoration"></div>
+    <div class="decoration"></div>
+    <div class="decoration"></div>
+
+    <!-- Kontainer utama game -->
+    <div id="mainWrapper">
+        <div id="timerBox">Waktu: <span id="timeLeft">30</span> detik</div> <!-- Kotak waktu -->
+        <div class="instruction">
+            Level: <span id="levelDisplay">1</span> - Susun huruf menjadi kata: <span id="targetWordDisplay"></span>
+        </div> <!-- Instruksi permainan -->
+        <div id="dropArea"></div> <!-- Area untuk menempatkan huruf -->
+        <div id="letterContainer"></div> <!-- Area huruf acak -->
+        <div class="result" id="resultText"></div> <!-- Area hasil (benar/salah) -->
+    </div>
+
+    <!-- Popup untuk transisi level -->
+    <div id="popup">
+        <div id="popupContent">
+            <div id="popupMessage"></div> <!-- Pesan popup -->
+            <button onclick="nextLevel()">Lanjutkan ke Level Selanjutnya</button> <!-- Tombol ke level berikut -->
+        </div>
+    </div>
+
+    <!-- Audio efek suara -->
+    <audio id="correctSound" src="./music/true.mp3" preload="auto"></audio>
+    <audio id="wrongSound" src="./music/wrong.mp3" preload="auto"></audio>
+
+    <script>
+        // Daftar level permainan
+        const levels = [
+            { words: ["poci", "bola", "apel", "kucing", "rumah"], time: 30 },
+            { words: ["kuda", "satu", "bunga", "makanan", "sepeda"], time: 25 },
+            { words: ["ikan", "perahu", "kertas", "matahari", "hujan"], time: 20 },
+            { words: ["buah", "pohon", "hewan", "kekasih", "bintang"], time: 15 },
+            { words: ["bermain", "lomba", "senang", "teman", "liburan"], time: 10 }
+        ];
+
+        // Variabel global untuk permainan
+        let currentLevel = 0; // Level saat ini
+        let currentQuestionIndex = 0; // Indeks pertanyaan saat ini
+        let timerInterval; // Interval untuk timer
+        let totalCorrect = 0; // Total jawaban benar
+        let totalWrong = 0; // Total jawaban salah
+        const totalQuestions = 25; // Total pertanyaan
+
+        // Fungsi untuk memuat pertanyaan
+        function loadQuestion() {
+            const resultText = document.getElementById("resultText");
+            resultText.style.opacity = 0; // Reset status
+            const level = levels[currentLevel]; // Ambil level saat ini
+            const targetWord = level.words[currentQuestionIndex]; // Kata target
+            const shuffledLetters = shuffleArray(targetWord.split("")); // Acak huruf kata
+
+            const letterContainer = document.getElementById("letterContainer");
+            const dropArea = document.getElementById("dropArea");
+            const targetWordDisplay = document.getElementById("targetWordDisplay");
+
+            targetWordDisplay.innerText = targetWord; // Tampilkan kata target
+            letterContainer.innerHTML = ""; // Kosongkan area huruf
+            dropArea.innerHTML = ""; // Kosongkan area drop
+
+            // Tambahkan huruf ke area huruf acak
+            shuffledLetters.forEach(letter => {
+                const letterBox = document.createElement("div");
+                letterBox.className = "box"; // Tambahkan kelas
+                letterBox.innerText = letter; // Isi dengan huruf
+                letterBox.onclick = () => selectLetter(letterBox, letter); // Tambahkan fungsi klik
+                letterContainer.appendChild(letterBox);
+
+                const dropBox = document.createElement("div");
+                dropBox.className = "drop-box"; // Tambahkan kelas
+                dropArea.appendChild(dropBox); // Tambahkan drop box
+            });
+
+            startTimer(level.time); // Mulai timer
+        }
+
+        // Fungsi untuk mengacak array
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]]; // Tukar elemen
+            }
+            return array;
+        }
+
+        // Fungsi untuk memilih huruf
+        function selectLetter(letterBox, letter) {
+            const dropBoxes = document.querySelectorAll(".drop-box");
+            for (let dropBox of dropBoxes) {
+                if (!dropBox.innerText) { // Jika drop box kosong
+                    dropBox.innerText = letter; // Tambahkan huruf
+                    letterBox.classList.add("selected"); // Tambahkan kelas
+                    letterBox.onclick = null; // Nonaktifkan klik
+                    checkAnswer(); // Periksa jawaban
+                    break;
+                }
+            }
+        }
+
+        // Fungsi untuk memeriksa jawaban
+        function checkAnswer() {
+            const dropBoxes = document.querySelectorAll(".drop-box");
+            const currentAnswer = Array.from(dropBoxes).map(box => box.innerText).join("");
+            const correctAnswer = levels[currentLevel].words[currentQuestionIndex];
+
+            if (currentAnswer.length === correctAnswer.length) { // Jika panjang jawaban sama
+                const correctSound = document.getElementById("correctSound");
+                const wrongSound = document.getElementById("wrongSound");
+
+                if (currentAnswer === correctAnswer) { // Jika jawaban benar
+                    document.getElementById("resultText").innerText = "Benar!";
+                    document.getElementById("resultText").style.opacity = 1;
+                    correctSound.play(); // Mainkan suara benar
+                    totalCorrect++;
+                    setTimeout(nextQuestion, 1000); // Pindah ke pertanyaan berikut
+                } else { // Jika jawaban salah
+                    document.getElementById("resultText").innerText = "Salah!";
+                    document.getElementById("resultText").style.opacity = 1;
+                    wrongSound.play(); // Mainkan suara salah
+                    totalWrong++;
+                    setTimeout(nextQuestion, 1000); // Pindah ke pertanyaan berikut
+                }
+            }
+        }
+
+        // Fungsi untuk pindah ke pertanyaan berikutnya
+        function nextQuestion() {
+            const level = levels[currentLevel];
+            currentQuestionIndex++;
+
+            if (currentQuestionIndex < level.words.length) {
+                loadQuestion(); // Muat pertanyaan baru
+            } else {
+                currentQuestionIndex = 0;
+                currentLevel++;
+
+                if (currentLevel < levels.length) {
+                    showPopup(); // Tampilkan popup level selesai
+                } else {
+                    showCompletionMessage(); // Tampilkan pesan selesai
+                }
+            }
+        }
+
+        // Fungsi untuk memulai timer
+        function startTimer(time) {
+            clearInterval(timerInterval);
+            const timeLeft = document.getElementById("timeLeft");
+            timeLeft.innerText = time;
+
+            timerInterval = setInterval(() => {
+                time--;
+                timeLeft.innerText = time;
+
+                if (time <= 0) { // Jika waktu habis
+                    clearInterval(timerInterval);
+                    document.getElementById("resultText").innerText = "Waktu Habis!";
+                    document.getElementById("wrongSound").play();
+                    totalWrong++;
+                    setTimeout(nextQuestion, 1000);
+                }
+            }, 1000);
+        }
+
+        // Fungsi untuk menampilkan popup
+        function showPopup() {
+            const popup = document.getElementById("popup");
+            document.getElementById("popupMessage").innerText = `Level ${currentLevel} selesai!\nBenar: ${totalCorrect}, Salah: ${totalWrong}`;
+            popup.style.display = "flex";
+        }
+
+        // Fungsi untuk pindah ke level berikutnya
+        function nextLevel() {
+            document.getElementById("popup").style.display = "none";
+            loadQuestion();
+        }
+
+        // Fungsi untuk menampilkan pesan selesai
+        function showCompletionMessage() {
+            const scorePercentage = (totalCorrect / totalQuestions) * 100;
+            let message = '';
+
+            if (scorePercentage >= 80) {
+                message = 'Sangat Baik!';
+            } else if (scorePercentage >= 60) {
+                message = 'Baik';
+            } else if (scorePercentage >= 40) {
+                message = 'Cukup';
+            } else {
+                message = 'Kurang Baik';
+            }
+
+            document.body.innerHTML = `
+                <div class="container">
+                    <div class="completion-message">Selamat! Semua level selesai! 🎉</div>
+                    <div>Skor Akhir Anda:<br>Benar: ${totalCorrect}, Salah: ${totalWrong}</div>
+                    <div>${message}</div>
+                </div>
+            `;
+        }
+
+        // Mulai permainan dengan pertanyaan pertama
+        loadQuestion();
+    </script>
+</body>
+</html>

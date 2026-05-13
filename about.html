@@ -1,0 +1,236 @@
+<!DOCTYPE html> <!-- Menyatakan bahwa dokumen ini adalah HTML5 -->
+<html lang="en"> <!-- Tag pembuka HTML dengan atribut 'lang' untuk menyatakan bahasa Inggris -->
+  <head>
+    <meta charset="UTF-8" /> <!-- Menentukan set karakter UTF-8 untuk dokumen -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Mengatur responsivitas pada perangkat mobile -->
+    <link rel="icon" href="./images/EduGames.png" type="image/x-icon" /> <!-- Menambahkan favicon ke halaman -->
+    <title>About</title> <!-- Menampilkan judul halaman di tab browser -->
+
+    <!-- ICONSCOUT Icons -->
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
+    /> <!-- Menghubungkan ke Unicons untuk ikon di halaman -->
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" /> <!-- Preconnect untuk optimisasi pengambilan font Google -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Montserrat:wght@300;400;500;600;700;800;900&family=Outfit:wght@100;200;400;500;700;800;900&display=swap"
+      rel="stylesheet"
+    /> <!-- Menambahkan font Kanit, Montserrat, dan Outfit -->
+
+    <link rel="stylesheet" href="./css/style.css" /> <!-- Menghubungkan ke file gaya utama -->
+    <link rel="stylesheet" href="./css/about.css" /> <!-- Menghubungkan ke file gaya khusus untuk halaman About -->
+  </head>
+  <body>
+    
+     <!-- Background Music -->
+     <audio autoplay loop> <!-- Memutar musik latar secara otomatis dan berulang -->
+      <source src="./music/plum.mp3" type="audio/mpeg"> <!-- Sumber file audio -->
+      Your browser does not support the audio element. <!-- Pesan fallback untuk browser lama -->
+    </audio>
+
+    <nav>
+      <div class="container nav_container">
+        <a href="index.html"><h4>EDUGAMES</h4></a> <!-- Link ke halaman utama dengan logo teks -->
+        <ul class="nav_menu"> <!-- Menu navigasi utama -->
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <button id="open-menu-btn"><i class="uil uil-bars"></i></button> <!-- Tombol untuk membuka menu (ikon burger) -->
+        <button id="close-menu-btn"><i class="uil uil-multiply"></i></button> <!-- Tombol untuk menutup menu -->
+      </div>
+    </nav>
+
+    <section class="about_achievements"> <!-- Bagian untuk penjelasan tentang EduGames -->
+      <div class="container about_achievements-container">
+        <div class="about_achievements-left">
+          <img src="./images/EduGames.png" alt="" /> <!-- Gambar logo EduGames -->
+        </div>
+
+        <div class="about_achievements-right">
+          <h1>Tentang Edugames</h1> <!-- Judul bagian -->
+          <p>
+            EduGames adalah platform interaktif untuk anak usia 7-12 tahun yang membantu meningkatkan keterampilan membaca, menulis, dan matematika melalui permainan yang menyenangkan. Kami bertujuan membuat pembelajaran lebih efektif dengan permainan yang mengasah kreativitas dan keterampilan berpikir kritis.
+            Dengan desain yang menarik dan antarmuka yang mudah digunakan, EduGames memungkinkan anak-anak belajar sambil bermain. EduGames selalu gratis dan tersedia dalam berbagai bahasa untuk memberikan akses pembelajaran yang menyenangkan bagi semua anak.
+          </p> <!-- Penjelasan tentang EduGames -->
+
+          <div class="achievements_cards"> <!-- Kartu pencapaian -->
+            <a href="tutorial.html">
+              <article class="achievements_card">
+                <span class="achievements_icon">
+                  <i class="uil uil-video"></i>
+                </span>
+                <h3>Video</h3>
+                <p>Video Tutorial</p>
+              </article>
+            </a>
+
+            <a href="certificate.html">
+              <article class="achievements_card">
+                <span class="achievements_icon">
+                  <i class="uil uil-award"></i>
+                </span>
+                <h3>Award</h3>
+                <p>Certificate</p>
+              </article>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="team"> <!-- Bagian untuk menampilkan tim developer -->
+      <h2>TEAM DEVELOPER</h2> <!-- Judul bagian -->
+      <div class="container team_container">
+        <!-- Anggota Tim 1 -->
+        <article class="team_member">
+          <div class="team_member-image">
+            <img src="./images/3.jpg" alt="Foto Adetya Priatna Putra" /> <!-- Gambar anggota tim -->
+          </div>
+          <div class="team_member-info">
+            <h4>Adetya Priatna Putra</h4> <!-- Nama anggota -->
+            <p>Teacher</p>
+            <p class="red-text">Pendidikan Sistem dan Teknologi Informasi</p> <!-- Bidang studi -->
+          </div>
+          <div class="team_member-socials"> <!-- Media sosial -->
+            <a title="Kunjungi Instagram Adetya" href="https://www.instagram.com/radityawzn" target="_blank"><i class="uil uil-instagram"></i></a>
+            <a title="Kunjungi Twitter Adetya" href="https://twitter.com" target="_blank"><i class="uil uil-twitter-alt"></i></a>
+            <a title="Kunjungi LinkedIn Adetya" href="https://www.linkedin.com/in/adetya-priatna-putra-04a0b8341?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank"><i class="uil uil-linkedin-alt"></i></a>
+          </div>
+        </article>
+
+        <!-- Anggota Tim 2 -->
+        <article class="team_member">
+          <div class="team_member-image">
+            <img src="./images/1.jpg" alt="Foto Ayumi Febrianty" /> <!-- Gambar anggota tim -->
+          </div>
+          <div class="team_member-info">
+            <h4>Ayumi Febrianty</h4>
+            <p>Teacher</p>
+            <p class="red-text">Pendidikan Sistem dan Teknologi Informasi</p>
+          </div>
+          <div class="team_member-socials">
+            <a title="Kunjungi Instagram Ayumi" href="https://www.instagram.com/afbrntly/" target="_blank"><i class="uil uil-instagram"></i></a>
+            <a title="Kunjungi Twitter Ayumi" href="https://twitter.com" target="_blank"><i class="uil uil-twitter-alt"></i></a>
+            <a title="Kunjungi LinkedIn Ayumi" href="https://www.linkedin.com/in/ayumi-febrianty-8417ab270/" target="_blank"><i class="uil uil-linkedin-alt"></i></a>
+          </div>
+        </article>
+
+        <!-- Anggota Tim 3 -->
+        <article class="team_member">
+          <div class="team_member-image">
+            <img src="./images/5.jpg" alt="Foto Salwa Aulia" /> <!-- Gambar anggota tim -->
+          </div>
+          <div class="team_member-info">
+            <h4>Salwa Aulia</h4>
+            <p>Teacher</p>
+            <p class="red-text">Pendidikan Sistem dan Teknologi Informasi</p>
+          </div>
+          <div class="team_member-socials">
+            <a title="Kunjungi Instagram Salwa" href="https://www.instagram.com/slwaaulll/" target="_blank"><i class="uil uil-instagram"></i></a>
+            <a title="Kunjungi Twitter Salwa" href="https://twitter.com" target="_blank"><i class="uil uil-twitter-alt"></i></a>
+            <a title="Kunjungi LinkedIn Salwa" href="https://www.linkedin.com/in/salwa-aulia-360a84298?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank"><i class="uil uil-linkedin-alt"></i></a>
+          </div>
+        </article>
+
+        <!-- Anggota Tim 4 -->
+        <article class="team_member">
+          <div class="team_member-image">
+            <img src="./images/4.jpg" alt="Foto Salma Nurkamila" /> <!-- Gambar anggota tim -->
+          </div>
+          <div class="team_member-info">
+            <h4>Salma Nurkamila</h4>
+            <p>Teacher</p>
+            <p class="red-text">Pendidikan Sistem dan Teknologi Informasi</p>
+          </div>
+          <div class="team_member-socials">
+            <a title="Kunjungi Instagram Salma" href="https://www.instagram.com/salma_nurkamila__/" target="_blank"><i class="uil uil-instagram"></i></a>
+            <a title="Kunjungi Twitter Salma" href="https://twitter.com" target="_blank"><i class="uil uil-twitter-alt"></i></a>
+            <a title="Kunjungi LinkedIn Salma" href="https://www.linkedin.com/in/salma-nurkamila-5a94a1297/" target="_blank"><i class="uil uil-linkedin-alt"></i></a>
+          </div>
+        </article>
+
+        <!-- Anggota Tim 5 -->
+        <article class="team_member">
+          <div class="team_member-image">
+            <img src="./images/2.jpg" alt="Foto Syahrul Fahrudin" /> <!-- Gambar anggota tim -->
+          </div>
+          <div class="team_member-info">
+            <h4>Syahrul Fahrudin</h4>
+            <p>Teacher</p>
+            <p class="red-text">Pendidikan Sistem dan Teknologi Informasi</p>
+          </div>
+          <div class="team_member-socials">
+            <a title="Kunjungi Instagram Syahrul" href="https://www.instagram.com/roelfhn/" target="_blank"><i class="uil uil-instagram"></i></a>
+            <a title="Kunjungi Twitter Syahrul" href="https://twitter.com" target="_blank"><i class="uil uil-twitter-alt"></i></a>
+            <a title="Kunjungi LinkedIn Syahrul" href="https://www.linkedin.com/in/syahrul-fahrudin-7ba871297?trk=contact-info" target="_blank"><i class="uil uil-linkedin-alt"></i></a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer"> <!-- Bagian footer -->
+      <div class="container footer_container">
+        <div class="footer_1"> <!-- Kolom 1: Logo dan Deskripsi -->
+          <a href="index.html" class="footer_logo"><h4>EDUGAMES</h4></a>
+          <p>
+            Belajar dan bermain bersama EduGames, solusi edukasi interaktif untuk anak-anak!
+          </p>
+        </div>
+
+        <div class="footer_2"> <!-- Kolom 2: Tim -->
+          <h4>Team</h4>
+          <ul class="premalinks">
+              <p>Adetya Priatna Putra</p>
+              <p>Ayumi Febrianty</p>
+              <p>Salwa Aulia</p>
+              <p>Salma Nurkamila</p>
+              <p>Syahrul Fahrudin</p>
+          </ul>
+        </div>
+
+        <div class="footer_3"> <!-- Kolom 3: Shortcut -->
+          <h4>Shortcut</h4>
+          <ul class="privacy">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="courses.html">Courses</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div class="footer_4"> <!-- Kolom 4: Kontak -->
+          <h4>Contact Us</h4>
+          <div>
+            <p>0857-9551-7549</p>
+            <p>EduGames@gmail.com</p>
+          </div>
+          <ul class="footer_socials">
+            <li>
+              <a href="#"><i class="uil uil-facebook-f"></i></a>
+            </li>
+            <li>
+              <a href="#"><i class="uil uil-instagram-alt"></i></a>
+            </li>
+            <li>
+              <a href="#"><i class="uil uil-twitter"></i></a>
+            </li>
+            <li>
+              <a href="#"><i class="uil uil-linkedin-alt"></i></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer_copyrights">
+        <small>Copyrights &copy; EduGames</small>
+      </div>
+    </footer>
+
+    <script src="./main.js"></script> <!-- Menghubungkan file JavaScript eksternal -->
+  </body>
+</html>

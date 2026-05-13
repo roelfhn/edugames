@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Menulis Kata</title>
+    <style>
+        body {
+            background: url('./images/bg4.jpeg') no-repeat; /* Menggunakan gambar latar belakang */
+            /*background-color: #1A1B47; */
+            background-size: cover; /* Mengatur ukuran latar belakang agar menutupi seluruh area */
+            background-position: center; /* Mengatur posisi gambar di tengah */
+            background-attachment: fixed; /* Mengatur gambar agar tetap saat menggulir */
+            margin: 0; /* Menghilangkan margin default */
+            padding: 0; /* Menghilangkan padding default */
+            font-family: Arial, sans-serif; /* Menggunakan font Arial */
+            display: flex; /* Menggunakan Flexbox untuk layout */
+            flex-direction: column; /* Menyusun elemen secara vertikal */
+            align-items: center; /* Menyusun elemen di tengah secara horizontal */
+            justify-content: center; /* Menyusun elemen di tengah secara vertikal */
+            height: 100vh; /* Memastikan halaman memenuhi 100% tinggi viewport */
+            color: white; /* Mengatur warna teks menjadi putih */
+        }
+        
+        /* 
+          Panel atas yang berisi informasi poin dan timer.
+          - Elemen ini diposisikan secara absolut di bagian atas halaman.
+          - Membuat layout yang responsif dengan menyusun elemen di sepanjang garis horizontal.
+        */
+        .top-panel {
+            position: absolute; /* Memposisikan elemen secara absolut di halaman */
+            top: 20px; /* Menempatkan panel sedikit dari bagian atas */
+            width: 100%; /* Memastikan panel mengambil lebar penuh */
+            display: flex; /* Menggunakan Flexbox untuk menata elemen secara horizontal */
+            justify-content: space-between; /* Menyebarkan elemen dengan ruang di antara mereka */
+            align-items: center; /* Menyusun elemen di tengah secara vertikal */
+            padding: 0 40px; /* Memberikan padding di kiri dan kanan panel */
+            box-sizing: border-box; /* Mengatur box-sizing agar padding dihitung dalam ukuran elemen */
+        }
+        
+        /* 
+          Gaya untuk elemen poin dan hitungan gambar.
+          - Elemen ini diberi latar belakang semi-transparan dan bayangan untuk kesan 3D.
+        */
+        .points, .draw-count {
+            font-size: 1.2rem; /* Ukuran font untuk poin dan hitungan gambar */
+            color: white; /* Warna teks putih */
+            background: rgba(0, 0, 0, 0.5); /* Latar belakang semi-transparan */
+            padding: 10px 20px; /* Padding untuk membuat ruang di dalam elemen */
+            border-radius: 5px; /* Membuat sudut elemen menjadi bulat */
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2); /* Memberikan bayangan halus di sekitar elemen */
+        }
+        
+        /* 
+          Gaya untuk elemen timer berbentuk lingkaran.
+          - Menambahkan animasi untuk memberi efek pulsasi pada timer.
+        */
+        .timer {
+            width: 72px; /* Menetapkan lebar timer */
+            height: 72px; /* Menetapkan tinggi timer */
+            border-radius: 50%; /* Membuat timer berbentuk lingkaran */
+            background-color: #6da7e9; /* Latar belakang berwarna biru muda */
+            border: 2px solid rgb(227, 226, 247); /* Memberikan border tipis dengan warna terang */
+            font-size: 24px; /* Ukuran font untuk angka timer */
+            font-weight: 600; /* Mengatur ketebalan font */
+            display: flex; /* Menyusun elemen di dalam timer menggunakan Flexbox */
+            justify-content: center; /* Menyusun angka timer di tengah secara horizontal */
+            align-items: center; /* Menyusun angka timer di tengah secara vertikal */
+            animation: pulse 1s ease-in-out infinite; /* Menambahkan animasi pulsasi pada timer */
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2); /* Bayangan halus di sekitar timer */
+        }
+        
+        /* 
+          Container utama untuk game.
+          - Menyusun kata target dan kanvas untuk menggambar secara horizontal dengan jarak antara keduanya.
+        */
+        .game-container {
+            display: flex; /* Menyusun elemen secara horizontal */
+            justify-content: center; /* Menempatkan elemen di tengah secara horizontal */
+            align-items: center; /* Menempatkan elemen di tengah secara vertikal */
+            width: 100%; /* Menjamin lebar container 100% */
+            gap: 90px; /* Memberikan jarak antara kata dan kanvas */
+        }
+        
+        /* 
+          Gaya untuk menampilkan kata target.
+          - Ukuran font besar untuk menonjolkan kata yang harus digambar.
+        */
+        .word-display {
+            font-size: 5rem; /* Membuat ukuran font sangat besar */
+            font-weight: bold; /* Menggunakan font tebal */
+            color: white; /* Warna font putih */
+        }
+        
+        /* 
+          Gaya untuk kanvas tempat menggambar.
+          - Memperbesar ukuran kanvas dan menambahkan efek gradien pada batas kanvas.
+        */
+        canvas {
+            width: 400px; /* Lebar kanvas */
+            height: 200px; /* Tinggi kanvas */
+            background: repeating-linear-gradient( /* Menambahkan gradien garis berulang sebagai latar belakang */
+                135deg, /* Menetapkan sudut gradien */
+                rgba(224, 247, 250, 0.3), /* Warna gradien pertama */
+                rgba(224, 247, 250, 0.3) 10px, /* Warna gradien pertama dengan jarak 10px */
+                rgba(255, 255, 255, 0.3) 10px, /* Warna gradien kedua */
+                rgba(255, 255, 255, 0.3) 20px /* Warna gradien kedua dengan jarak 20px */
+            );
+            border: 5px solid rgba(255, 255, 255, 0.5); /* Memberikan border tipis dengan warna transparan */
+            border-radius: 20px; /* Membuat sudut border menjadi melengkung */
+            border-image: linear-gradient( /* Menambahkan gradien pada border kanvas */
+                45deg, 
+                #ff5733, 
+                #33ff57, 
+                #3357ff
+            ) 1; /* Menentukan arah dan warna gradien border */
+            animation: gradientBorder 3s infinite; /* Menambahkan animasi gradien pada border */
+        }
+        
+        /* 
+          Animasi untuk efek border yang berwarna gradien.
+          - Gradien border akan berubah-ubah seiring waktu.
+        */
+        @keyframes gradientBorder {
+            0% { border-image: linear-gradient(45deg, #ff5733, #33ff57, #3357ff) 1; }
+            50% { border-image: linear-gradient(45deg, #3357ff, #ff5733, #33ff57) 1; }
+            100% { border-image: linear-gradient(45deg, #33ff57, #3357ff, #ff5733) 1; }
+        }
+        
+        /* 
+          Animasi pulsasi untuk elemen timer.
+          - Memberikan efek memperbesar dan mengecilkan timer untuk efek visual.
+        */
+        @keyframes pulse {
+            0% { transform: scale(1); } /* Pada awal animasi, ukuran normal */
+            50% { transform: scale(1.2); } /* Memperbesar ukuran timer */
+            100% { transform: scale(1); } /* Kembali ke ukuran normal */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Panel atas untuk menampilkan poin, jumlah gambar yang telah digambar, dan timer -->
+    <div class="top-panel">
+        <!-- Menampilkan poin yang didapat oleh pemain -->
+        <div class="points" id="points">Points: 0</div>
+        <!-- Menampilkan jumlah gambar yang telah digambar dibandingkan dengan gambar yang dibutuhkan -->
+        <div class="draw-count" id="drawCount">Draws: 0 / 0</div>
+        <!-- Menampilkan timer dalam detik -->
+        <div class="timer" id="timer">30</div>
+    </div>
+    
+    <!-- Kontainer utama untuk menampilkan kata yang harus digambar dan kanvas untuk menggambar -->
+    <div class="game-container">
+        <!-- Menampilkan kata yang harus digambar -->
+        <div class="word-display" id="wordDisplay"></div>
+        <!-- Kanvas tempat pemain menggambar -->
+        <canvas id="drawingCanvas"></canvas>
+    </div>
+
+    <!-- Pemutaran musik latar belakang untuk permainan -->
+    <audio id="gameMusic" autoplay loop>
+        <source src="./music/replay.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        // Daftar kata yang akan digunakan dalam permainan
+        const words = ["BUKU", "KUCING", "APEL", "TOMAT"];
+        let currentWordIndex = 0; // Indeks kata yang sedang ditampilkan
+        let points = 0; // Poin yang diperoleh pemain
+        let timeLeft = 30; // Sisa waktu dalam detik
+        let timerID; // ID untuk timer
+        let drawing = false; // Status apakah sedang menggambar
+        let drawCount = 0; // Jumlah gambar yang telah digambar
+        let requiredDraws = 0; // Jumlah gambar yang dibutuhkan berdasarkan panjang kata
+
+        // Referensi elemen-elemen HTML
+        const canvas = document.getElementById('drawingCanvas');
+        const ctx = canvas.getContext('2d'); // Konteks 2D untuk menggambar di kanvas
+        const wordDisplay = document.getElementById('wordDisplay');
+        const pointsElement = document.getElementById('points');
+        const timerElement = document.getElementById('timer');
+        const drawCountElement = document.getElementById('drawCount');
+
+        // Menentukan ukuran kanvas
+        canvas.width = 400;
+        canvas.height = 200;
+
+        // Fungsi untuk memulai permainan
+        function startGame() {
+            currentWordIndex = 0; // Mengatur indeks kata ke 0
+            points = 0; // Mengatur poin ke 0
+            resetTimer(); // Mengatur ulang timer
+            loadWord(words[currentWordIndex]); // Memuat kata pertama
+        }
+
+        // Fungsi untuk memuat dan menampilkan kata baru untuk digambar
+        function loadWord(word) {
+            showWord(word); // Menampilkan kata yang akan digambar
+            resetCanvas(); // Mengatur ulang kanvas
+            drawCount = 0; // Mengatur jumlah gambar ke 0
+            requiredDraws = word.length; // Jumlah gambar yang dibutuhkan sesuai panjang kata
+            updateDrawCount(); // Memperbarui jumlah gambar yang telah digambar
+        }
+
+        // Fungsi untuk menampilkan kata yang harus digambar
+        function showWord(word) {
+            wordDisplay.textContent = word; // Menampilkan kata di elemen wordDisplay
+        }
+
+        // Fungsi untuk menggambar kata di kanvas
+        function drawWordOnCanvas(word, color = "rgba(191, 222, 255, 0.651)") {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Membersihkan kanvas sebelum menggambar ulang
+            ctx.font = "bold 100px Arial"; // Menetapkan font untuk teks
+            ctx.fillStyle = color; // Menetapkan warna teks
+            ctx.textAlign = "center"; // Menyelaraskan teks di tengah kanvas
+            ctx.textBaseline = "middle"; // Menyelaraskan teks di tengah vertikal
+            ctx.fillText(word, canvas.width / 2, canvas.height / 2); // Menampilkan teks di tengah kanvas
+        }
+
+        // Fungsi untuk mengatur ulang kanvas dan menggambar kata yang baru
+        function resetCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Membersihkan kanvas
+            drawWordOnCanvas(words[currentWordIndex]); // Menggambar kata pada kanvas
+        }
+
+        // Fungsi untuk memperbarui tampilan jumlah gambar yang telah digambar
+        function updateDrawCount() {
+            drawCountElement.textContent = `Draws: ${drawCount} / ${requiredDraws}`; // Menampilkan jumlah gambar yang telah digambar dan dibutuhkan
+        }
+
+        // Fungsi untuk memulai menggambar saat mouse ditekan
+        function startDrawing(e) {
+            drawing = true; // Mengatur status menggambar menjadi true
+            ctx.lineWidth = 8; // Menetapkan ketebalan garis
+            ctx.lineCap = "round"; // Menetapkan ujung garis agar membulat
+            ctx.strokeStyle = "black"; // Menetapkan warna garis
+            ctx.beginPath(); // Memulai jalur baru untuk menggambar
+            ctx.moveTo(getX(e), getY(e)); // Memindahkan titik awal ke lokasi mouse
+        }
+
+        // Fungsi untuk menghentikan menggambar saat mouse dilepas
+        function stopDrawing() {
+            if (drawing) {
+                drawing = false; // Mengatur status menggambar menjadi false
+                ctx.closePath(); // Menutup jalur menggambar
+                drawCount++; // Menambahkan jumlah gambar yang telah digambar
+                updateDrawCount(); // Memperbarui jumlah gambar yang telah digambar
+
+                if (drawCount >= requiredDraws) {
+                    // Jika jumlah gambar sudah cukup, beri highlight pada teks dan lanjutkan ke kata berikutnya
+                    highlightText(() => {
+                        nextWord();
+                    });
+                }
+            }
+        }
+    
+        // Fungsi untuk menggambar di kanvas saat mouse atau sentuhan bergerak
+function draw(e) {
+    if (!drawing) return; // Jika status menggambar adalah false, tidak lakukan apa-apa
+    ctx.lineTo(getX(e), getY(e)); // Menambahkan titik baru ke jalur menggambar
+    ctx.stroke(); // Menggambar garis dari titik sebelumnya ke titik saat ini
+}
+
+// Fungsi untuk mendapatkan posisi X dari mouse atau sentuhan
+function getX(e) {
+    const rect = canvas.getBoundingClientRect(); // Mendapatkan posisi kanvas relatif terhadap viewport
+    // Menggunakan event `touches` untuk mendukung perangkat sentuh atau `clientX` untuk mouse
+    return (e.touches ? e.touches[0].clientX : e.clientX) - rect.left; 
+}
+
+// Fungsi untuk mendapatkan posisi Y dari mouse atau sentuhan
+function getY(e) {
+    const rect = canvas.getBoundingClientRect(); // Mendapatkan posisi kanvas relatif terhadap viewport
+    // Menggunakan event `touches` untuk mendukung perangkat sentuh atau `clientY` untuk mouse
+    return (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+}
+
+// Fungsi untuk mengubah warna teks menjadi putih terang selama 2 detik
+function highlightText(callback) {
+    drawWordOnCanvas(words[currentWordIndex], "white"); // Mengubah warna teks menjadi putih terang
+    setTimeout(callback, 2000); // Menunggu selama 2 detik sebelum melanjutkan ke kata berikutnya
+}
+
+// Fungsi untuk melanjutkan ke kata berikutnya
+function nextWord() {
+    points += 10; // Menambahkan 10 poin setelah gambar berhasil diselesaikan
+    pointsElement.textContent = `Points: ${points}`; // Memperbarui tampilan poin
+    if (currentWordIndex < words.length - 1) { // Jika masih ada kata yang tersisa
+        currentWordIndex++; // Meningkatkan indeks kata
+        loadWord(words[currentWordIndex]); // Memuat kata berikutnya
+        resetTimer(); // Mengatur ulang timer untuk kata berikutnya
+    } else {
+        // Jika tidak ada kata lagi, tampilkan pesan selesai
+        alert("Selamat! Anda telah menyelesaikan semua kata!");
+        clearInterval(timerID); // Menghentikan timer
+    }
+}
+
+// Fungsi untuk mengatur ulang timer permainan
+function resetTimer() {
+    clearInterval(timerID); // Menghentikan timer yang sedang berjalan
+    timeLeft = 30; // Mengatur ulang waktu ke 30 detik
+    timerElement.textContent = `${timeLeft}`; // Memperbarui tampilan waktu
+    timerID = setInterval(() => {
+        timeLeft--; // Mengurangi waktu setiap detik
+        timerElement.textContent = `${timeLeft}`; // Memperbarui tampilan waktu setiap detik
+        if (timeLeft <= 0) { // Jika waktu habis
+            clearInterval(timerID); // Menghentikan timer
+            alert("Waktu habis! Coba lagi!"); // Menampilkan pesan waktu habis
+        }
+    }, 1000); // Mengatur interval 1 detik
+}
+
+// Menambahkan event listeners untuk menangani input dari mouse dan sentuhan
+canvas.addEventListener('mousedown', startDrawing); // Mouse down untuk memulai menggambar
+canvas.addEventListener('mouseup', stopDrawing); // Mouse up untuk menghentikan menggambar
+canvas.addEventListener('mousemove', draw); // Mouse move untuk menggambar selama mouse bergerak
+
+// Menambahkan event listeners untuk perangkat sentuh
+canvas.addEventListener('touchstart', startDrawing, { passive: true }); // Sentuhan mulai
+canvas.addEventListener('touchend', stopDrawing); // Sentuhan selesai
+canvas.addEventListener('touchmove', draw, { passive: true }); // Sentuhan bergerak
+
+// Memulai permainan saat halaman dimuat
+startGame();
+</script>
+    
+</body>
+</html>

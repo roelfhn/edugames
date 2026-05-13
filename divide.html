@@ -1,0 +1,80 @@
+<!DOCTYPE html> <!-- Menentukan tipe dokumen sebagai HTML5 -->
+<html lang="en"> <!-- Membuka tag HTML dengan bahasa yang disetel ke Inggris -->
+<head> <!-- Membuka bagian kepala (head) dokumen HTML -->
+  <meta charset="UTF-8"> <!-- Menetapkan karakter encoding ke UTF-8 untuk mendukung berbagai karakter -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Membuat halaman responsif terhadap ukuran layar -->
+  <link rel="icon" href="./images/EduGames.png" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!-- Menyertakan ikon Font Awesome -->
+  <link rel="stylesheet" href="./css/add.css"> <!-- Menghubungkan file CSS eksternal untuk gaya -->
+  <title>Divide</title> <!-- Menetapkan judul halaman di tab browser -->
+
+</head> <!-- Menutup bagian kepala (head) dokumen HTML -->
+<body> <!-- Membuka bagian isi (body) dokumen HTML -->
+
+    <!-- Background Music -->
+    <audio autoplay loop>
+      <source src="./music/pixel.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+
+  <audio id="myAudio"> <!-- Tag audio untuk pemutaran suara (benar/salah) -->
+    <source src="./music/wrong.mp3" type="audio/mpeg"> <!-- Suara saat jawaban salah -->
+    <source src="./music/true.mp3" type="audio/mpeg"> <!-- Suara saat jawaban benar -->
+  </audio> <!-- Penutup tag audio -->
+
+  <header> <!-- Membuat bagian header untuk navigasi dan judul -->
+    <div class="container"> <!-- Membungkus elemen header dalam sebuah kontainer -->
+      <div class="nav"> <!-- Membungkus elemen navigasi -->
+        <h2><span><i class="fa fa-trophy" aria-hidden="true"></i></span> MATH 4 KIDS</h2> <!-- Judul permainan dengan ikon trofi -->
+        <nav> <!-- Membuat menu navigasi -->
+          <ul> <!-- Daftar tidak terurut untuk menu navigasi -->
+            <li><a href="add.html">Level 1</a></li> <!-- Tautan ke level 1 -->
+            <li><a href="subtract.html">Level 2</a></li> <!-- Tautan ke level 2 -->
+            <li><a href="multiply.html">Level 3</a></li> <!-- Tautan ke level 3 -->
+            <li class="current"><a href="divide.html">Level 4</a></li> <!-- Tautan ke level 4 (saat ini aktif) -->
+          </ul><!--Tag penutup unorder list-->
+        </nav> <!-- Menutup menu navigasi -->
+      </div> <!-- Menutup div navigasi -->
+    </div> <!-- Menutup kontainer header -->
+  </header> <!-- Menutup bagian header -->
+
+  <div class="wrapper"> <!-- Membungkus semua konten permainan dalam div wrapper -->
+    <div class="equation" style="position: relative;"> <!-- Membuat area soal matematika dengan posisi relatif -->
+      <h1 id="num1" style="color:#FE4A49"></h1> <!-- Menampilkan angka pertama soal dengan warna merah -->
+      <h1 style="color: #2AB7CA">/</h1> <!-- Menampilkan simbol pembagian dengan warna biru -->
+      <h1 id="num2" style="color: #FED766">1</h1> <!-- Menampilkan angka kedua soal dengan warna kuning -->
+      <h1 style="color: #F86624">=</h1> <!-- Menampilkan simbol sama dengan dengan warna oranye -->
+      <h1 style="color: gray">?</h1> <!-- Menampilkan tempat jawaban yang kosong dengan warna abu-abu -->
+      <div class="points" >Points: 0</div> <!-- Menampilkan poin pemain -->
+      <div class="timer">Time: <span id="time-remaining">5:00</span></div> <!-- Menampilkan waktu yang tersisa -->
+      <img src="./images/bintang.png" class="bintang_1" > <!-- Menampilkan gambar bintang pertama -->
+      <img src="./images/bintang.png" class="bintang_2"> <!-- Menampilkan gambar bintang kedua -->
+      <img src="./images/bintang.png" class="bintang_3"> <!-- Menampilkan gambar bintang ketiga -->
+      <img src="./images/bintang.png" class="bintang_4"> <!-- Menampilkan gambar bintang keempat -->
+      <img src="./images/bintang.png" class="bintang_5"> <!-- Menampilkan gambar bintang kelima -->
+      <img src="./images/bintang.png" class="bintang_6"> <!-- Menampilkan gambar bintang keenam -->
+      <img src="./images/bintang.png" class="bintang_7"> <!-- Menampilkan gambar bintang ketujuh -->
+      <img src="./images/bintang.png" class="bintang_8"> <!-- Menampilkan gambar bintang kedelapan -->
+    </div> <!-- Menutup div equation -->
+    <div class="answer-options"> <!-- Membungkus semua opsi jawaban -->
+      <div class="options" style="background-color: #FE4A49;"> <!-- Opsi pertama dengan latar merah -->
+        <h1 id="option1">1</h1> <!-- Menampilkan teks untuk opsi pertama -->
+      </div> <!-- Menutup div opsi pertama -->
+      <div class="options" style="background-color: #2AB7CA;"> <!-- Opsi kedua dengan latar biru -->
+        <h1 id="option2">2</h1> <!-- Menampilkan teks untuk opsi kedua -->
+      </div> <!-- Menutup div opsi kedua -->
+      <div class="options" style="background-color: #FED766;"> <!-- Opsi ketiga dengan latar kuning -->
+        <h1 id="option3">3</h1> <!-- Menampilkan teks untuk opsi ketiga -->
+      </div> <!-- Menutup div opsi ketiga -->
+      <div id="notification-modal" class="modal"> <!-- Membuat modal notifikasi untuk hasil permainan -->
+        <div class="modal-content"> <!-- Membungkus isi modal -->
+            <div id="modal-body"></div> <!-- Tempat menampilkan pesan dalam modal -->
+        </div> <!-- Menutup div modal-content -->
+    </div> <!-- Menutup div modal -->
+    </div> <!-- Menutup div answer-options -->
+  </div> <!-- Menutup div wrapper -->
+
+  <script src="./js/divide.js"></script> <!-- Menghubungkan file JavaScript eksternal untuk logika permainan -->
+</body> <!-- Menutup bagian isi (body) dokumen HTML -->
+
+</html> <!-- Menutup tag HTML -->
